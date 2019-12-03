@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <omp.h>
-//#include <thread>
+#include <thread>
 #include <ctime>
 #include <chrono>
 
