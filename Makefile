@@ -1,18 +1,41 @@
-CC=gcc
-CXX=g++
-RM=rm -f
-CPPFLAGS=-g $(shell root-config --cflags)
-LDFLAGS=-g $(shell root-config --ldflags)
-LDLIBS=$(shell root-config --libs)
+CXX      := -c++
+CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror
+LDFLAGS  := -L/usr/lib -lstdc++ -lm
+BUILD    := ./build
+OBJ_DIR  := $(BUILD)/objects
+APP_DIR  := $(BUILD)/apps
+TARGET   := interference
+INCLUDE  := -Iinclude/
+SRC      :=                      \
+   $(wildcard src/module1/*.cpp) \
+   $(wildcard src/module2/*.cpp) \
+   $(wildcard src/module3/*.cpp) \
+   $(wildcard src/*.cpp)         \
 
-SRCS=interference_main.cpp
-OBJS=$(subst .cpp,.o,$(SRCS))
+OBJECTS := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
-all: interference_main
+all: build $(APP_DIR)/$(TARGET)
 
-interference_main: $(OBJS)
-    $(CXX) $(LDFLAGS) -o interference_main $(OBJS) $(LDLIBS)
+$(OBJ_DIR)/%.o: %.cpp
+   @mkdir -p $(@D)
+   $(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
-	
+$(APP_DIR)/$(TARGET): $(OBJECTS)
+   @mkdir -p $(@D)
+   $(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(APP_DIR)/$(TARGET) $(OBJECTS)
+
+.PHONY: all build clean debug release
+
+build:
+   @mkdir -p $(APP_DIR)
+   @mkdir -p $(OBJ_DIR)
+
+debug: CXXFLAGS += -DDEBUG -g
+debug: all
+
+release: CXXFLAGS += -O2
+release: all
+
 clean:
-    $(RM) $(OBJS)
+   -@rm -rvf $(OBJ_DIR)/*
+   -@rm -rvf $(APP_DIR)/*
