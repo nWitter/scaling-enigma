@@ -5,9 +5,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <omp.h>
-#include <thread>
+//#include <thread>
 #include <ctime>
-//#include <chrono>
+#include <chrono>
 
 time_t getTime() {
     /*struct timespec time;
