@@ -17,6 +17,9 @@ export I_MPI_PIN=1
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 
+export OMP_PLACES=cores
+export OMP_PROC_BIND=close
+
 MATRIX_PATH = ./chameleon-apps/applications/matrix_example/main
 
 echo run
