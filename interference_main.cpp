@@ -1,5 +1,4 @@
-
-
+#include "stdafx.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,7 +13,7 @@ time_t getTime() {
 }
 
 float rndNum(){
-	return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+	return static_cast <float> (rand()) / 10000;
 }
 
 int main(int argc, char **argv)
@@ -24,7 +23,7 @@ int main(int argc, char **argv)
 	
 	float time_fraction = .5;//atof(argv[1]);
 	
-	for(int a=1;a<=argc;a++){
+	for(int a=1;a<argc;a++){
 		time_fraction = atof(argv[a]); //TODO
 	}
 	time_fraction = .5;
