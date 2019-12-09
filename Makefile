@@ -19,6 +19,9 @@ all: build
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
+main.o: interference_main.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
+	
 $(TARGET): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(TARGET) $(OBJECTS)
 
