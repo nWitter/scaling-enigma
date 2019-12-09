@@ -14,7 +14,7 @@ SRC      :=                      \
 
 OBJECTS := $(SRC:%.cpp=$%.o)
 
-all: main.o
+all: interference.o
 
 interference.o: interference_main.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
