@@ -14,20 +14,12 @@ SRC      :=                      \
 
 OBJECTS := $(SRC:%.cpp=$%.o)
 
-all: build
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
+all: main.o
 
 main.o: interference_main.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
-	
-$(TARGET): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(TARGET) $(OBJECTS)
 
-.PHONY: all build clean debug release
 
-build:
 
 debug: CXXFLAGS += -DDEBUG -g
 debug: all
@@ -36,5 +28,4 @@ release: CXXFLAGS += -O2
 release: all
 
 clean:
-	-@rm -rvf $(OBJ_DIR)/*
-	-@rm -rvf $(APP_DIR)/*
+	-@rm -fr main.o
