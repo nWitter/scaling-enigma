@@ -28,30 +28,19 @@ int main(int argc, char **argv)
 	if (targetFractionMax > 1) targetFractionMax = 1 / targetFractionMax;
 
 	int runtime = 10; //in seconds
+	bool indef = false;
 
-
-
-
-	/*
-	bool all_cores = true;
-	if(time_fraction > 1.0) {
-		all_cores = false;
-		time_fraction -= 1.0;
-	}
-	if(all_cores)
-		printf("all cores, time_fraction=%f\n, ", time_fraction);
-	else
-		printf("one core, time_fraction=%f\n", time_fraction);
-
-		*/
 	time_t initTime = getTime();
 	int step = 0;
 
 
-	double aNumber = 2;
-
-
-    while(difftime(getTime(), initTime) < runtime) {
+	#pragma OMP_PROC_BIND = true
+	#pragma OMP_PLACES = cores
+	
+	
+	
+	
+    while(indef || difftime(getTime(), initTime) < runtime) {
 		printf("step%d\n", step++);
 
 
