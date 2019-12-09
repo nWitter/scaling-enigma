@@ -19,7 +19,13 @@ time_t getTime() {
 
 int main(int argc, char **argv)
 {
+	
 	float time_fraction = .5;//atof(argv[1]);
+	
+	for(int a=0;a<argc;a++){
+		time_fraction = atof(argv[a]); //TODO
+	}
+	
 
 
 	float targetFractionMin = .5;//atof(argv[1]);
@@ -43,9 +49,9 @@ int main(int argc, char **argv)
 		printf("step%d\n", step++);
 
 
+		#pragma OMP_PLACES=cores
+		#pragma OMP_PROC_BIND=close
     	#pragma omp parallel
-		#pragma OMP_PROC_BIND = true
-		#pragma OMP_PLACES = cores
     	{
     		time_t startTime = time(NULL);
     		//if(omp_get_thread_num() == 0)
