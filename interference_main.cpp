@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 	    	
     		//if(omp_get_thread_num() == 0)
 			//	printf("wait end time = %lf\n", getTime()-start_time);
-			printf("test %f\n", tmp);
+			printf("test %d\n", tmp);
     	}
 
 
