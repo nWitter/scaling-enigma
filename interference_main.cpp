@@ -13,7 +13,7 @@ time_t getTime() {
 }
 
 float rndNum(){
-	return (static_cast <float> (rand()) % 10000) / 10000;
+	return static_cast <float> (rand() % 10000) / 10000;
 }
 
 int main(int argc, char **argv)
