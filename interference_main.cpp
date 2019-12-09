@@ -10,10 +10,6 @@
 #include <chrono>
 
 time_t getTime() {
-    /*struct timespec time;
-    clock_gettime(CLOCK_MONOTONIC, &time);
-    return (double) time.tv_sec + ((double)time.tv_nsec)/1E9;
-	 */
 	return time(NULL);
 }
 
@@ -23,6 +19,8 @@ float rndNum(){
 
 int main(int argc, char **argv)
 {
+	srand (time(NULL));
+	printf("starting scaling_enigma");
 	
 	float time_fraction = .5;//atof(argv[1]);
 	
@@ -41,11 +39,13 @@ int main(int argc, char **argv)
 	
 	int runtime = 10; //in seconds
 	bool indef = false;
+	
+	//TODO
+	//float time_step = 1.0;
 
 	time_t initTime = getTime();
 	int step = 0;
 
-	srand (time(NULL));
 	
 
 
