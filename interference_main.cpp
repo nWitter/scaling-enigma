@@ -17,6 +17,10 @@ time_t getTime() {
 	return time(NULL);
 }
 
+float rndNum(){
+	return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+}
+
 int main(int argc, char **argv)
 {
 	
@@ -33,21 +37,25 @@ int main(int argc, char **argv)
 	float targetFractionMax = .5;//atof(argv[1]);
 	if (targetFractionMax > 1) targetFractionMax = 1 / targetFractionMax;
 
+	if(targetFractionMax < targetFractionMin) //TODO
+	
 	int runtime = 10; //in seconds
 	bool indef = false;
 
 	time_t initTime = getTime();
 	int step = 0;
 
+	srand (time(NULL));
+	
 
 
 	
     while(indef || difftime(getTime(), initTime) < runtime) {
+    	time_t startTime = time(NULL);
+		targetFractionMin = targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin);
+		
+
 		printf("step%d with slow %f\n", step++, time_fraction);
-    	
-		time_t startTime = time(NULL);
-
-
     	#pragma omp parallel
     	{
 	    	while(difftime(getTime(), startTime) < time_fraction) {
