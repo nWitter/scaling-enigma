@@ -40,8 +40,8 @@ int main(int argc, char **argv)
 	int step = 0;
 
 
-	setenv OMP_PLACES cores
-	setenv OMP_PROC_BIND close
+	setenv OMP_PLACES cores;
+	setenv OMP_PROC_BIND close;
 	
     while(indef || difftime(getTime(), initTime) < runtime) {
 		printf("step%d with slow %f\n", step++, time_fraction);
