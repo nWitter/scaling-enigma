@@ -12,7 +12,7 @@ SRC      :=                      \
    $(wildcard src/module3/*.cpp) \
    $(wildcard src/*.cpp)         \
 
-OBJECTS := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+OBJECTS := $(SRC:%.cpp=$%.o)
 
 all: build
 
