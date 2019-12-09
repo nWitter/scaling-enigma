@@ -14,21 +14,17 @@ SRC      :=                      \
 
 OBJECTS := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
-all: build $(APP_DIR)/$(TARGET)
+all: build
 
-$(OBJ_DIR)/%.o: %.cpp
-   @mkdir -p $(@D)
+%.o: %.cpp
    $(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
-$(APP_DIR)/$(TARGET): $(OBJECTS)
-   @mkdir -p $(@D)
-   $(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(APP_DIR)/$(TARGET) $(OBJECTS)
+$(TARGET): $(OBJECTS)
+   $(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(TARGET) $(OBJECTS)
 
 .PHONY: all build clean debug release
 
 build:
-   @mkdir -p $(APP_DIR)
-   @mkdir -p $(OBJ_DIR)
 
 debug: CXXFLAGS += -DDEBUG -g
 debug: all
