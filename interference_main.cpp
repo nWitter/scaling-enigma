@@ -41,12 +41,8 @@ int main(int argc, char **argv)
 
 
 	
-	
-	
-	
-	
     while(indef || difftime(getTime(), initTime) < runtime) {
-		printf("step%d\n", step++);
+		printf("step%d with slo %d\n", step++, time_fraction);
 
 
 		#pragma OMP_PLACES=cores
