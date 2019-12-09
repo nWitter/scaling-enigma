@@ -20,7 +20,7 @@ interference.o: interference_main.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 
 interference: interference.o
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
 	
 
 
