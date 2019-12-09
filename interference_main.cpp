@@ -21,16 +21,16 @@ int main(int argc, char **argv)
 	//srand (time(NULL));
 	printf("starting scaling_enigma, args: %d", argc);
 	
-	float time_fraction = .5;//atof(argv[1]);
+	float time_fraction = .1;//atof(argv[1]);
 	
 	for(int a=1;a<argc;a++){
 		time_fraction = atof(argv[a]); //TODO
 	}
 
 
-	float targetFractionMin = .5;//atof(argv[1]);
+	float targetFractionMin = .4;//atof(argv[1]);
 	if (targetFractionMin > 1) targetFractionMin = 1 / targetFractionMin;
-	float targetFractionMax = .5;//atof(argv[1]);
+	float targetFractionMax = .6;//atof(argv[1]);
 	if (targetFractionMax > 1) targetFractionMax = 1 / targetFractionMax;
 
 	if(targetFractionMax < targetFractionMin){} //TODO
