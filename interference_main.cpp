@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +26,6 @@ int main(int argc, char **argv)
 	for(int a=1;a<argc;a++){
 		time_fraction = atof(argv[a]); //TODO
 	}
-	time_fraction = .5;
 
 
 	float targetFractionMin = .5;//atof(argv[1]);
@@ -36,7 +35,7 @@ int main(int argc, char **argv)
 
 	if(targetFractionMax < targetFractionMin){} //TODO
 	
-	int runtime = 10; //in seconds
+	int runtime = 90; //in seconds
 	bool indef = false;
 	
 	//TODO
