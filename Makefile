@@ -17,10 +17,10 @@ OBJECTS := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 all: build
 
 %.o: %.cpp
-   $(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
 $(TARGET): $(OBJECTS)
-   $(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(TARGET) $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(TARGET) $(OBJECTS)
 
 .PHONY: all build clean debug release
 
