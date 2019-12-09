@@ -4,7 +4,7 @@
 #SBATCH --job-name=scaling-test
 #
 #SBATCH --nodes=1
-#SBATCH --time=0-00:00:10
+#SBATCH --time=0-00:00:20
 #
 #
 #
@@ -12,7 +12,7 @@
 echo initiate things
 export OMP_PROC_BIND=close
 export OMP_PLACES=cores
-export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
+#export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 
 export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1

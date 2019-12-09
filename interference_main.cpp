@@ -20,14 +20,14 @@ float rndNum(){
 int main(int argc, char **argv)
 {
 	//srand (time(NULL));
-	printf("starting scaling_enigma");
+	printf("starting scaling_enigma, args: %d", argc);
 	
 	float time_fraction = .5;//atof(argv[1]);
 	
-	for(int a=0;a<argc;a++){
+	for(int a=1;a<=argc;a++){
 		time_fraction = atof(argv[a]); //TODO
 	}
-	
+	time_fraction = .5;
 
 
 	float targetFractionMin = .5;//atof(argv[1]);
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 	
     while(indef || difftime(getTime(), initTime) < runtime) {
     	time_t startTime = time(NULL);
-		targetFractionMin = targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin);
+		time_fraction = targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin);
 		
 
 		printf("step%d with slow %f\n", step++, time_fraction);
