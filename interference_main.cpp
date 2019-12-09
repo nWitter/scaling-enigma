@@ -19,7 +19,7 @@ float rndNum(){
 
 int main(int argc, char **argv)
 {
-	srand (time(NULL));
+	//srand (time(NULL));
 	printf("starting scaling_enigma");
 	
 	float time_fraction = .5;//atof(argv[1]);
@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 	float targetFractionMax = .5;//atof(argv[1]);
 	if (targetFractionMax > 1) targetFractionMax = 1 / targetFractionMax;
 
-	if(targetFractionMax < targetFractionMin) //TODO
+	if(targetFractionMax < targetFractionMin){} //TODO
 	
 	int runtime = 10; //in seconds
 	bool indef = false;
