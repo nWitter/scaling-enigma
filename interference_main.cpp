@@ -13,7 +13,7 @@ time_t getTime() {
 }
 
 float rndNum(){
-	return static_cast <float> (rand()) / 10000;
+	return (static_cast <float> (rand()) % 10000) / 10000;
 }
 
 int main(int argc, char **argv)
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 		float test = targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin);
 		
 
-		printf("step%d with slow %f\n", step++, test);
+		printf("step%d with slow %f, test %f\n", step++, time_fraction, test);
     	#pragma omp parallel
     	{
 	    	while(difftime(getTime(), startTime) < time_fraction) {

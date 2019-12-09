@@ -4,7 +4,7 @@
 #SBATCH --job-name=scaling-test
 #
 #SBATCH --nodes=1
-#SBATCH --time=0-00:02:00
+#SBATCH --time=0-00:03:00
 #
 #
 #
@@ -22,7 +22,7 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example
 
 echo run
 mpirun -np 1 ./interference > out
-mpirun -np 1 ./$MATRIX_PATH/main 300 > mat
+time mpirun -np 1 ./$MATRIX_PATH/main 300 > mat
 #
 # run program
 #
