@@ -21,7 +21,7 @@ export I_MPI_PIN=1
 #MATRIX_PATH = ./chameleon-apps/applications/matrix_example/main
 
 echo run
-mpirun -np 1 ./interference.o > out
+time mpirun -np 1 ./interference > out
 
 #
 # run program

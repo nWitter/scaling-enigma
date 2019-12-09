@@ -14,11 +14,14 @@ SRC      :=                      \
 
 OBJECTS := $(SRC:%.cpp=$%.o)
 
-all: interference.o
+all: interference.o interference
 
 interference.o: interference_main.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 
+interference: interference.o
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
+	
 
 
 debug: CXXFLAGS += -DDEBUG -g
@@ -28,4 +31,5 @@ release: CXXFLAGS += -O2
 release: all
 
 clean:
-	-@rm -fr main.o
+	-@rm -fr interference.o
+	-@rm -fr interference
