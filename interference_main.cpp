@@ -56,6 +56,7 @@ int main(int argc, char **argv)
 		printf("step%d with slow %f, test %f\n", step++, time_fraction, test);
     	#pragma omp parallel
     	{
+			int tmp = 0;
 	    	while(difftime(getTime(), startTime) < time_fraction) {
 		    		const int vecLen = 1 << 10;
 		    		int iteration_count = 1 << 10;
@@ -65,7 +66,7 @@ int main(int argc, char **argv)
 					for(int j = 0; j < iteration_count; j++)
 						for(int i = 0; i < vecLen; i++)
 							vector[i] = (vector[i]+ vector[i])*3;
-								
+				tmp++;
 		    }
 	    	
 	    	//#pragma omp barrier
@@ -74,9 +75,9 @@ int main(int argc, char **argv)
 	    	
     		//if(omp_get_thread_num() == 0)
 			//	printf("wait end time = %lf\n", getTime()-start_time);
+			printf("test %f\n", tmp);
     	}
 
-		//printf("test %f\n", difftime(getTime(), initTime));
 
 		int num_milliseconds = (int)(1000 * (1.0 - time_fraction));
 		std::this_thread::sleep_for(std::chrono::milliseconds(num_milliseconds));
