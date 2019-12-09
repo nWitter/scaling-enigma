@@ -52,10 +52,10 @@ int main(int argc, char **argv)
 	
     while(indef || difftime(getTime(), initTime) < runtime) {
     	time_t startTime = time(NULL);
-		time_fraction = targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin);
+		float test = targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin);
 		
 
-		printf("step%d with slow %f\n", step++, time_fraction);
+		printf("step%d with slow %f\n", step++, test);
     	#pragma omp parallel
     	{
 	    	while(difftime(getTime(), startTime) < time_fraction) {
