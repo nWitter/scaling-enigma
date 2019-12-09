@@ -34,8 +34,7 @@ int main(int argc, char **argv)
 	int step = 0;
 
 
-	#pragma OMP_PROC_BIND = true
-	#pragma OMP_PLACES = cores
+	
 	
 	
 	
@@ -45,6 +44,8 @@ int main(int argc, char **argv)
 
 
     	#pragma omp parallel
+		#pragma OMP_PROC_BIND = true
+		#pragma OMP_PLACES = cores
     	{
     		time_t startTime = time(NULL);
     		//if(omp_get_thread_num() == 0)
