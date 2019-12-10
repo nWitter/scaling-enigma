@@ -45,7 +45,6 @@ int main(int argc, char **argv)
 
 	time_t initTime = getTime();
 	int step = 0;
-	bool rep = false;
 	
 	
 	while (indef || difftime(getTime(), initTime) < runtime) {
@@ -63,13 +62,9 @@ int main(int argc, char **argv)
 		while (difftime(getTime(), startTime) < time_fraction * step_length) {
 			//scedule(static) 
 			//omp_set_num_threads(numThreads);
-			#pragma omp parallel for default(none) shared(vector, startTime, time_fraction, rep)
+			#pragma omp parallel for default(none) shared(vector, startTime, time_fraction)
 			for (int i = 0; i < calcScale; i++)
 			{
-				if(!rep){
-					printf("thread %d", omp_get_num_threads());
-					rep = true;
-				}
 				for (int a = 0; a < calcScale; a++) {
 					vector[i] = (vector[i] + vector[i]) * 3;
 				}
