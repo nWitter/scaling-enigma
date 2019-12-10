@@ -27,13 +27,13 @@ export VT_PCTRACE=1
 MATRIX_PATH=../chameleon-apps/applications/matrix_example
 
 echo run
-mpiexec -n 1 -o ./interference > out
+mpiexec -n 1 ./interference > out
 
 #
 # run program
 #
 
-mpiexec -n 2 -o ./$MATRIX_PATH/main 500 20 20 > mat
+mpiexec -n 2 ./$MATRIX_PATH/main 500 20 20 > mat
 
 echo end
 exit 0
