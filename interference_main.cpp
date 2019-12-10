@@ -66,8 +66,10 @@ int main(int argc, char **argv)
 			#pragma omp parallel for default(none) shared(vector, startTime, time_fraction, rep)
 			for (int i = 0; i < calcScale; i++)
 			{
-				if(!rep)
+				if(!rep){
 					printf("thread %d", omp_get_num_threads());
+					rep = true;
+				}
 				for (int a = 0; a < calcScale; a++) {
 					vector[i] = (vector[i] + vector[i]) * 3;
 				}
