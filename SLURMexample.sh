@@ -18,16 +18,18 @@ export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1
 
 
+export VT_PCTRACE=1
+
 MATRIX_PATH=../chameleon-apps/applications/matrix_example
 
 echo run
-mpirun -n 1 ./interference > out
+mpirun -np 1 ./interference > out
 
 #
 # run program
 #
 
-time mpirun -n 2 ./$MATRIX_PATH/main 300 > mat
+time mpirun -np 2 ./$MATRIX_PATH/main 200 > mat
 
 echo end
 exit 0
