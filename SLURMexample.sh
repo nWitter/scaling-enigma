@@ -6,6 +6,10 @@
 #SBATCH --nodes=2
 #SBATCH --time=0-00:03:00
 #
+
+
+#
+#SBATCH --cpus-per-task=4
 #
 #
 
@@ -23,13 +27,13 @@ export VT_PCTRACE=1
 MATRIX_PATH=../chameleon-apps/applications/matrix_example
 
 echo run
-mpirun -np 1 ./interference > out
+srun -n1 -w tux[1,0] ./interference > out
 
 #
 # run program
 #
 
-mpirun -np 2 ./$MATRIX_PATH/main 500 20 20 > mat
+srun -n2 -w tux[1,1] ./$MATRIX_PATH/main 500 20 20 > mat
 
 echo end
 exit 0
