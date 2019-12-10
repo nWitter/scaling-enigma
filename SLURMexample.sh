@@ -4,7 +4,6 @@
 #SBATCH --job-name=scaling-test
 #
 #SBATCH --nodes=2
-#SBATCH --ntasks-per-node=2
 #SBATCH --time=0-00:03:00
 #
 #

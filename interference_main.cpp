@@ -66,7 +66,7 @@ int main(int argc, char **argv)
 			for (int i = 0; i < calcScale; i++)
 			{
 				for (int a = 0; a < calcScale; a++) {
-					vector[i] = (vector[i] + vector[i]) * 3;
+					vector[a] = (vector[a] + vector[a]) * 3;
 				}
 			}
 			tmp++;
