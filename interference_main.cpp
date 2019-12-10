@@ -18,8 +18,8 @@ float rndNum(){
 
 int main(int argc, char **argv)
 {
-	//srand (time(NULL));
-	printf("starting scaling_enigma, args: %d", argc);
+	srand (time(NULL));
+	printf("starting scaling_enigma");
 	
 	float time_fraction = .1;//atof(argv[1]);
 	
@@ -28,59 +28,55 @@ int main(int argc, char **argv)
 	}
 
 
-	float targetFractionMin = .4;//atof(argv[1]);
-	if (targetFractionMin > 1) targetFractionMin = 1 / targetFractionMin;
-	float targetFractionMax = .6;//atof(argv[1]);
-	if (targetFractionMax > 1) targetFractionMax = 1 / targetFractionMax;
+	float targetFractionMin = .5;//atof(argv[1]);
+	float targetFractionMax = .5;//atof(argv[1]);
 
+	if (targetFractionMin > 1) targetFractionMin = 1 / targetFractionMin;
+	if (targetFractionMax > 1) targetFractionMax = 1 / targetFractionMax;
 	if(targetFractionMax < targetFractionMin){} //TODO
 	
 	int runtime = 90; //in seconds
 	bool indef = false;
+	int numThreads = 4;
 	
 	//TODO
-	//float time_step = 1.0;
+	float step_length = 1.0;
 
 	time_t initTime = getTime();
 	int step = 0;
 
 	
-
-
 	
-    while(indef || difftime(getTime(), initTime) < runtime) {
-    	time_t startTime = time(NULL);
-		float test = targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin);
-		
+	while (indef || difftime(getTime(), initTime) < runtime) {
+		time_t startTime = time(NULL);
+		float time_fraction = step_length * (targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin));
+		printf("starting step %d\tslow:%f\n", step++, time_fraction);
 
-		printf("step%d with slow %f, test %f\n", step++, time_fraction, test);
-    	#pragma omp parallel
-    	{
-			int tmp = 0;
-	    	while(difftime(getTime(), startTime) < time_fraction) {
-		    		const int vecLen = 1 << 10;
-		    		int iteration_count = 1 << 10;
-					double vector[vecLen];
-					for(int i = 0; i < vecLen; i++)
-						vector[i] = 1.0;
-					for(int j = 0; j < iteration_count; j++)
-						for(int i = 0; i < vecLen; i++)
-							vector[i] = (vector[i]+ vector[i])*3;
-				tmp++;
-		    }
-	    	
-	    	//#pragma omp barrier
-    		//if(omp_get_thread_num() == 0)
-			//	printf("wait start time = %lf\n", getTime()-start_time);
-	    	
-    		//if(omp_get_thread_num() == 0)
-			//	printf("wait end time = %lf\n", getTime()-start_time);
-			printf("test %d\n", tmp);
-    	}
+		const int calcScale = 1 << 10;
+		double vector[calcScale];
+		for (int i = 0; i < calcScale; i++)
+			vector[i] = 1.0;
+		int tmp = 0;
 
 
-		int num_milliseconds = (int)(1000 * (1.0 - time_fraction));
+		while (difftime(getTime(), startTime) < time_fraction * step_length) {
+			//scedule(static) 
+			omp_set_num_threads(numThreads);
+			#pragma omp parallel for default(none) shared(calcScale, vector, startTime, time_fraction)
+			for (int i = 0; i < calcScale; i++)
+			{
+				for (int a = 0; a < calcScale; a++) {
+					vector[i] = (vector[i] + vector[i]) * 3;
+				}
+			}
+			tmp++;
+		}
+		printf("step done \ttime:%f \ttotal calcs:%d\n", difftime(getTime(), startTime), tmp);
+    	
+
+		int num_milliseconds = (int)(1000 * step_length * (1.0 - time_fraction));
 		std::this_thread::sleep_for(std::chrono::milliseconds(num_milliseconds));
+		printf("ending step \ttotal time: %f \ttime waited %d\n", difftime(getTime(), startTime), num_milliseconds);
     }
     return 0;
 }
