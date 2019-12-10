@@ -21,7 +21,8 @@ int main(int argc, char **argv)
 	srand (time(NULL));
 	printf("starting scaling_enigma");
 	
-	float time_fraction = .1;//atof(argv[1]);
+	float time_fraction = .1;
+	
 	
 	for(int a=1;a<argc;a++){
 		time_fraction = atof(argv[a]); //TODO
@@ -44,7 +45,7 @@ int main(int argc, char **argv)
 
 	time_t initTime = getTime();
 	int step = 0;
-
+	bool rep = false;
 	
 	
 	while (indef || difftime(getTime(), initTime) < runtime) {
@@ -62,9 +63,11 @@ int main(int argc, char **argv)
 		while (difftime(getTime(), startTime) < time_fraction * step_length) {
 			//scedule(static) 
 			//omp_set_num_threads(numThreads);
-			#pragma omp parallel for default(none) shared(vector, startTime, time_fraction)
+			#pragma omp parallel for default(none) shared(vector, startTime, time_fraction, rep)
 			for (int i = 0; i < calcScale; i++)
 			{
+				if(!rep)
+					printf("thread %d", omp_get_num_threads());
 				for (int a = 0; a < calcScale; a++) {
 					vector[i] = (vector[i] + vector[i]) * 3;
 				}

@@ -3,7 +3,7 @@
 #
 #SBATCH --job-name=scaling-test
 #
-#SBATCH --nodes=1
+#SBATCH --nodes=2
 #SBATCH --time=0-00:03:00
 #
 #
@@ -27,7 +27,7 @@ mpirun -n 1 ./interference > out
 # run program
 #
 
-time mpirun -n 1 ./$MATRIX_PATH/main 300 > mat
+time mpirun -n 2 ./$MATRIX_PATH/main 300 > mat
 
 echo end
 exit 0
