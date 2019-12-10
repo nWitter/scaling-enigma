@@ -27,7 +27,7 @@ mpirun -n 1 ./interference > out
 # run program
 #
 
-#time mpirun -np 1 ./$MATRIX_PATH/main 300 > mat
+time mpirun -n 1 ./$MATRIX_PATH/main 300 > mat
 
 echo end
 exit 0
