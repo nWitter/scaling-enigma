@@ -30,7 +30,7 @@ mpirun -np 1 ./interference > out
 # run program
 #
 
-mpirun -np 2 ./$MATRIX_PATH/main 200 > mat
+mpirun -np 2 ./$MATRIX_PATH/main 300 > mat
 
 echo end
 exit 0
