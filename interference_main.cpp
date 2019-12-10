@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	}
 
 
-	float targetFractionMin = .95;//atof(argv[1]);
+	float targetFractionMin = .01;//atof(argv[1]);
 	float targetFractionMax = targetFractionMin;//atof(argv[1]);
 
 	if (targetFractionMin > 1) targetFractionMin = 1 / targetFractionMin;
