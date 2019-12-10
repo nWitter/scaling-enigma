@@ -23,7 +23,7 @@ export VT_PCTRACE=1
 MATRIX_PATH=../chameleon-apps/applications/matrix_example
 
 echo run
-#mpirun -np 1 ./interference > out
+mpirun -np 1 ./interference > out
 
 #
 # run program
