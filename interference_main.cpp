@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 	float time_fraction = .1;//atof(argv[1]);
 	
 	for(int a=1;a<argc;a++){
-		time_fraction = atof(argv[a]); //TODO
+		//time_fraction = atof(argv[a]); //TODO
 	}
 
 
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 	
 	while (indef || difftime(getTime(), initTime) < runtime) {
 		time_t startTime = time(NULL);
-		float time_fraction = step_length * (targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin));
+		time_fraction = step_length * (targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin));
 		printf("starting step %d\tslow:%f\n", step++, time_fraction);
 
 		const int calcScale = 1 << 10;
