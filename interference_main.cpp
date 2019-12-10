@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 	float time_fraction = .1;//atof(argv[1]);
 	
 	for(int a=1;a<argc;a++){
-		//time_fraction = atof(argv[a]); //TODO
+		time_fraction = atof(argv[a]); //TODO
 	}
 
 
