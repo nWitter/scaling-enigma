@@ -1,4 +1,3 @@
-
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,6 +6,31 @@
 #include <thread>
 #include <ctime>
 #include <chrono>
+
+
+#include <thread>
+#include <pthread.h>
+#include <iostream>
+#include <cstring>
+
+class thread : public std::thread
+{
+public:
+	thread() {}
+	static void setScheduling(std::thread &th, int policy, int priority) {
+		sch_params.sched_priority = priority;
+		if (pthread_setschedparam(th.native_handle(), policy, &sch_params)) {
+			std::cerr << "Failed to set Thread scheduling : " << std::strerror(errno) << std::endl;
+		}
+	}
+private:
+	sched_param sch_params;
+};
+
+
+
+
+
 
 time_t getTime() {
 	return time(NULL);
@@ -21,24 +45,28 @@ int main(int argc, char **argv)
 	srand (time(NULL));
 	printf("starting scaling_enigma");
 	
-	float time_fraction = .1;
 	
-	
-	for(int a=1;a<argc;a++){
-		time_fraction = atof(argv[a]); //TODO
-	}
 
-
-	float targetFractionMin = 1;//atof(argv[1]);
+	float time_fraction = .5;
+	float targetFractionMin = 5;//atof(argv[1]);
 	float targetFractionMax = targetFractionMin;//atof(argv[1]);
 
+	int runtime = 60; //in seconds
+	bool indef = false;
+	int numThreads = 28;
+	
+	for(int a=1;a<argc;a++){
+		if(a ==1)
+			targetFractionMin = atof(argv[a]);
+		if(a==2)
+			runtime = atoi(argv[a]);
+	}
+	
+	
 	if (targetFractionMin > 1) targetFractionMin = 1 / targetFractionMin;
 	if (targetFractionMax > 1) targetFractionMax = 1 / targetFractionMax;
 	if(targetFractionMax < targetFractionMin){} //TODO
 	
-	int runtime = 60; //in seconds
-	bool indef = false;
-	//int numThreads = 4;
 	
 	//TODO
 	float step_length = 1.0;
@@ -61,8 +89,7 @@ int main(int argc, char **argv)
 
 		while (difftime(getTime(), startTime) < time_fraction * step_length) {
 			//scedule(static) 
-			omp_set_num_threads(28);
-			#pragma omp parallel for default(none) shared(vector, startTime, time_fraction)
+			#pragma omp parallel for default(none) shared(vector, startTime, time_fraction, numThreads) num_threads(numThreads)
 			for (int i = 0; i < calcScale; i++)
 			{
 				for (int a = 0; a < calcScale; a++) {

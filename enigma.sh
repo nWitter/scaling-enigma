@@ -29,14 +29,14 @@ export I_MPI_PIN=1
 
 
 echo run
-mpiexec -n 1 ./interference > int.out &
+mpiexec -n 1 ./interference 0.1 5 > int.out &
 
 #
 # run program
 #
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example
-mpiexec -n 1 ./$MATRIX_PATH/main 600 > mat.out &
+#mpiexec -n 1 ./$MATRIX_PATH/main 600 > mat.out &
 wait
 
 echo end
