@@ -2,7 +2,7 @@
 #########################
 #
 #SBATCH --job-name=scaling-test
-#SBATCH -o ./enigma.out
+#SBATCH -o ./%j.out
 #SBATCH -D ./
 #SBATCH --get-user-env
 #SBATCH --clusters=mpp2
@@ -33,7 +33,7 @@ mpiexec -n 1 ./interference > out &
 # run program
 #
 
-mpiexec -n 1 ./$MATRIX_PATH/main 500 > mat &
+mpiexec -n 1 ./$MATRIX_PATH/main 300 > mat &
 wait
 
 echo end
