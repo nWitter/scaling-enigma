@@ -35,6 +35,6 @@ clean:
 	-@rm -fr interference
 	
 cOUT:
-	-@rm e*.out
-	-@rm m*.out
-	-@rm i*.out
+	-@rm e35*.out
+	-@rm mat.out
+	-@rm int.out
