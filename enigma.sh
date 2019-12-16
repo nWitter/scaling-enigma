@@ -9,7 +9,7 @@
 #SBATCH --clusters=mpp2
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=28
-#SBATCH --time=0-00:02:00
+#SBATCH --time=0-00:01:00
 #
 
 #
@@ -30,14 +30,14 @@ export VT_PCTRACE=1
 
 
 echo run
-mpiexec -n 1 ./interference > i%j.out &
+mpiexec -n 1 ./interference > int.out &
 
 #
 # run program
 #
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example
-time mpiexec -n 1 ./$MATRIX_PATH/main 400 > m%j.out &
+mpiexec -n 1 ./$MATRIX_PATH/main 400 > mat.out &
 wait
 
 echo end
