@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 
 		while (difftime(getTime(), startTime) < time_fraction * step_length) {
 			//scedule(static) 
-			//omp_set_num_threads(numThreads);
+			omp_set_num_threads(28);
 			#pragma omp parallel for default(none) shared(vector, startTime, time_fraction)
 			for (int i = 0; i < calcScale; i++)
 			{
