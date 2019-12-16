@@ -2,7 +2,7 @@
 #########################
 #
 #SBATCH --job-name=scaling-test
-#SBATCH -o ./%j.out
+#SBATCH -o ./eni.out
 #SBATCH -D ./
 #SBATCH --get-user-env
 #SBATCH --export=NONE
