@@ -37,7 +37,7 @@ mpiexec -n 1 ./interference > out &
 #
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example
-mpiexec -n 1 ./$MATRIX_PATH/main 400 > mat &
+time mpiexec -n 1 ./$MATRIX_PATH/main 400 > mat &
 wait
 
 echo end
