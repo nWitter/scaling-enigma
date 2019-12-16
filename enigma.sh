@@ -29,7 +29,7 @@ export I_MPI_PIN=1
 
 
 echo run
-mpiexec -n 1 ./interference > int.out &
+#mpiexec -n 1 ./interference > int.out &
 
 #
 # run program
