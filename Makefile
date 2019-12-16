@@ -33,3 +33,8 @@ release: all
 clean:
 	-@rm -fr interference.o
 	-@rm -fr interference
+	
+cOUT:
+	-@rm e*.out
+	-@rm m*.out
+	-@rm i*.out
