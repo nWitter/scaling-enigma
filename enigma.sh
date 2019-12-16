@@ -30,14 +30,14 @@ export VT_PCTRACE=1
 
 
 echo run
-mpiexec -n $SLURM_NTASKS ./interference > out &
+mpiexec -n 1 ./interference > out &
 
 #
 # run program
 #
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example
-mpiexec -n $SLURM_NTASKS ./$MATRIX_PATH/main 500 > mat &
+mpiexec -n 1 ./$MATRIX_PATH/main 400 > mat &
 wait
 
 echo end
