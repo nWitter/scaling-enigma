@@ -8,25 +8,79 @@
 #include <chrono>
 
 
-#include <thread>
 #include <pthread.h>
-#include <iostream>
-#include <cstring>
+#include <sched.h>
 
-class thread : public std::thread
-{
-public:
-	thread() {}
-	static void setScheduling(std::thread &th, int policy, int priority) {
-		sch_params.sched_priority = priority;
-		if (pthread_setschedparam(th.native_handle(), policy, &sch_params)) {
-			std::cerr << "Failed to set Thread scheduling : " << std::strerror(errno) << std::endl;
-		}
-	}
-private:
-	sched_param sch_params;
-};
+#http://www.yonch.com/tech/82-linux-thread-priority
+void set_realtime_priority() {
+     int ret;
+     // We'll operate on the currently running thread.
+     pthread_t this_thread = pthread_self();
 
+     // struct sched_param is used to store the scheduling priority
+     struct sched_param params;
+
+     // We'll set the priority to the maximum.
+     params.sched_priority = sched_get_priority_max(SCHED_FIFO);
+     // struct sched_param is used to store the scheduling priority
+     struct sched_param params;
+ 
+     // We'll set the priority to the maximum.
+     params.sched_priority = sched_get_priority_max(SCHED_FIFO);
+
+     std::cout << "Trying to set thread realtime prio = " << params.sched_priority << std::endl;
+
+     // Attempt to set thread real-time priority to the SCHED_FIFO policy
+     ret = pthread_setschedparam(this_thread, SCHED_FIFO, &params);
+     if (ret != 0) {
+         // Print the error
+         std::cout << "Unsuccessful in setting thread realtime prio" << std::endl;
+         return;     
+     }
+     std::cout << "Trying to set thread realtime prio = " << params.sched_priority << std::endl;
+ 
+     // Attempt to set thread real-time priority to the SCHED_FIFO policy
+     ret = pthread_setschedparam(this_thread, SCHED_FIFO, &params);
+     if (ret != 0) {
+         // Print the error
+         std::cout << "Unsuccessful in setting thread realtime prio" << std::endl;
+         return;     
+     }
+     // Now verify the change in thread priority
+     int policy = 0;
+     ret = pthread_getschedparam(this_thread, &policy, &params);
+     if (ret != 0) {
+         std::cout << "Couldn't retrieve real-time scheduling paramers" << std::endl;
+         return;
+     }
+
+     // Check the correct policy was applied
+     if(policy != SCHED_FIFO) {
+         std::cout << "Scheduling is NOT SCHED_FIFO!" << std::endl;
+     } else {
+         std::cout << "SCHED_FIFO OK" << std::endl;
+     }
+
+     // Print thread scheduling priority
+     std::cout << "Thread priority is " << params.sched_priority << std::endl; 
+     // Now verify the change in thread priority
+     int policy = 0;
+     ret = pthread_getschedparam(this_thread, &policy, &params);
+     if (ret != 0) {
+         std::cout << "Couldn't retrieve real-time scheduling paramers" << std::endl;
+         return;
+     }
+ 
+     // Check the correct policy was applied
+     if(policy != SCHED_FIFO) {
+         std::cout << "Scheduling is NOT SCHED_FIFO!" << std::endl;
+     } else {
+         std::cout << "SCHED_FIFO OK" << std::endl;
+     }
+ 
+     // Print thread scheduling priority
+     std::cout << "Thread priority is " << params.sched_priority << std::endl; 
+}
 
 
 
@@ -77,6 +131,7 @@ int main(int argc, char **argv)
 	
 	while (indef || difftime(getTime(), initTime) < runtime) {
 		time_t startTime = time(NULL);
+		set_realtime_priority();
 		time_fraction = step_length * (targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin));
 		printf("starting step %d\tslow:%f\n", step++, time_fraction);
 
