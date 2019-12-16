@@ -22,11 +22,11 @@ void set_realtime_priority() {
      struct sched_param params;
 
      // We'll set the priority to the maximum.
-     params.sched_priority = sched_get_priority_max(SCHED_FIFO);
+     params.sched_priority = sched_get_priority_max(SCHED_OTHER);
      std::cout << "Trying to set thread realtime prio = " << params.sched_priority << std::endl;
  
-     // Attempt to set thread real-time priority to the SCHED_FIFO policy
-     ret = pthread_setschedparam(this_thread, SCHED_FIFO, &params);
+     // Attempt to set thread real-time priority to the SCHED_OTHER  - no permission fo SCHED_FIFO
+     ret = pthread_setschedparam(this_thread, SCHED_OTHER, &params);
      if (ret != 0) {
          // Print the error
          printf("Unsuccessful in setting thread realtime prio, %d", ret);
@@ -41,10 +41,10 @@ void set_realtime_priority() {
      }
  
      // Check the correct policy was applied
-     if(policy != SCHED_FIFO) {
-         std::cout << "Scheduling is NOT SCHED_FIFO!" << std::endl;
+     if(policy != SCHED_OTHER) {
+         std::cout << "Scheduling is NOT SCHED_OTHER!" << std::endl;
      } else {
-         std::cout << "SCHED_FIFO OK" << std::endl;
+         std::cout << "SCHED_OTHER OK" << std::endl;
      }
  
      // Print thread scheduling priority
