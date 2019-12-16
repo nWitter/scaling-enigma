@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 	if (targetFractionMax > 1) targetFractionMax = 1 / targetFractionMax;
 	if(targetFractionMax < targetFractionMin){} //TODO
 	
-	int runtime = 90; //in seconds
+	int runtime = 30; //in seconds
 	bool indef = false;
 	//int numThreads = 4;
 	
