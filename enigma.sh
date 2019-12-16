@@ -5,6 +5,7 @@
 #SBATCH -o ./%j.out
 #SBATCH -D ./
 #SBATCH --get-user-env
+#SBATCH --export=NONE
 #SBATCH --clusters=mpp2
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=28
@@ -21,19 +22,19 @@ export OMP_NUM_THREADS=28
 export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1
 
-export VT_PCTRACE=1
+#export VT_PCTRACE=1
 
 
 
 echo run
-mpiexec -n 1 ./interference > out &
+mpiexec -n $SLURM_NTASKS ./interference > out &
 
 #
 # run program
 #
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example
-mpiexec -n 1 -o ./$MATRIX_PATH/main 300 > mat &
+mpiexec -n $SLURM_NTASKS -o ./$MATRIX_PATH/main 300 > mat &
 wait
 
 echo end
