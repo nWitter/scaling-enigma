@@ -37,7 +37,7 @@ mpiexec -n $SLURM_NTASKS ./interference > out &
 #
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example
-mpiexec -n $SLURM_NTASKS -o ./$MATRIX_PATH/main 400 > mat &
+mpiexec -n $SLURM_NTASKS -o ./$MATRIX_PATH/main 600 > mat &
 wait
 
 echo end
