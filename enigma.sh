@@ -21,10 +21,9 @@ export OMP_NUM_THREADS=28
 export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1
 
-#export VT_PCTRACE=1
+export VT_PCTRACE=1
 
 
-MATRIX_PATH=../chameleon-apps/applications/matrix_example
 
 echo run
 mpiexec -n 1 ./interference > out &
@@ -33,7 +32,8 @@ mpiexec -n 1 ./interference > out &
 # run program
 #
 
-mpiexec -n 1 ./$MATRIX_PATH/main 300 > mat &
+MATRIX_PATH=../chameleon-apps/applications/matrix_example
+mpiexec -n 1 -o ./$MATRIX_PATH/main 300 > mat &
 wait
 
 echo end
