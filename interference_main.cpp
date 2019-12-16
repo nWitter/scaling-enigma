@@ -12,7 +12,7 @@
 #include <pthread.h>
 #include <sched.h>
 
-//http://www.yonch.com/tech/82-linux-thread-priority
+//based on http://www.yonch.com/tech/82-linux-thread-priority
 void set_realtime_priority() {
      int ret;
      // We'll operate on the currently running thread.
@@ -29,7 +29,7 @@ void set_realtime_priority() {
      ret = pthread_setschedparam(this_thread, SCHED_FIFO, &params);
      if (ret != 0) {
          // Print the error
-         std::cout << "Unsuccessful in setting thread realtime prio, %d", ret << std::endl;
+         printf("Unsuccessful in setting thread realtime prio, %d", ret);
          return;     
      }
      // Now verify the change in thread priority
