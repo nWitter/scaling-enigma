@@ -29,7 +29,7 @@ void set_realtime_priority() {
      ret = pthread_setschedparam(this_thread, SCHED_FIFO, &params);
      if (ret != 0) {
          // Print the error
-         std::cout << "Unsuccessful in setting thread realtime prio" << std::endl;
+         std::cout << "Unsuccessful in setting thread realtime prio, %d", ret << std::endl;
          return;     
      }
      // Now verify the change in thread priority
@@ -66,7 +66,7 @@ float rndNum(){
 int main(int argc, char **argv)
 {
 	srand (time(NULL));
-	printf("starting scaling_enigma");
+	printf("Initiating/n");
 	
 	
 
@@ -97,9 +97,11 @@ int main(int argc, char **argv)
 	time_t initTime = getTime();
 	int step = 0;
 	
+	printf("Starting Interference:/nStep%f/nSlow Min/Max: %f, %f/n time: %f", step_length, targetFractionMin, targetFractionMin, runtime* step_length);
 	
 	while (indef || difftime(getTime(), initTime) < runtime) {
 		time_t startTime = time(NULL);
+		//prio
 		set_realtime_priority();
 		time_fraction = step_length * (targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin));
 		printf("starting step %d\tslow:%f\n", step++, time_fraction);
