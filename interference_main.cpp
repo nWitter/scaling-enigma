@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	}
 
 
-	float targetFractionMin = .9;//atof(argv[1]);
+	float targetFractionMin = 1;//atof(argv[1]);
 	float targetFractionMax = targetFractionMin;//atof(argv[1]);
 
 	if (targetFractionMin > 1) targetFractionMin = 1 / targetFractionMin;
@@ -73,10 +73,11 @@ int main(int argc, char **argv)
 		}
 		printf("step done \ttime:%f \ttotal calcs:%d\n", difftime(getTime(), startTime), tmp);
     	
-
-		int num_milliseconds = (int)(1000 * step_length * (1.0 - time_fraction));
-		std::this_thread::sleep_for(std::chrono::milliseconds(num_milliseconds));
-		printf("ending step \ttotal time: %f \ttime waited %d\n", difftime(getTime(), startTime), num_milliseconds);
+		if(time_fraction != 1){
+			int num_milliseconds = (int)(1000 * step_length * (1.0 - time_fraction));
+			std::this_thread::sleep_for(std::chrono::milliseconds(num_milliseconds));
+			printf("ending step \ttotal time: %f \ttime waited %d\n", difftime(getTime(), startTime), num_milliseconds);
+		}
     }
     return 0;
 }
