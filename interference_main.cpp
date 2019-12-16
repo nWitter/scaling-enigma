@@ -7,7 +7,7 @@
 #include <ctime>
 #include <chrono>
 
-#include <stdio>
+#include <iostream>
 
 #include <pthread.h>
 #include <sched.h>
