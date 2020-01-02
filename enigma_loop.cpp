@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 	while (true) {
 		Clock::time_point t0 = Clock::now();
 		time_fraction = 1 * step_length; //step_length * (targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin));
-		printf("starting step, slow:%f\n" time_fraction);
+		printf("starting step, slow:%f\n", time_fraction);
 
 		const int calcScale = 1 << 10;
 
