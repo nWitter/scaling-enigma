@@ -20,7 +20,8 @@ typedef std::vector<bool> b_vec;
 
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds Millisec;
-typedef std::chrono::duration_cast<std::chrono::duration<double>> DurationCast;
+typedef std::chrono::duration_cast DurationCast;
+typedef std::chrono::duration Durati;
 
 
 float rndNum(){
@@ -66,10 +67,10 @@ int main(int argc, char **argv)
 	
 	//TODO
 
-	time_t initTime = time(NULL);
+	Clock::time_point tStart = Clock::now();
 	int step = 0;
 	
-	printf("Starting Interference:\nStep%f\nSlow Min/Max: %f, %f\n time: %f\n\n", step_length, targetFractionMin, targetFractionMin, runtime* step_length);
+	printf("Starting Interference:\nStep%f\nSlow Min/Max: %f, %f\n\n", step_length, targetFractionMin, targetFractionMin);
 
 	
 	while (true) {
@@ -80,20 +81,20 @@ int main(int argc, char **argv)
 		const int calcScale = 1 << 10;
 		int tmp = 0;
 
-		#pragma omp parallel for default(none) shared(calcScale, tmp)
-		while ((DurationCast(Clock::now() - t0)).count()
+		#pragma omp parallel for default(none) shared(tmp)
+		while ((DurationCast<Durati<double>(Clock::now() - t0)).count()
 			< time_fraction * step_length) {
 			//scedule(static) 
 			calculationMixed(calcScale);
 			tmp++;
 			
 		}
-		printf(" -step done \ttime:%f \ttotal calcs:%d\n",DurationCast(Clock::now() - t0)).count(), tmp);
+		printf(" -step done \ttime:%d \ttotal calcs:%d\n", DurationCast<Durati<double>(Clock::now() - t0)).count(), tmp);
     	
 		if(time_fraction != 1){
-			int num_milliseconds = DurationCast(Clock::now() - t0)).count();
-			std::this_thread::sleep_for(num_milliseconds);
-			printf("ending step \ttotal time: %f \ttime waited %d\n", DurationCast(Clock::now() - t0)).count(), num_milliseconds);
+			int num_milliseconds = DurationCast<Durati<double>(Clock::now() - tStart)).count();
+			std::this_thread::sleep_for(Millisec(step_length - (num_milliseconds / 1000.0));
+			printf("ending step \ttotal time: %d \ttime waited %d\n", DurationCast<Durati<double>(Clock::now() - t0)).count(), num_milliseconds);
 		}
     }
 	
