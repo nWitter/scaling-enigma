@@ -1,4 +1,3 @@
-#include <Windows.h>
 
 #include <math.h>
 #include <stdio.h>
@@ -11,7 +10,6 @@
 #include <ratio>
 #include <vector>
 #include <functional>
-#include <csignal>
 
 //#include "ScalingEnigmaThread.cpp"
 
