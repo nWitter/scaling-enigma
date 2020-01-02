@@ -22,7 +22,8 @@ typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds Millisec;
 
 int tNow(Clock::time_point tZero){
-	return std::chrono::duration_cast<std::chrono::duration<double>(Clock::now() - tZero)).count();
+	std::chrono::duration_cast<std::chrono::duration<double> d = Clock::now() - tZero;
+	return d.count();
 }
 
 float rndNum(){
