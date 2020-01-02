@@ -35,6 +35,7 @@ void calculationMixed(int scale){
 	d_vec vector(scale);
 	for (int i = 0; i < scale; i++)
 		vector[i] = 1.0;
+	#pragma omp parallel for default(none) shared(vector, scale)
 	for (int i = 0; i < scale; i++){
 		for (int a = 0; a < scale; a++) {
 			vector[a] = (vector[a] + 1) * 3;
@@ -77,13 +78,11 @@ int main(int argc, char **argv)
 		printf("starting step %d\tslow:%f\n", step++, time_fraction);
 
 		const int calcScale = 1 << 10;
-		int tmp = 0;
 
-		#pragma omp parallel for default(none) shared(tmp, time_fraction)
+		
 		while (tNow(t0) < (time_fraction * 1000)) {
-			//scedule(static) 
+			//choose function
 			calculationMixed(calcScale);
-			tmp++;
 			
 		}
 		
