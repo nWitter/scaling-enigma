@@ -20,8 +20,8 @@ typedef std::vector<bool> b_vec;
 
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds Millisec;
-typedef std::chrono::duration_cast DurationCast;
-typedef std::chrono::duration Durati;
+//typedef std::chrono::duration_cast DurationCast;
+//typedef std::chrono::duration Durati;
 
 
 float rndNum(){
@@ -29,7 +29,7 @@ float rndNum(){
 }
 
 void calculationMixed(int scale){
-	double vector[scale];
+	d_vec vector[scale];
 	for (int i = 0; i < scale; i++)
 		vector[i] = 1.0;
 	for (int i = 0; i < scale; i++){
@@ -82,19 +82,19 @@ int main(int argc, char **argv)
 		int tmp = 0;
 
 		#pragma omp parallel for default(none) shared(tmp)
-		while ((DurationCast<Durati<double>(Clock::now() - t0)).count()
+		while ((std::chrono::duration_cast<std::chrono::duration<double>(Clock::now() - t0)).count()
 			< time_fraction * step_length) {
 			//scedule(static) 
 			calculationMixed(calcScale);
 			tmp++;
 			
 		}
-		printf(" -step done \ttime:%d \ttotal calcs:%d\n", DurationCast<Durati<double>(Clock::now() - t0)).count(), tmp);
+		printf(" -step done \ttime:%d \ttotal calcs:%d\n", std::chrono::duration_cast<std::chrono::duration<double>(Clock::now() - t0)).count(), tmp);
     	
 		if(time_fraction != 1){
-			int num_milliseconds = DurationCast<Durati<double>(Clock::now() - tStart)).count();
+			int num_milliseconds = std::chrono::duration_cast<std::chrono::duration<double>(Clock::now() - tStart)).count();
 			std::this_thread::sleep_for(Millisec(step_length - (num_milliseconds / 1000.0));
-			printf("ending step \ttotal time: %d \ttime waited %d\n", DurationCast<Durati<double>(Clock::now() - t0)).count(), num_milliseconds);
+			printf("ending step \ttotal time: %d \ttime waited %d\n", std::chrono::duration_cast<std::chrono::duration<double>(Clock::now() - t0)).count(), num_milliseconds);
 		}
     }
 	
