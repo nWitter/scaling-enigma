@@ -14,12 +14,12 @@ SRC      :=                      \
 
 OBJECTS := $(SRC:%.cpp=$%.o)
 
-all: interference.o interference
+all: enigma_loop.o interference
 
-interference.o: interference_main.cpp
+enigma_loop.o: enigma_loop.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 
-interference: interference.o
+interference: enigma_loop.o
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
 	
 

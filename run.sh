@@ -2,8 +2,8 @@
 #########################
 #
 
-mpiexec -n 1 ./interference &
-mpiexec -n 1 ./$0 $1 > $2 &
+mpiexec -n $SLURM_NTASKS ./interference &
+mpiexec -n $SLURM_NTASKS ./$0 $1 > $2 &
 
 
 
