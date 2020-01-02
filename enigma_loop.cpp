@@ -64,10 +64,8 @@ int main(int argc, char **argv)
 	if (targetFractionMin > 1) targetFractionMin = 1 / targetFractionMin;
 	if (targetFractionMax > 1) targetFractionMax = 1 / targetFractionMax;
 	
-	
 
-	Clock::time_point tStart = Clock::now();
-	int step = 0;
+	//Clock::time_point tStart = Clock::now();
 	
 	printf("Starting Interference:\nStep%f\nSlow Min/Max: %f, %f\n\n", step_length, targetFractionMin, targetFractionMin);
 
@@ -75,7 +73,7 @@ int main(int argc, char **argv)
 	while (true) {
 		Clock::time_point t0 = Clock::now();
 		time_fraction = 1 * step_length; //step_length * (targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin));
-		printf("starting step %d\tslow:%f\n", step++, time_fraction);
+		printf("starting step, slow:%f\n" time_fraction);
 
 		const int calcScale = 1 << 10;
 
