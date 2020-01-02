@@ -20,9 +20,10 @@ typedef std::vector<bool> b_vec;
 
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds Millisec;
-//typedef std::chrono::duration_cast DurationCast;
-//typedef std::chrono::duration Durati;
 
+int tNow(Clock::time_point tZero){
+	return std::chrono::duration_cast<std::chrono::duration<double>(Clock::now() - tZero)).count();
+}
 
 float rndNum(){
 	return static_cast <float> (rand() % 10000) / 10000;
@@ -39,14 +40,11 @@ void calculationMixed(int scale){
 	}
 }
 
-
 int main(int argc, char **argv)
 {
 	srand (time(NULL));
 	printf("Initiating\n");
 	
-	
-
 	float time_fraction = 1;
 	float targetFractionMin = 1;
 	float targetFractionMax = targetFractionMin;
@@ -62,10 +60,8 @@ int main(int argc, char **argv)
 	
 	if (targetFractionMin > 1) targetFractionMin = 1 / targetFractionMin;
 	if (targetFractionMax > 1) targetFractionMax = 1 / targetFractionMax;
-	if(targetFractionMax < targetFractionMin){} //TODO
 	
 	
-	//TODO
 
 	Clock::time_point tStart = Clock::now();
 	int step = 0;
@@ -82,7 +78,7 @@ int main(int argc, char **argv)
 		int tmp = 0;
 
 		#pragma omp parallel for default(none) shared(tmp)
-		while ((tNow(t0)
+		while (tNow(t0)
 			< time_fraction * step_length) {
 			//scedule(static) 
 			calculationMixed(calcScale);
@@ -94,7 +90,7 @@ int main(int argc, char **argv)
     	
 		if(time_fraction != 1){
 			int num_milliseconds = tNow(t0);
-			std::this_thread::sleep_for(Millisec(step_length - (num_milliseconds / 1000.0));
+			std::this_thread::sleep_for(Millisec(step_length * 1000 - num_milliseconds);
 			printf("ending step \ttotal time: %d \ttime waited %d\n", tNow(t0), num_milliseconds);
 		}
     }
@@ -104,6 +100,3 @@ int main(int argc, char **argv)
    return 0;
 }
 
-int tNow(Clock::time_point tZero){
-	return std::chrono::duration_cast<std::chrono::duration<double>(Clock::now() - tZero)).count();
-}
