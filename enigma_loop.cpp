@@ -73,14 +73,14 @@ int main(int argc, char **argv)
 	
 	while (true) {
 		Clock::time_point t0 = Clock::now();
-		time_fraction = 1; //step_length * (targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin));
+		time_fraction = 1 * step_length; //step_length * (targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin));
 		printf("starting step %d\tslow:%f\n", step++, time_fraction);
 
 		const int calcScale = 1 << 10;
 		int tmp = 0;
 
-		#pragma omp parallel for default(none) shared(tmp)
-		while (tNow(t0) < (time_fraction * step_length)) {
+		#pragma omp parallel for default(none) shared(tmp, time_fraction)
+		while (tNow(t0) < (time_fraction * 1000)) {
 			//scedule(static) 
 			calculationMixed(calcScale);
 			tmp++;
