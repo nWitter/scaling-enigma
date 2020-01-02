@@ -17,10 +17,9 @@ export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1
 #export VT_PCTRACE=1
 
-MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
 chmod +x run.sh
-source ./run.sh $MATRIX_PATH 600 out1
+source ./run.sh 600
 wait
 
 exit 0

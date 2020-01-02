@@ -33,6 +33,7 @@ release: all
 clean:
 	-@rm -fr interference.o
 	-@rm -fr interference
+	-@rm -fr enigma_loop.o
 	
 cOUT:
 	-@rm e35*.out
