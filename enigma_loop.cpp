@@ -86,7 +86,7 @@ int main(int argc, char **argv)
 			
 		}
 		
-		printf(" -step done \ttime:%d \ttotal calcs:%d\n", tNow(t0), tmp);
+		printf(" -step done \ttime:%d \ttotal\n", tNow(t0));
     	
 		if(time_fraction != 1){
 			int num_milliseconds = tNow(t0);

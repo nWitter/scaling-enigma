@@ -6,8 +6,8 @@
 #SBATCH -D ./
 #SBATCH --get-user-env
 #SBATCH --clusters=mpp2
-#SBATCH --ntasks=1 
-#SBATCH --cpus-per-task=28
+#SBATCH --ntasks=2 
+#SBATCH --cpus-per-task=7
 #SBATCH --time=0-00:01:00
 #
 
@@ -20,7 +20,7 @@ export I_MPI_PIN=1
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
 chmod +x run.sh
-source ./run.sh $MATRIX_PATH 600 out1-28
+source ./run.sh $MATRIX_PATH 600 out1
 wait
 
 exit 0
