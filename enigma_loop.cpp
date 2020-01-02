@@ -80,8 +80,7 @@ int main(int argc, char **argv)
 		int tmp = 0;
 
 		#pragma omp parallel for default(none) shared(tmp)
-		while (tNow(t0)
-			< time_fraction * step_length) {
+		while (tNow(t0) < time_fraction * step_length) {
 			//scedule(static) 
 			calculationMixed(calcScale);
 			tmp++;
@@ -92,7 +91,7 @@ int main(int argc, char **argv)
     	
 		if(time_fraction != 1){
 			int num_milliseconds = tNow(t0);
-			std::this_thread::sleep_for(Millisec(step_length * 1000 - num_milliseconds);
+			std::this_thread::sleep_for(Millisec((int)(step_length * 1000 - num_milliseconds));
 			printf("ending step \ttotal time: %d \ttime waited %d\n", tNow(t0), num_milliseconds);
 		}
     }
