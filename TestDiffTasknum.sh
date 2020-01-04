@@ -2,11 +2,16 @@
 #########################
 #
 
+mkdir -p output
+
 for ii in {1..10}
 do
 	echo "starting n=1 t=4"
-	sbatch --ntasks=1 --cpus-per-task=4 --time=5 enigma.sh 700 n1t4e1-$ii.out 1
+	sbatch --ntasks=1 --cpus-per-task=4 --time=5 enigma.sh 700 output/n1t4e1-$ii.out 1
 done
+
+
+
 #echo "starting n=1 t=7"
 #sbatch --ntasks=1 --cpus-per-task=7 --time=5 enigma.sh 700 n1t7e1.out 1
 
