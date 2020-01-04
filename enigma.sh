@@ -17,13 +17,12 @@ export I_MPI_PIN=1
 #export VT_PCTRACE=1
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
-MATRIX_SIZE=$0
 
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 echo "Initiating"
 echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 chmod +x startInterference.sh
-mpiexec -n $SLURM_NTASKS ./startInterference.sh $MATRIX_PATH $MATRIX_SIZE
+mpiexec -n $SLURM_NTASKS ./startInterference.sh $MATRIX_PATH $@
 
 exit 0

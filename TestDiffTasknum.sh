@@ -3,13 +3,11 @@
 #
 
 echo "starting n=1 t=7"
-sbatch enigma.sh --ntasks=1 --cpus-per-task=7 600
-mv "mat.out" "n1t7.out"
+sbatch enigma.sh --ntasks=1 --cpus-per-task=7 600 n1t7.out
 
 
 echo "starting n=2 t=7"
-sbatch enigma.sh --ntasks=2 --cpus-per-task=7 600
-mv "mat.out" "n2t7.out"
+sbatch enigma.sh --ntasks=2 --cpus-per-task=7 600 n2t7.out
 
 #1
 #echo "starting 1 core"
