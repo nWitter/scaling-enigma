@@ -6,7 +6,6 @@
 #SBATCH -D ./
 #SBATCH --get-user-env
 #SBATCH --clusters=mpp2
-#SBATCH --time=0-00:02:00
 #
 
 module load slurm_setup

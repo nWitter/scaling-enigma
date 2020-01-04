@@ -2,14 +2,16 @@
 #########################
 #
 
-echo "starting n=1 t=4"
-sbatch --ntasks=1 --cpus-per-task=4 enigma.sh 700 n1t4.out 1
+for ii in {1..10}
+do
+	echo "starting n=1 t=4"
+	sbatch --ntasks=1 --cpus-per-task=4 --time=5 enigma.sh 700 n1t4e1-$ii.out 1
+done
+#echo "starting n=1 t=7"
+#sbatch --ntasks=1 --cpus-per-task=7 --time=5 enigma.sh 700 n1t7e1.out 1
 
-echo "starting n=1 t=7"
-sbatch --ntasks=1 --cpus-per-task=7 enigma.sh 700 n1t7.out 1
-
-echo "starting n=1 t=14"
-sbatch --ntasks=1 --cpus-per-task=14 enigma.sh 700 n1t14.out 1
+#echo "starting n=1 t=14"
+#sbatch --ntasks=1 --cpus-per-task=14 --time=5 enigma.sh 700 n1t14e1.out 1
 
 #1
 #echo "starting 1 core"

@@ -35,7 +35,6 @@ clean:
 	-@rm -fr interference
 	-@rm -fr enigma_loop.o
 	
-cOUT:
+clearOUT:
 	-@rm eni*.out
-	-@rm mat.out
-	-@rm int.out
+	-@rm n*t*e*.out
