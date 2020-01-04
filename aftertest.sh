@@ -3,7 +3,7 @@
 #
 
 
-for file in /output/n*t*.out
+for file in /output/*
 do
 	input="$file"
 	while IFS= read -r line
