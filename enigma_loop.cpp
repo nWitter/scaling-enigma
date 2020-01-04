@@ -72,18 +72,14 @@ int main(int argc, char **argv)
 	
 	while (true) {
 		Clock::time_point t0 = Clock::now();
-		time_fraction = 1 * step_length; //step_length * (targetFractionMin + rndNum() * (targetFractionMax - targetFractionMin));
+		time_fraction = step_length * (targetFractionMin + (targetFractionMax - targetFractionMin) * rndNum());
 		printf("starting step, slow:%f\n", time_fraction);
 
-		const int calcScale = 1 << 10;
-
-		
+		const int calcScale = 1 << 10;		
 		while (tNow(t0) < (time_fraction * 1000)) {
 			//choose function
-			calculationMixed(calcScale);
-			
-		}
-		
+			calculationMixed(calcScale);			
+		}		
 		printf(" -step done \ttime:%d \ttotal\n", tNow(t0));
     	
 		if(time_fraction != 1){
@@ -92,9 +88,6 @@ int main(int argc, char **argv)
 			printf("ending step \ttotal time: %d \ttime waited %d\n", tNow(t0), num_milliseconds);
 		}
     }
-	
-
-	std::this_thread::sleep_for(Millisec((int)(1000 * step_length * 10)));
-   return 0;
+	return 0;
 }
 

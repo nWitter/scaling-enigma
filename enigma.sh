@@ -17,9 +17,8 @@ export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1
 #export VT_PCTRACE=1
 
-
+echo "running mpi"
 chmod +x run.sh
-source ./run.sh 600
-wait
+mpiexec -n $SLURM_NTASKS ./run.sh 600
 
 exit 0
