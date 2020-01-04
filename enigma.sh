@@ -22,6 +22,7 @@ MATRIX_SIZE=$0
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 echo "init"
+echo $0
 mpiexec -n $SLURM_NTASKS ./startInterference.sh $MATRIX_PATH $MATRIX_SIZE
 
 exit 0
