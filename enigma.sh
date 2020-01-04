@@ -8,7 +8,7 @@
 #SBATCH --clusters=mpp2
 #SBATCH --ntasks=2 
 #SBATCH --cpus-per-task=7
-#SBATCH --time=0-00:01:00
+#SBATCH --time=0-00:02:00
 #
 
 module load slurm_setup

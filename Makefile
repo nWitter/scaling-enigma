@@ -36,6 +36,6 @@ clean:
 	-@rm -fr enigma_loop.o
 	
 cOUT:
-	-@rm e35*.out
+	-@rm e3*.out
 	-@rm mat.out
 	-@rm int.out

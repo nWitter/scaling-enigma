@@ -46,7 +46,7 @@ void calculationMixed(int scale){
 int main(int argc, char **argv)
 {
 	srand (time(NULL));
-	printf("Initiating\n");
+	//printf("Initiating\n");
 	
 	float time_fraction = 1;
 	float targetFractionMin = 1;
@@ -67,25 +67,25 @@ int main(int argc, char **argv)
 
 	//Clock::time_point tStart = Clock::now();
 	
-	printf("Starting Interference:\nStep%f\nSlow Min/Max: %f, %f\n\n", step_length, targetFractionMin, targetFractionMin);
+	printf("\n--Starting Interference:\nSteplength: %f, Slow Min/Max: %f, %f\n\n", step_length, targetFractionMin, targetFractionMin);
 
 	
 	while (true) {
 		Clock::time_point t0 = Clock::now();
 		time_fraction = step_length * (targetFractionMin + (targetFractionMax - targetFractionMin) * rndNum());
-		printf("starting step, slow:%f\n", time_fraction);
+		//printf("starting step, slow:%f\n", time_fraction);
 
 		const int calcScale = 1 << 10;		
 		while (tNow(t0) < (time_fraction * 1000)) {
 			//choose function
 			calculationMixed(calcScale);			
 		}		
-		printf(" -step done \ttime:%d \ttotal\n", tNow(t0));
+		//printf(" -step done \ttime:%d \ttotal\n", tNow(t0));
     	
 		if(time_fraction != 1){
 			int num_milliseconds = tNow(t0);
 			std::this_thread::sleep_for(Millisec((int)(step_length * 1000 - num_milliseconds)));
-			printf("ending step \ttotal time: %d \ttime waited %d\n", tNow(t0), num_milliseconds);
+			//printf("ending step \ttotal time: %d \ttime waited %d\n", tNow(t0), num_milliseconds);
 		}
     }
 	return 0;
