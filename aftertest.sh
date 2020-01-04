@@ -1,6 +1,5 @@
 #!/bin/bash
-cd /output
-for filename in /*; do
+for filename in \output\*; do
 	echo $file
 	input="$file"
 	while IFS= read -r line; do
