@@ -2,8 +2,8 @@
 #########################
 #
 
-
-for file in /output/*
+cd /output
+for file in /*
 do
 	input="$file"
 	while IFS= read -r line
