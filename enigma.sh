@@ -2,7 +2,7 @@
 #########################
 #
 #SBATCH --job-name=scaling-test
-#SBATCH -o ./e%j.out
+#SBATCH -o ./eni%j.out
 #SBATCH -D ./
 #SBATCH --get-user-env
 #SBATCH --clusters=mpp2
@@ -17,7 +17,7 @@ export I_MPI_PIN=1
 #export VT_PCTRACE=1
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
-MATRIX_SIZE=@0
+MATRIX_SIZE=$0
 
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 

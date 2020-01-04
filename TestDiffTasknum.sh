@@ -2,16 +2,7 @@
 #########################
 #
 
-module load slurm_setup
-export I_MPI_PIN_DOMAIN=auto
-export I_MPI_PIN=1
-#export VT_PCTRACE=1
-
-#MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
-#MATRIX_SIZE=600
-
-
-echo "n=1 t=7"
+echo "starting n=1 t=7"
 sbatch enigma.sh --ntasks=1 --cpus-per-task=7 400
 
 
