@@ -3,11 +3,11 @@
 #
 
 echo "starting Interference"
-echo $0
 echo $1
+echo $2
 
 ./interference &
-./$0 $1 > mat.out &
+./$1 $2 > mat.out &
 wait
 
 
