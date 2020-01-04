@@ -17,8 +17,13 @@ export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1
 #export VT_PCTRACE=1
 
-echo "running mpi"
-chmod +x run.sh
-mpiexec -n $SLURM_NTASKS ./run.sh 600
+MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
+MATRIX_SIZE=600
+
+
+echo "init"
+chmod +x startMPI.sh
+chmod +x startInterference.sh
+./startMPI.sh $SLURM_NTASKS $MATRIX_PATH $MATRIX_SIZE
 
 exit 0
