@@ -24,6 +24,6 @@ MATRIX_SIZE=600
 echo "init"
 chmod +x startMPI.sh
 chmod +x startInterference.sh
-./startMPI.sh 2 $MATRIX_PATH $MATRIX_SIZE
+mpiexec -n $SLURM_NTASKS ./startInterference.sh $MATRIX_PATH $MATRIX_SIZE
 
 exit 0
