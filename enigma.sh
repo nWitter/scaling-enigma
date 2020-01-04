@@ -7,7 +7,7 @@
 #SBATCH --get-user-env
 #SBATCH --clusters=mpp2
 #SBATCH --ntasks=2 
-#SBATCH --cpus-per-task=7
+#SBATCH --cpus-per-task=14
 #SBATCH --time=0-00:02:00
 #
 
