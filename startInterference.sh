@@ -8,8 +8,10 @@ chmod +x enigma_loop
 for ((i=0; i<$4; i++))
 do
 	echo "--started one instance"
-	./enigma_loop &
+	./enigma_loop > enix.out &
 done
+
+#./MPI_Manager
 
 echo "starting program"
 ./$1 $2 > $3 &

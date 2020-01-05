@@ -20,8 +20,8 @@ echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 chmod +x startInterference.sh
 
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-#mpiexec -n $SLURM_NTASKS ./startInterference.sh $MATRIX_PATH $@
-mpiexec -n $SLURM_NTASKS ./enigma_loop > enix.out
+mpiexec -n $SLURM_NTASKS ./startInterference.sh $MATRIX_PATH $@
+#test mpiexec -n $SLURM_NTASKS ./enigma_loop > enix.out
 
 echo "all started, we done"
 exit 0
