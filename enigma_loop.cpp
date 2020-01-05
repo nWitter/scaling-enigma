@@ -49,10 +49,9 @@ int main(int argc, char **argv)
 	float time_fraction = 1;
 	float step_length = 1.0;
 	
-	if(argc>10){
-		time_fraction = atof(argv[a]);
+	if(argc>10)
+		argc++;
 		//nonsense
-	}
 	
 	printf("\n--Starting Interference:\nSteplength: %f, Slow %f\n\n", step_length, time_fraction);
 	

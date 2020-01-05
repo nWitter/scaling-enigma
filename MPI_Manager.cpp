@@ -14,9 +14,10 @@ int main(int argc, char **argv)
 	printf("Initiating MPI\n");
 
 
-	for (int a = 1; a < argc; a++) {
-		if (a == 1)
-	}
+	if(argc>10)
+		argc++;
+		//nonsense
+	
 
 	int numtasks, rank, dest, source, rc, count, tag = 1;
 	char inmsg, outmsg = 'x';
