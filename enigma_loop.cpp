@@ -25,7 +25,7 @@ float rndNum(){
 	return static_cast <float> (rand() % 10000) / 10000;
 }
 
-void calculationMixed(int scale){
+int calculationMixed(int scale){
 	d_vec vector(scale);
 	for (int i = 0; i < scale; i++)
 		vector[i] = 1.0;
@@ -56,12 +56,14 @@ int main(int argc, char **argv)
 		time_fraction = step_length * time_fraction;
 		//printf("starting step, slow:%f\n", time_fraction);
 
-		const int calcScale = 1 << 10;		
+		const int calcScale = 1 << 10;	
+		int tmp = 0;
 		while (tNow(t0) < (time_fraction * 1000)) {
 			//choose function
-			calculationMixed(calcScale);			
+			calculationMixed(calcScale);
+			tmp++;			
 		}		
-		printf(" -step done, \ttime:%d\n", tNow(t0));
+		printf(" -step done, \ttime:%d\tcalcs: %f\n", tNow(t0), tmp);
     	
 		if(time_fraction < 1){
 			int num_milliseconds = tNow(t0);
