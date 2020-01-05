@@ -2,8 +2,7 @@
 #########################
 #
 
-echo "Starting instances -"
-echo "Number: " $4
+echo "Starting instances:"
 chmod +x interference
 
 for ((i=0; i<$4; i++))

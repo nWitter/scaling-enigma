@@ -45,34 +45,24 @@ void calculationMixed(int scale){
 
 int main(int argc, char **argv)
 {
+	printf("Initiating Interference.\n");
 	srand (time(NULL));
-	//printf("Initiating\n");
 	
 	float time_fraction = 1;
-	float targetFractionMin = 1;
-	float targetFractionMax = targetFractionMin;
 	float step_length = 1.0;
 	
 	for(int a=1;a<argc;a++){
-		if(a ==1)
-			targetFractionMin = atof(argv[a]);
-		if(a==2)
-			targetFractionMax = atof(argv[a]);
+		if(a==10)
+			time_fraction = atof(argv[a]);
+		//nonsense
 	}
 	
-	
-	if (targetFractionMin > 1) targetFractionMin = 1 / targetFractionMin;
-	if (targetFractionMax > 1) targetFractionMax = 1 / targetFractionMax;
-	
-
-	//Clock::time_point tStart = Clock::now();
-	
-	printf("\n--Starting Interference:\nSteplength: %f, Slow Min/Max: %f, %f\n\n", step_length, targetFractionMin, targetFractionMin);
+	printf("\n--Starting Interference:\nSteplength: %f, Slow %f\n\n", step_length, time_fraction);
 
 	
 	while (true) {
 		Clock::time_point t0 = Clock::now();
-		time_fraction = step_length * (targetFractionMin + (targetFractionMax - targetFractionMin) * rndNum());
+		time_fraction = step_length * time_fraction;
 		//printf("starting step, slow:%f\n", time_fraction);
 
 		const int calcScale = 1 << 10;		
