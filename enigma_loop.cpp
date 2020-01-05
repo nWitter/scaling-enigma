@@ -15,7 +15,7 @@ typedef std::vector<double> d_vec;
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds Millisec;
 
-int tNow(Clock::time_point tZero){
+double tNow(Clock::time_point tZero){
 	std::chrono::duration<double> d = Clock::now() - tZero;
 	Millisec m = std::chrono::duration_cast<Millisec>(d);
 	return m.count();
@@ -63,12 +63,12 @@ int main(int argc, char **argv)
 			calculationMixed(calcScale);
 			tmp++;			
 		}		
-		printf(" -step done, \ttime:%d\tcalcs: %f\n", tNow(t0), tmp);
+		printf(" -step done, \ttime:%f\tcalcs: %d\n", tNow(t0), tmp);
     	
 		if(time_fraction < 1){
 			int num_milliseconds = tNow(t0);
 			std::this_thread::sleep_for(Millisec((int)(step_length * 1000 - num_milliseconds)));
-			printf("ending step \ttotal time: %d \ttime waited %d\n", tNow(t0), num_milliseconds);
+			printf("ending step \ttotal time: %f \ttime waited %d\n", tNow(t0), num_milliseconds);
 		}
     }
 	return 0;
