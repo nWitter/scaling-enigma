@@ -5,7 +5,7 @@ LDFLAGS  := -L/usr/lib -lstdc++ -lm
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/apps
-TARGET   := interference
+TARGET   := enigma_loop
 INCLUDE  := -Iinclude/
 SRC      :=                      \
    $(wildcard src/module1/*.cpp) \
@@ -27,7 +27,7 @@ MPI_Manager.o: MPI_Manager.cpp
 	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 
 MPI_Manager: MPI_Manager.o
-	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
 	
 
 

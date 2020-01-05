@@ -8,7 +8,7 @@ chmod +x enigma_loop
 for ((i=0; i<$4; i++))
 do
 	echo "--started one instance"
-	./enigma_loop > eni.out &
+	./enigma_loop &
 done
 
 echo "starting program"
