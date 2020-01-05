@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	
 	printf("\n--Starting Interference:\nSteplength: %f, Slow %f\n\n", step_length, time_fraction);
 	int a = 1;
-	while (a-->0) {
+	while (a++>0) {
 		Clock::time_point t0 = Clock::now();
 		time_fraction = step_length * time_fraction;
 		//printf("starting step, slow:%f\n", time_fraction);
