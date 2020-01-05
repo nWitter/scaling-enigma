@@ -1,5 +1,5 @@
 CXX      := -c++
-MPICXX   := MPICXX
+MPICXX   := mpiCC
 CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror -fopenmp
 LDFLAGS  := -L/usr/lib -lstdc++ -lm
 BUILD    := ./build

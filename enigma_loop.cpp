@@ -16,7 +16,6 @@
 
 
 typedef std::vector<double> d_vec;
-typedef std::vector<bool> b_vec; 
 
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds Millisec;
@@ -46,19 +45,16 @@ void calculationMixed(int scale){
 int main(int argc, char **argv)
 {
 	printf("Initiating Interference.\n");
-	srand (time(NULL));
 	
 	float time_fraction = 1;
 	float step_length = 1.0;
 	
-	for(int a=1;a<argc;a++){
-		if(a==10)
-			time_fraction = atof(argv[a]);
+	if(argc>10){
+		time_fraction = atof(argv[a]);
 		//nonsense
 	}
 	
 	printf("\n--Starting Interference:\nSteplength: %f, Slow %f\n\n", step_length, time_fraction);
-
 	
 	while (true) {
 		Clock::time_point t0 = Clock::now();
