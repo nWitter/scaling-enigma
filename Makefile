@@ -1,4 +1,5 @@
 CXX      := -c++
+MPICXX := $(subst $\',,$(MPICXX))
 CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror -fopenmp
 LDFLAGS  := -L/usr/lib -lstdc++ -lm
 BUILD    := ./build
@@ -23,10 +24,10 @@ interference: enigma_loop.o
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
 
 MPI_Manager.o: MPI_Manager.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
+	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 
 MPI_Manager: MPI_Manager.o
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
+	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 	
 
 
