@@ -27,7 +27,7 @@ MPI_Manager.o: MPI_Manager.cpp
 	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 
 MPI_Manager: MPI_Manager.o
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
+	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
 	
 
 

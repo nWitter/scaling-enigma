@@ -1,4 +1,3 @@
-
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,10 +9,6 @@
 #include <ratio>
 #include <vector>
 #include <functional>
-
-//#include "ScalingEnigmaThread.cpp"
-
-
 
 typedef std::vector<double> d_vec;
 
@@ -54,8 +49,8 @@ int main(int argc, char **argv)
 		//nonsense
 	
 	printf("\n--Starting Interference:\nSteplength: %f, Slow %f\n\n", step_length, time_fraction);
-	
-	while (true) {
+	int a = 1;
+	while (a-->0) {
 		Clock::time_point t0 = Clock::now();
 		time_fraction = step_length * time_fraction;
 		//printf("starting step, slow:%f\n", time_fraction);
