@@ -14,13 +14,19 @@ SRC      :=                      \
 
 OBJECTS := $(SRC:%.cpp=$%.o)
 
-all: enigma_loop.o interference
+all: enigma_loop.o interference MPI_Manager.o MPI_Manager
 
 enigma_loop.o: enigma_loop.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 
 interference: enigma_loop.o
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
+
+MPI_Manager.o: MPI_Manager.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
+
+MPI_Manager: MPI_Manager.o
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 	
 
 
@@ -31,9 +37,10 @@ release: CXXFLAGS += -O2
 release: all
 
 clean:
-	-@rm -fr interference.o
-	-@rm -fr interference
 	-@rm -fr enigma_loop.o
+	-@rm -fr interference
+	-@rm -fr MPI_Manager.o
+	-@rm -fr MPI_Manager
 	
 clearOUT:
 	-@rm eni*.out
