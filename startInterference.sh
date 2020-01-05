@@ -2,10 +2,11 @@
 #########################
 #
 
-echo "starting instances"
+echo "Starting instances -"
+echo "Number: " $4
 chmod +x interference
 
-for i in {1..$4}
+for ((i=0; i<$4; i++))
 do
 	echo "--started one instance"
 	./interference > out.out &
