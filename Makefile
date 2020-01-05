@@ -20,7 +20,7 @@ all: enigma_loop.o interference MPI_Manager.o MPI_Manager
 enigma_loop.o: enigma_loop.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 
-interference: enigma_loop.o
+enigma_loop: enigma_loop.o
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
 
 MPI_Manager.o: MPI_Manager.cpp
@@ -40,6 +40,7 @@ release: all
 clean:
 	-@rm -fr enigma_loop.o
 	-@rm -fr interference
+	-@rm -fr enigma_loop
 	-@rm -fr MPI_Manager.o
 	-@rm -fr MPI_Manager
 	

@@ -3,12 +3,12 @@
 #
 
 echo "Starting instances:"
-chmod +x interference
+chmod +x enigma_loop
 
 for ((i=0; i<$4; i++))
 do
 	echo "--started one instance"
-	./interference > out.out &
+	./enigma_loop > out.out &
 done
 
 echo "starting program"
