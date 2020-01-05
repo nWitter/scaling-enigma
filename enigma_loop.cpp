@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	float step_length = 1.0;
 	
 	if(argc>10)
-		argc++;
+		argv[10]++;
 		//nonsense
 	
 	printf("\n--Starting Interference:\nSteplength: %f, Slow %f\n\n", step_length, time_fraction);

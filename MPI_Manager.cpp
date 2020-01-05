@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
 
 	if(argc>10)
-		argc++;
+		argv[10]++;
 		//nonsense
 	
 
