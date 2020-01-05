@@ -2,16 +2,16 @@
 #########################
 #
 
-echo "starting Interference"
-echo $1
-echo $2
-echo $3
-
+echo "starting instances"
 chmod +x interference
+
 for i in {1..$4}
 do
-	./interference &
+	echo "--started one instance"
+	./interference > out.out &
 done
+
+echo "starting program"
 ./$1 $2 > $3 &
 echo "started prog and " $4 " interference instances"
 wait

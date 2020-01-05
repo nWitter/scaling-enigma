@@ -80,12 +80,12 @@ int main(int argc, char **argv)
 			//choose function
 			calculationMixed(calcScale);			
 		}		
-		//printf(" -step done \ttime:%d \ttotal\n", tNow(t0));
+		printf(" -step done, \ttime:%d\n", tNow(t0));
     	
 		if(time_fraction != 1){
 			int num_milliseconds = tNow(t0);
 			std::this_thread::sleep_for(Millisec((int)(step_length * 1000 - num_milliseconds)));
-			//printf("ending step \ttotal time: %d \ttime waited %d\n", tNow(t0), num_milliseconds);
+			printf("ending step \ttotal time: %d \ttime waited %d\n", tNow(t0), num_milliseconds);
 		}
     }
 	return 0;
