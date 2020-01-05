@@ -25,7 +25,7 @@ float rndNum(){
 	return static_cast <float> (rand() % 10000) / 10000;
 }
 
-int calculationMixed(int scale){
+void calculationMixed(int scale){
 	d_vec vector(scale);
 	for (int i = 0; i < scale; i++)
 		vector[i] = 1.0;
