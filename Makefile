@@ -1,5 +1,5 @@
 CXX      := -c++
-MPICXX := $(subst $\',,$(MPICXX))
+MPICXX   := MPICXX
 CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror -fopenmp
 LDFLAGS  := -L/usr/lib -lstdc++ -lm
 BUILD    := ./build
@@ -15,7 +15,7 @@ SRC      :=                      \
 
 OBJECTS := $(SRC:%.cpp=$%.o)
 
-all: enigma_loop.o interference MPI_Manager.o MPI_Manager
+all: enigma_loop.o enigma_loop MPI_Manager.o MPI_Manager
 
 enigma_loop.o: enigma_loop.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
