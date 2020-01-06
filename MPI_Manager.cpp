@@ -8,6 +8,10 @@
 
 #include "mpi.h"
 
+// rnd {0,1} 5-digits
+float rndNum(){
+	return static_cast <float> (rand() % 10000) / 10000;
+}
 
 int main(int argc, char **argv)
 {
@@ -31,26 +35,49 @@ int main(int argc, char **argv)
 	printf("Starting things.\n");
 	printf("%d, %d\n", rank, numtasks);
 
-	//while (true) {
+	for (int x=5;x>0;x--) {
 		if (rank == 0) {
 			tst++;
 			
+			
+			std::vector<char> msg(numtasks);
+			for(int a =0;a<numtasks;a++)
+				msg[a] = '0';
+			
+			double affected = 0.5;
+			int slow = (int)(numtasks * affected);
+			int assigned = 0;
+			printf("Assigning %d slows\n", slow);
+			while(assigned<slow){
+				tmp = (int) (rndNum() * numtasks);
+				if(msg[tmp]!='0'){
+					msg[tmp]='s';
+					tmp++;
+				}
+			}
+			
+			
+			
+			printf("0 Sending things\n");
 			for(int i = 1;i<numtasks;i++){
 				dest = i;
-				outmsg = '1';
+				outmsg = msg[i];
 				MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
-				printf("Sending frnom 0\n");
+				
 			}
 
 		} else if (rank != 0) {			
 			source = 0;
 			MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
-			printf("Rec %c 0\n", inmsg);
+			if(inmsg='0')
+				printf("%d NOTHING\n", rank);
+			else
+				printf("%d slow %c\n", rank, inmsg);
 		}
 
 
 
-	//}
+	}
 
 	printf("done .\n");
 	MPI_Get_count(&Stat, MPI_CHAR, &count);
