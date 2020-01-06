@@ -20,7 +20,7 @@ float rndNum(){
 
 double tNow(Clock::time_point tZero){
 	std::chrono::duration<double> d = Clock::now() - tZero;
-	Millisec m = std::chrono::duration_cast<Millisec>(d);
+	milliseconds m = std::chrono::duration_cast<milliseconds>(d);
 	return m.count();
 }
 
@@ -78,7 +78,7 @@ int main(int argc, char **argv)
 			
 			int num_milliseconds = tNow(t0);
 			printf("time for thingys: %d\n", num_milliseconds);
-			std::this_thread::sleep_for(Millisec((int)(intervalMillisec - num_milliseconds)));
+			std::this_thread::sleep_for(milliseconds((int)(intervalMillisec - num_milliseconds)));
 
 		} else if (rank != 0) {
 			source = 0;
