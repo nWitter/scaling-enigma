@@ -35,8 +35,12 @@ int main(int argc, char **argv)
 		if (rank == 0) {
 			tst++;
 			printf("sth\n");
-			MPI_Recv(&inmsg, 1, MPI_CHAR, 1, tag, MPI_COMM_WORLD, &Stat);
+			
+			source = 1;
+			MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
 			printf("%c \n", inmsg);
+			
+			source = 2;
 			MPI_Recv(&inmsg, 1, MPI_CHAR, 2, tag, MPI_COMM_WORLD, &Stat);
 			printf("%c \n", inmsg);
 			
@@ -48,7 +52,8 @@ int main(int argc, char **argv)
 
 		} else if (rank != 0) {
 			//tst
-			MPI_Send(&outmsg, 1, MPI_CHAR, 0, tag, MPI_COMM_WORLD);
+			dest = 0;
+			MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
 			
 			source = 0;
 			MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
