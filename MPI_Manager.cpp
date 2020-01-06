@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 			
 			while(assigned<slow){
 				int tmp = (int) (rndNum() * numtasks);
-				printf("%f", tmp);
+				printf("%d", tmp);
 				if(msg[tmp]!='0'){
 					msg[tmp]='s';
 					tmp++;
