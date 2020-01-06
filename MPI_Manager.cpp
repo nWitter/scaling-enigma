@@ -3,21 +3,33 @@
 #include <stdlib.h>
 #include <thread>
 #include <ratio>
+#include <chrono>
 #include <vector>
 #include <functional>
 
 #include "mpi.h"
+
+typedef std::chrono::steady_clock Clock;
+typedef std::chrono::milliseconds milliseconds;
+
 
 // rnd {0,1} 5-digits
 float rndNum(){
 	return static_cast <float> (rand() % 10000) / 10000;
 }
 
+double tNow(Clock::time_point tZero){
+	std::chrono::duration<double> d = Clock::now() - tZero;
+	Millisec m = std::chrono::duration_cast<Millisec>(d);
+	return m.count();
+}
+
 int main(int argc, char **argv)
 {
 	printf("Initiating MPI.\n");
 
-
+	int intervalMillisec = 1000;
+	
 	if(argc>10)
 		argv[10]++;
 		//nonsense
@@ -27,7 +39,6 @@ int main(int argc, char **argv)
 	char inmsg, outmsg = 'x';
 	MPI_Status Stat;
 	char intrfStatus = '0';
-	int tst = 0;
 
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
@@ -37,8 +48,7 @@ int main(int argc, char **argv)
 
 	for (int x=5;x>0;x--) {
 		if (rank == 0) {
-			tst++;
-			
+			Clock::time_point t0 = Clock::now();
 			
 			std::vector<char> msg(numtasks);
 			for(int a =0;a<numtasks;a++)
@@ -65,8 +75,12 @@ int main(int argc, char **argv)
 				MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
 				
 			}
+			
+			int num_milliseconds = tNow(t0);
+			printf("time for thingys: %d\n", num_milliseconds);
+			std::this_thread::sleep_for(Millisec((int)(intervalMillisec - num_milliseconds)));
 
-		} else if (rank != 0) {			
+		} else if (rank != 0) {
 			source = 0;
 			MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
 			if(inmsg=='0')
