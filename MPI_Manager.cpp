@@ -42,8 +42,7 @@ int main(int argc, char **argv)
 			source = 0;
 			MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
 			
-			printf(inmsg);
-			printf("\n");
+			printf("%c \n", inmsg);
 		}
 
 
