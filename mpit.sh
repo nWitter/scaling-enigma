@@ -20,10 +20,10 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
 echo "Testing MPIsetup"
 echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
-chmod +x MPI_Manager.sh
+chmod +x MPI_Manager
 
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-mpiexec -n $SLURM_NTASKS ./MPI_Manager.sh > mpi.out
+mpiexec -n $SLURM_NTASKS ./MPI_Manager > mpi.out
 
 echo "all started, we done"
 exit 0
