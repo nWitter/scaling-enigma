@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 			int assigned = 0;
 			printf("Assigning %d slows\n", slow);
 			while(assigned<slow){
-				tmp = (int) (rndNum() * numtasks);
+				int tmp = (int) (rndNum() * numtasks);
 				if(msg[tmp]!='0'){
 					msg[tmp]='s';
 					tmp++;
@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 		} else if (rank != 0) {			
 			source = 0;
 			MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
-			if(inmsg='0')
+			if(inmsg=='0')
 				printf("%d NOTHING\n", rank);
 			else
 				printf("%d slow %c\n", rank, inmsg);
