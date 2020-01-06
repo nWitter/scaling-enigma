@@ -46,4 +46,4 @@ clean:
 	
 clearOUT:
 	-@rm eni*.out
-	-@rm n*t*e*.out
+	-@rm mpi.out
