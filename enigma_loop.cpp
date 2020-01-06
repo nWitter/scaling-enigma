@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 		//nonsense
 	
 	printf("\n--Starting Interference:\nSteplength: %f, Slow %f\n\n", step_length, time_fraction);
-	int a = 60;
+	int a = 100;
 	while (a>0) {
 		a--;
 		Clock::time_point t0 = Clock::now();
