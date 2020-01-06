@@ -58,22 +58,21 @@ int main(int argc, char **argv)
 			int slow = (int)(numtasks * affected);
 			int assigned = 0;
 			printf("Assigning %d slows\n", slow);
+			
 			while(assigned<slow){
 				int tmp = (int) (rndNum() * numtasks);
+				printf("%f", tmp);
 				if(msg[tmp]!='0'){
 					msg[tmp]='s';
 					tmp++;
 				}
 			}
 			
-			
-			
-			printf("0 Sending things\n");
 			for(int i = 1;i<numtasks;i++){
 				dest = i;
 				outmsg = msg[i];
 				MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
-				
+				printf("0 Sending %c to %d\n", outmsg, i);
 			}
 			
 			int num_milliseconds = tNow(t0);
