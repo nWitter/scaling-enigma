@@ -37,12 +37,18 @@ int main(int argc, char **argv)
 				outmsg = '1';
 				MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
 			}
+			for(int i = 1;i<numtasks;i++){
+				source = i;
+				MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
+			printf("%c \n", inmsg);
+			}
 
 		} else if (rank != 0) {
 			source = 0;
 			MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
 			
 			printf("%c \n", inmsg);
+			MPI_Send(&outmsg, 1, MPI_CHAR, 0, tag, MPI_COMM_WORLD);
 		}
 
 
