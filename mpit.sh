@@ -6,7 +6,7 @@
 #SBATCH -D ./
 #SBATCH --get-user-env
 #SBATCH --clusters=mpp2
-#SBATCH --ntasks=3
+#SBATCH --ntasks=4
 #SBATCH --cpus-per-task=4
 #SBATCH --time=00:03:00
 #
@@ -16,7 +16,7 @@ echo "Testing MPIsetup"
 chmod +x MPI_Manager
 
 export OMP_NUM_THREADS=4
-mpiexec -n 3 ./MPI_Manager > mpi.out
+mpiexec -n 4 ./MPI_Manager > mpi.out
 
 echo "all started, we done"
 exit 0
