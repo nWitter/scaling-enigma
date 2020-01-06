@@ -6,7 +6,7 @@
 #SBATCH -D ./
 #SBATCH --get-user-env
 #SBATCH --clusters=mpp2
-#SBATCH --time=0-00:03:00
+#SBATCH --time=00:03:00
 
 module load slurm_setup
 export I_MPI_PIN_DOMAIN=auto
