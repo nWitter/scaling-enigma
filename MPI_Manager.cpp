@@ -60,9 +60,9 @@ int main(int argc, char **argv)
 			printf("Assigning %d slows\n", slow);
 			
 			while(assigned<slow){
-				int tmp = (int) (rndNum() * numtasks);
+				int tmp = (int) (rndNum() * (numtasks+1));
 				printf("%d", tmp);
-				if(msg[tmp]!='0'){
+				if(msg[tmp]=='0'){
 					msg[tmp]='s';
 					tmp++;
 				}
