@@ -50,14 +50,14 @@ int main(int argc, char **argv)
 		if (rank == 0) {
 			Clock::time_point t0 = Clock::now();
 			
-			std::vector<char> msg(numtasks);
-			for(int a =0;a<numtasks;a++)
-				msg[a] = '0';
 			
 			double affected = 0.5;
 			int slow = (int)(numtasks * affected);
 			int assigned = 0;
-			printf("Assigning %d slows\n", slow);
+			
+			std::vector<char> msg(numtasks);
+			for(int a =0;a<numtasks;a++)
+				msg[a] = '0';
 			
 			while(assigned<slow){
 				int tmp = (int) (rndNum() * (numtasks+1));
@@ -67,27 +67,28 @@ int main(int argc, char **argv)
 					assigned++;
 				}
 			}
-			printf("assigned %d/n", assigned);
+			printf("#atempt %d, actual slows %d\n", slow, assigned);
 			
 			
 			for(int i = 1;i<numtasks;i++){
 				dest = i;
 				outmsg = msg[i];
 				MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
-				printf("0 Sending %c to %d\n", outmsg, i);
+				printf("#0 Sending %c to %d\n", outmsg, i);
 			}
 			
 			int num_milliseconds = tNow(t0);
-			printf("time for thingys: %d\n", num_milliseconds);
-			std::this_thread::sleep_for(milliseconds((int)(intervalMillisec - num_milliseconds)));
+			int sleep = milliseconds((int)(intervalMillisec - num_milliseconds));
+			printf("#time %d, sleeping %d\n", num_milliseconds, sleep);
+			std::this_thread::sleep_for(sleep);
 
 		} else if (rank != 0) {
 			source = 0;
 			MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
 			if(inmsg=='0')
-				printf("%d NOTHING\n", rank);
+				printf("--%d NOTHING\n", rank);
 			else
-				printf("%d slow %c\n", rank, inmsg);
+				printf("--%d slow %c\n", rank, inmsg);
 		}
 
 
