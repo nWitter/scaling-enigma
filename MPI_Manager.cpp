@@ -26,8 +26,6 @@ double tNow(Clock::time_point tZero){
 
 int main(int argc, char **argv)
 {
-	printf("Initiating MPI.\n");
-
 	int intervalMillisec = 1000;
 	
 	if(argc>10)
@@ -42,10 +40,11 @@ int main(int argc, char **argv)
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	printf("Starting things.\n");
-	printf("%d, %d\n", rank, numtasks);
+	printf("Starting: ranks %d, tasks %d\n", rank, numtasks);
 
-	char* scatterBuffer = (char*)malloc(2 * numtasks * sizeof(char));
+	
+	//char* scatterBuffer = (char*)malloc(2 * numtasks * sizeof(char));
+	char scatterBuffer[8];
 	char inbuffer[2];
 	
 	
