@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 			
 			std::vector<char> msg(numtasks);
 			for(int a =0;a<2*numtasks;a++)
-				scatterBuffer[a] = '0';
+				scatterBuffer[a] = 'x';
 			
 			//test
 			for(int a =numtasks+1;a<2*numtasks;a++)
@@ -115,7 +115,7 @@ int main(int argc, char **argv)
 			if(inbuffer[0] == '0')
 				printf("--%d NOTHING\n", rank);
 			else if (inbuffer[0] == '1')
-				printf("--%d slow %c\n", rank, inmsg);
+				printf("--%d slow %c\n", rank, inbuffer[0]);
 			else
 				printf("--%d GOT SOMETHING %c %c\n", rank, inbuffer[0], inbuffer[1]);
 		}
