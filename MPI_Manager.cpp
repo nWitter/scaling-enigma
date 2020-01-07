@@ -61,12 +61,14 @@ int main(int argc, char **argv)
 			
 			while(assigned<slow){
 				int tmp = (int) (rndNum() * (numtasks+1));
-				printf("%d", tmp);
 				if(msg[tmp]=='0'){
+					//TODO things
 					msg[tmp]='s';
-					tmp++;
+					assigned++;
 				}
 			}
+			printf("assigned %d/n", assigned);
+			
 			
 			for(int i = 1;i<numtasks;i++){
 				dest = i;
