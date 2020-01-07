@@ -49,6 +49,7 @@ int main(int argc, char **argv)
 	
 	
 	for (int x=5;x>0;x--) {
+		printf("%d ...\n", rank);
 		Clock::time_point t0 = Clock::now();
 		
 		if (rank == 0) {
@@ -67,7 +68,7 @@ int main(int argc, char **argv)
 			if(numtasks>1){
 			while(assigned<slow){
 				if(affected<0||affected>1){
-					printf("#error invalid number of nodes");
+					printf("#error invalid number of affected nodes");
 					break;
 				}
 				
