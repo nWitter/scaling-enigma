@@ -121,7 +121,7 @@ int main(int argc, char **argv)
 	MPI_Get_count(&Stat, MPI_CHAR, &count);
 	printf("Task %d: Received %d char(s) from task %d with tag %d \n", rank, count, Stat.MPI_SOURCE, Stat.MPI_TAG);
 
-	free scatterBuffer;
+	free(scatterBuffer);
 	MPI_Finalize();
 }
 
