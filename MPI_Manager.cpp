@@ -38,7 +38,8 @@ int main(int argc, char **argv)
 	int numtasks, rank, dest, source, rc, count, tag = 1;
 	char inmsg, outmsg = 'x';
 	MPI_Status Stat;
-	char intrfStatus = '0';
+	char scatterBuffer = (char) malloc(2 * numtasks);
+	char inbuffer[2];
 
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
@@ -46,6 +47,9 @@ int main(int argc, char **argv)
 	printf("Starting things.\n");
 	printf("%d, %d\n", rank, numtasks);
 
+	
+	
+	
 	for (int x=5;x>0;x--) {
 		if (rank == 0) {
 			Clock::time_point t0 = Clock::now();
@@ -56,8 +60,11 @@ int main(int argc, char **argv)
 			int assigned = 0;
 			
 			std::vector<char> msg(numtasks);
-			for(int a =0;a<numtasks;a++)
-				msg[a] = '0';
+			for(int a =0;a<2*numtasks;a++)
+				scatterBuffer[a] = '0';
+			
+			for(int a =numtasks+1;a<2*numtasks;a++)
+				scatterBuffer[a] = '2';
 			
 			while(assigned<slow){
 				if(affected<0||affected>1){
@@ -66,9 +73,9 @@ int main(int argc, char **argv)
 				}
 				
 				int tmp = (int) (rndNum() * (numtasks+1));
-				if(msg[tmp]=='0'){
+				if(scatterBuffer[tmp]=='0'){
 					//TODO things
-					msg[tmp]='s';
+					scatterBuffer[tmp]='s';
 					assigned++;
 				}
 			}
@@ -76,14 +83,13 @@ int main(int argc, char **argv)
 			
 			for(int i = 1;i<numtasks;i++){
 				dest = i;
-				outmsg = msg[i];
 				//MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
 				printf("#0 Sending %c to %d\n", outmsg, i);
 			}
 			
 			printf("#SCATTER\n");
 			// scatter blocking??
-			MPI_Scatter(&outmsg,1,MPI_CHAR,&inmsg,1,MPI_CHAR,0,MPI_COMM_WORLD);
+			MPI_Scatter(&scatterBuffer,2,MPI_CHAR,&inbuffer,2,MPI_CHAR,0,MPI_COMM_WORLD);
 			
 			if(msg[0] != '0'){
 				printf("#also doin slow %c\n", msg[0]);
@@ -102,8 +108,10 @@ int main(int argc, char **argv)
 			MPI_Scatter(&outmsg,1,MPI_CHAR,&inmsg,1,MPI_CHAR,source,MPI_COMM_WORLD);
 			if(inmsg=='0')
 				printf("--%d NOTHING\n", rank);
-			else
+			else if (inmsg=='0')
 				printf("--%d slow %c\n", rank, inmsg);
+			else
+				printf("--i got SOMETHING %c\n", rank, inmsg);
 		}
 
 
@@ -114,7 +122,7 @@ int main(int argc, char **argv)
 	MPI_Get_count(&Stat, MPI_CHAR, &count);
 	printf("Task %d: Received %d char(s) from task %d with tag %d \n", rank, count, Stat.MPI_SOURCE, Stat.MPI_TAG);
 
-
+	free ;
 	MPI_Finalize();
 }
 
