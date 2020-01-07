@@ -77,10 +77,16 @@ int main(int argc, char **argv)
 				printf("#0 Sending %c to %d\n", outmsg, i);
 			}
 			
+			if(msg[0] != '0'){
+				printf("#also doin slow %c\n", msg[0]);
+				
+			}
+			
+			
 			int num_milliseconds = tNow(t0);
-			int sleep = milliseconds((int)(intervalMillisec - num_milliseconds));
+			int sleep = intervalMillisec - num_milliseconds;
 			printf("#time %d, sleeping %d\n", num_milliseconds, sleep);
-			std::this_thread::sleep_for(sleep);
+			std::this_thread::sleep_for(milliseconds(sleep));
 
 		} else if (rank != 0) {
 			source = 0;
