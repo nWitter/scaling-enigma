@@ -42,10 +42,9 @@ int main(int argc, char **argv)
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	printf("Starting: ranks %d, tasks %d\n", rank, numtasks);
 
-	
-	//char* scatterBuffer = (char*)malloc(2 * numtasks * sizeof(char));
-	char scatterBuffer[4];
-	char inbuffer;
+	final int bufferSize = 3;
+	char* scatterBuffer = (char*)malloc(bufferSize * numtasks * sizeof(char));
+	char inbuffer[bufferSize];
 	
 	
 	for (int x=5;x>0;x--) {
@@ -57,11 +56,15 @@ int main(int argc, char **argv)
 			int assigned = 0;
 			
 			std::vector<char> msg(numtasks);
-			for(int a =0;a<numtasks;a++)
+			for(int a =0;a<numtasks* bufferSize;a++)
 				scatterBuffer[a] = 'x';
 			
 			//test
+			for(int a =numtasks;a<numtasks* bufferSize;a++)
+				scatterBuffer[a] = '2';
 			
+			for(int a =numtasks*2;a<numtasks* bufferSize;a++)
+				scatterBuffer[a] = '3';
 			
 		printf("%d ...\n", rank);
 			
@@ -95,12 +98,7 @@ int main(int argc, char **argv)
 			
 			printf("#SCATTER\n");
 			// scatter blocking??
-			MPI_Scatter(scatterBuffer,1,MPI_CHAR,&inbuffer,1,MPI_CHAR,0,MPI_COMM_WORLD);
-			
-			if(msg[0] != '0'){
-				printf("#also doin slow %c %c\n", inbuffer, inbuffer);
-				
-			}
+			MPI_Scatter(scatterBuffer,bufferSize,MPI_CHAR,inbuffer,bufferSize,MPI_CHAR,0,MPI_COMM_WORLD);
 			
 			
 			int num_milliseconds = tNow(t0);
@@ -110,18 +108,18 @@ int main(int argc, char **argv)
 
 		} else if (rank != 0) {
 			//MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
-			MPI_Scatter(scatterBuffer,1,MPI_CHAR,&inbuffer,1,MPI_CHAR,0,MPI_COMM_WORLD);
-			if(inbuffer == '0')
-				printf("--%d NOTHING\n", rank);
-			else if (inbuffer == '1')
-				printf("--%d slow %c\n", rank, inbuffer);
-			else
-				printf("--%d GOT SOMETHING %c %c\n", rank, inbuffer, inbuffer);
+			MPI_Scatter(scatterBuffer,bufferSize,MPI_CHAR,inbuffer,bufferSize,MPI_CHAR,0,MPI_COMM_WORLD);
 		}
 
 
 		
 		
+			if(inbuffer[0] == '0')
+				printf("--%d NOTHING\n", rank);
+			else if (inbuffer[0] == '1')
+				printf("--%d slow %c\n", rank, inbuffer[0]);
+			else
+				printf("--%d GOT SOMETHING %c %c\n", rank, inbuffer[0], inbuffer[1], inbuffer[1]);
 		//TODO do interference here
 
 	}
