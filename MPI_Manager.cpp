@@ -38,8 +38,6 @@ int main(int argc, char **argv)
 	int numtasks, rank, dest, source, rc, count, tag = 1;
 	char inmsg, outmsg = 'x';
 	MPI_Status Stat;
-	char* scatterBuffer = (char) malloc(2 * numtasks * sizeof(char));
-	char inbuffer[2];
 
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
@@ -47,7 +45,8 @@ int main(int argc, char **argv)
 	printf("Starting things.\n");
 	printf("%d, %d\n", rank, numtasks);
 
-	
+	char* scatterBuffer = (char) malloc(2 * numtasks * sizeof(char));
+	char inbuffer[2];
 	
 	
 	for (int x=5;x>0;x--) {
@@ -111,7 +110,7 @@ int main(int argc, char **argv)
 			else if (inmsg=='0')
 				printf("--%d slow %c\n", rank, inmsg);
 			else
-				printf("--i got SOMETHING %c\n", rank, inmsg);
+				printf("--%d GOT SOMETHING %c\n", rank, inmsg);
 		}
 
 
