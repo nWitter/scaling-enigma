@@ -60,6 +60,11 @@ int main(int argc, char **argv)
 				msg[a] = '0';
 			
 			while(assigned<slow){
+				if(affected<0||affected>1){
+					printf("#error invalid number of nodes");
+					break;
+				}
+				
 				int tmp = (int) (rndNum() * (numtasks+1));
 				if(msg[tmp]=='0'){
 					//TODO things
@@ -67,15 +72,19 @@ int main(int argc, char **argv)
 					assigned++;
 				}
 			}
-			printf("#atempt %d, actual slows %d\n", slow, assigned);
+			printf("#atmpt %d, actual slows %d\n", slow, assigned);
 			
-			
+			MPI_Scatter(&outmsg,1,MPI_CHAR,&inmsg,1,MPI_CHAR,source,MPI_COMM_WORLD);
 			for(int i = 1;i<numtasks;i++){
 				dest = i;
 				outmsg = msg[i];
-				MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
+				//MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
 				printf("#0 Sending %c to %d\n", outmsg, i);
 			}
+			
+			printf("#SCATTER\n");
+			// scatter blocking??
+			MPI_Scatter(&outmsg,1,MPI_CHAR,&inmsg,1,MPI_CHAR,0,MPI_COMM_WORLD)
 			
 			if(msg[0] != '0'){
 				printf("#also doin slow %c\n", msg[0]);
@@ -90,7 +99,8 @@ int main(int argc, char **argv)
 
 		} else if (rank != 0) {
 			source = 0;
-			MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
+			//MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
+			MPI_Scatter(&outmsg,1,MPI_CHAR,&inmsg,1,MPI_CHAR,source,MPI_COMM_WORLD);
 			if(inmsg=='0')
 				printf("--%d NOTHING\n", rank);
 			else
