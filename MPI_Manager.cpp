@@ -74,7 +74,6 @@ int main(int argc, char **argv)
 			}
 			printf("#atmpt %d, actual slows %d\n", slow, assigned);
 			
-			MPI_Scatter(&outmsg,1,MPI_CHAR,&inmsg,1,MPI_CHAR,source,MPI_COMM_WORLD);
 			for(int i = 1;i<numtasks;i++){
 				dest = i;
 				outmsg = msg[i];
@@ -84,7 +83,7 @@ int main(int argc, char **argv)
 			
 			printf("#SCATTER\n");
 			// scatter blocking??
-			MPI_Scatter(&outmsg,1,MPI_CHAR,&inmsg,1,MPI_CHAR,0,MPI_COMM_WORLD)
+			MPI_Scatter(&outmsg,1,MPI_CHAR,&inmsg,1,MPI_CHAR,0,MPI_COMM_WORLD);
 			
 			if(msg[0] != '0'){
 				printf("#also doin slow %c\n", msg[0]);
