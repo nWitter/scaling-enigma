@@ -42,7 +42,7 @@ int main(int argc, char **argv)
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	printf("Starting: ranks %d, tasks %d\n", rank, numtasks);
 
-	final int bufferSize = 3;
+	const int bufferSize = 3;
 	char* scatterBuffer = (char*)malloc(bufferSize * numtasks * sizeof(char));
 	char inbuffer[bufferSize];
 	
@@ -119,7 +119,7 @@ int main(int argc, char **argv)
 			else if (inbuffer[0] == '1')
 				printf("--%d slow %c\n", rank, inbuffer[0]);
 			else
-				printf("--%d GOT SOMETHING %c %c\n", rank, inbuffer[0], inbuffer[1], inbuffer[1]);
+				printf("--%d GOT SOMETHING %c %c %c\n", rank, inbuffer[0], inbuffer[1], inbuffer[1]);
 		//TODO do interference here
 
 	}
