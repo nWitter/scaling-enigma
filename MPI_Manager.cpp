@@ -49,7 +49,6 @@ int main(int argc, char **argv)
 	
 	
 	for (int x=5;x>0;x--) {
-		printf("%d ...\n", rank);
 		Clock::time_point t0 = Clock::now();
 		
 		if (rank == 0) {
@@ -64,9 +63,10 @@ int main(int argc, char **argv)
 			//test
 			
 			
+		printf("%d ...\n", rank);
 			
 			if(numtasks>1){
-			while(assigned<slow){
+			while(assigned<slow && false){
 				if(affected<0||affected>1){
 					printf("#error invalid number of affected nodes");
 					break;
@@ -83,6 +83,7 @@ int main(int argc, char **argv)
 				scatterBuffer[0] = '0';
 			}
 			
+		printf("%d ...\n", rank);
 			
 			printf("#atmpt %d, actual slows %d\n", slow, assigned);
 			
