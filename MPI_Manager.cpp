@@ -91,7 +91,7 @@ int main(int argc, char **argv)
 			MPI_Scatter(&scatterBuffer,2,MPI_CHAR,&inbuffer,2,MPI_CHAR,0,MPI_COMM_WORLD);
 			
 			if(msg[0] != '0'){
-				printf("#also doin slow %c\n", msg[0]);
+				printf("#also doin slow %c %c\n", inbuffer[0], inbuffer[1]);
 				
 			}
 			
@@ -105,12 +105,12 @@ int main(int argc, char **argv)
 			source = 0;
 			//MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
 			MPI_Scatter(&outmsg,1,MPI_CHAR,&inmsg,1,MPI_CHAR,source,MPI_COMM_WORLD);
-			if(inmsg=='0')
+			if(inmsg == '0')
 				printf("--%d NOTHING\n", rank);
-			else if (inmsg=='0')
+			else if (inmsg == '0')
 				printf("--%d slow %c\n", rank, inmsg);
 			else
-				printf("--%d GOT SOMETHING %c\n", rank, inmsg);
+				printf("--%d GOT SOMETHING %c %c\n", rank, inbuffer[0], inbuffer[1]);
 		}
 
 
@@ -121,7 +121,7 @@ int main(int argc, char **argv)
 	MPI_Get_count(&Stat, MPI_CHAR, &count);
 	printf("Task %d: Received %d char(s) from task %d with tag %d \n", rank, count, Stat.MPI_SOURCE, Stat.MPI_TAG);
 
-	free ;
+	free scatterBuffer;
 	MPI_Finalize();
 }
 
