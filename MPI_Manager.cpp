@@ -56,17 +56,16 @@ int main(int argc, char **argv)
 			int assigned = 0;
 			
 			std::vector<char> msg(numtasks);
-			for(int a =0;a<numtasks* bufferSize;a++)
-				scatterBuffer[a] = 'x';
+			for(int a=0;a<numtasks* bufferSize;a++)
+				scatterBuffer[a] = '-';
 			
 			//test
-			for(int a =numtasks;a<numtasks* bufferSize;a++)
+			for(int a=1;a<numtasks* bufferSize;a+=3)
 				scatterBuffer[a] = '2';
 			
-			for(int a =numtasks*2;a<numtasks* bufferSize;a++)
+			for(int a=2;a<numtasks* bufferSize;a+=3)
 				scatterBuffer[a] = '3';
 			
-		printf("%d ...\n", rank);
 			
 			if(numtasks>1){
 			while(assigned<slow && false){
