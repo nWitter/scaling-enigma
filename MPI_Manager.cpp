@@ -50,10 +50,9 @@ int main(int argc, char **argv)
 	
 	
 	for (int x=5;x>0;x--) {
+		Clock::time_point t0 = Clock::now();
+		
 		if (rank == 0) {
-			Clock::time_point t0 = Clock::now();
-			
-			
 			double affected = 0.5;
 			int slow = (int)(numtasks * affected);
 			int assigned = 0;
@@ -62,9 +61,13 @@ int main(int argc, char **argv)
 			for(int a =0;a<2*numtasks;a++)
 				scatterBuffer[a] = '0';
 			
+			//test
 			for(int a =numtasks+1;a<2*numtasks;a++)
 				scatterBuffer[a] = '2';
 			
+			
+			
+			if(numtasks>1){
 			while(assigned<slow){
 				if(affected<0||affected>1){
 					printf("#error invalid number of nodes");
@@ -78,6 +81,11 @@ int main(int argc, char **argv)
 					assigned++;
 				}
 			}
+			}else if(affected >= 0.5){
+				scatterBuffer[0] = '0';
+			}
+			
+			
 			printf("#atmpt %d, actual slows %d\n", slow, assigned);
 			
 			for(int i = 1;i<numtasks;i++){
@@ -102,9 +110,8 @@ int main(int argc, char **argv)
 			std::this_thread::sleep_for(milliseconds(sleep));
 
 		} else if (rank != 0) {
-			source = 0;
 			//MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
-			MPI_Scatter(&outmsg,1,MPI_CHAR,&inmsg,1,MPI_CHAR,source,MPI_COMM_WORLD);
+			MPI_Scatter(null,2,MPI_CHAR,&inbuffer,2,MPI_CHAR,o,MPI_COMM_WORLD);
 			if(inmsg == '0')
 				printf("--%d NOTHING\n", rank);
 			else if (inmsg == '0')
@@ -114,6 +121,9 @@ int main(int argc, char **argv)
 		}
 
 
+		
+		
+		//TODO do interference here
 
 	}
 
