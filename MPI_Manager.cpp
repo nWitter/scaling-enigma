@@ -57,12 +57,10 @@ int main(int argc, char **argv)
 			int assigned = 0;
 			
 			std::vector<char> msg(numtasks);
-			for(int a =0;a<2*numtasks;a++)
+			for(int a =0;a<numtasks;a++)
 				scatterBuffer[a] = 'x';
 			
 			//test
-			for(int a =numtasks+1;a<2*numtasks;a++)
-				scatterBuffer[a] = '2';
 			
 			
 			
