@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	int numtasks, rank, dest, source, rc, count, tag = 1;
 	char inmsg, outmsg = 'x';
 	MPI_Status Stat;
-	char scatterBuffer = (char) malloc(2 * numtasks);
+	char* scatterBuffer = (char) malloc(2 * numtasks * sizeof(char));
 	char inbuffer[2];
 
 	MPI_Init(&argc, &argv);
