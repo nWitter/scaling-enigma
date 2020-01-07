@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 	printf("Starting things.\n");
 	printf("%d, %d\n", rank, numtasks);
 
-	char* scatterBuffer = (char) malloc(2 * numtasks * sizeof(char));
+	char* scatterBuffer = (char*)malloc(2 * numtasks * sizeof(char));
 	char inbuffer[2];
 	
 	
