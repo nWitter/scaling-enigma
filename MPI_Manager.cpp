@@ -111,10 +111,10 @@ int main(int argc, char **argv)
 
 		} else if (rank != 0) {
 			//MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
-			MPI_Scatter(null,2,MPI_CHAR,&inbuffer,2,MPI_CHAR,o,MPI_COMM_WORLD);
-			if(inmsg == '0')
+			MPI_Scatter(&scatterBuffer,2,MPI_CHAR,&inbuffer,2,MPI_CHAR,0,MPI_COMM_WORLD);
+			if(inbuffer[0] == '0')
 				printf("--%d NOTHING\n", rank);
-			else if (inmsg == '0')
+			else if (inbuffer[0] == '1')
 				printf("--%d slow %c\n", rank, inmsg);
 			else
 				printf("--%d GOT SOMETHING %c %c\n", rank, inbuffer[0], inbuffer[1]);
