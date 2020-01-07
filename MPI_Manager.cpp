@@ -95,10 +95,10 @@ int main(int argc, char **argv)
 			
 			printf("#SCATTER\n");
 			// scatter blocking??
-			MPI_Scatter(&scatterBuffer,1,MPI_CHAR,&inbuffer,1,MPI_CHAR,0,MPI_COMM_WORLD);
+			MPI_Scatter(scatterBuffer,1,MPI_CHAR,&inbuffer,1,MPI_CHAR,0,MPI_COMM_WORLD);
 			
 			if(msg[0] != '0'){
-				printf("#also doin slow %c %c\n", inbuffer[0], inbuffer[0]);
+				printf("#also doin slow %c %c\n", inbuffer, inbuffer);
 				
 			}
 			
@@ -110,13 +110,13 @@ int main(int argc, char **argv)
 
 		} else if (rank != 0) {
 			//MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
-			MPI_Scatter(&scatterBuffer,1,MPI_CHAR,&inbuffer,1,MPI_CHAR,0,MPI_COMM_WORLD);
-			if(inbuffer[0] == '0')
+			MPI_Scatter(scatterBuffer,1,MPI_CHAR,&inbuffer,1,MPI_CHAR,0,MPI_COMM_WORLD);
+			if(inbuffer == '0')
 				printf("--%d NOTHING\n", rank);
-			else if (inbuffer[0] == '1')
-				printf("--%d slow %c\n", rank, inbuffer[0]);
+			else if (inbuffer == '1')
+				printf("--%d slow %c\n", rank, inbuffer);
 			else
-				printf("--%d GOT SOMETHING %c %c\n", rank, inbuffer[0], inbuffer[0]);
+				printf("--%d GOT SOMETHING %c %c\n", rank, inbuffer, inbuffer);
 		}
 
 
