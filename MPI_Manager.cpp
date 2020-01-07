@@ -85,20 +85,13 @@ int main(int argc, char **argv)
 				scatterBuffer[0] = '0';
 			}
 			
-		printf("%d ...\n", rank);
-			
 			printf("#atmpt %d, actual slows %d\n", slow, assigned);
 			
-			for(int i = 1;i<numtasks;i++){
-				dest = i;
-				//MPI_Send(&outmsg, 1, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
-				printf("#0 Sending %c to %d\n", outmsg, i);
-			}
-			
-			printf("#SCATTER\n");
 			// scatter blocking??
 			MPI_Scatter(scatterBuffer,bufferSize,MPI_CHAR,inbuffer,bufferSize,MPI_CHAR,0,MPI_COMM_WORLD);
 			
+			//test
+			std::this_thread::sleep_for(milliseconds(5));
 			
 			int num_milliseconds = tNow(t0);
 			int sleep = intervalMillisec - num_milliseconds;
@@ -118,7 +111,7 @@ int main(int argc, char **argv)
 			else if (inbuffer[0] == '1')
 				printf("--%d slow %c\n", rank, inbuffer[0]);
 			else
-				printf("--%d GOT SOMETHING %c %c %c\n", rank, inbuffer[0], inbuffer[1], inbuffer[1]);
+				printf("--%d GOT SOMETHING %c %c %c\n", rank, inbuffer[0], inbuffer[1], inbuffer[2]);
 		//TODO do interference here
 
 	}
