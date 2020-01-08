@@ -37,6 +37,28 @@ void calculationMixed(int scale){
 	}
 }
 
+
+void pureCalculation(int scale){
+	double x = 1;	
+	#pragma omp parallel for default(none) shared(x, scale)
+	for (int a = 0; a < scale; a++){
+		for (int b = 0; b < scale; b++) {
+			x = (x + 1.1) * 1.1;
+		}
+	}
+}
+
+void pureCalculationSingle(int scale){
+	double x = 1;
+	for (int a = 0; a < scale; a++){
+		for (int b = 0; b < scale; b++) {
+			x = (x + 1.1) * 1.1;
+		}
+	}
+}
+
+
+
 int main(int argc, char **argv)
 {
 	printf("Initiating Interference.\n");
