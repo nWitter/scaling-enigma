@@ -19,13 +19,11 @@ int tNow(Clock::time_point tZero){
 	return m.count();
 }
 
-void calculationMixed(int scale){
-	std::vector<double> vector(scale);
-	for (int i = 0; i < scale; i++)
-		vector[i] = 1.0;
-	for (int i = 0; i < scale; i++){
-		for (int a = 0; a < scale; a++) {
-			vector[a] = (vector[a] + 1) * 3;
+void pureCalculationSingle(int scale){
+	double x = 1;
+	for (int a = 0; a < scale; a++){
+		for (int b = 0; b < scale; b++) {
+			x = (x + 1.1) * 1.1;
 		}
 	}
 }
@@ -39,7 +37,7 @@ int main(int argc, char **argv) {
 
     // Do something for a long time.
 	printf("gogo");
-	for(int a = 10;a<200;a+=10){
+	for(int a = 2;a<(1<<10);a*=2){
 		//theory: maximize sceduled time-working????
 		std::this_thread::sleep_for(milliseconds(1));
 	printf("zzz done");
@@ -49,13 +47,14 @@ int main(int argc, char **argv) {
     processing_interrupted = false;
 	
     std::signal(SIGSTOP, &interrupt_processing);
-	calculationMixed(a);
+	pureCalculationSingle(a);
     std::signal(SIGSTOP, SIG_DFL);
 	
-	printf("-%d time: %d: ", a, tNow(t0));
-	if(processing_interrupted)
+	printf("-%d time: %d: \n", a, tNow(t0));
+	if(processing_interrupted){
 		printf("INTERR");
-	
+		break;
+	}		
 	
 	
 	
