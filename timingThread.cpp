@@ -1,14 +1,13 @@
 #include <thread>
-#include <pthread.h>
-#include <iostream>
-#include <cstring>
-#include <signal.h>
 #include <chrono>
+#include <atomic>
+#include <vector>
+#include <csignal>
 
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds milliseconds;
 
-volatile std::atomic_bool processing_interrupted = false;
+volatile std::atomic<bool> processing_interrupted = false;
 
 
 int tNow(Clock::time_point tZero){
