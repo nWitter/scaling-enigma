@@ -37,23 +37,22 @@ int main(int argc, char **argv) {
 
     // Do something for a long time.
 	printf("gogo");
-	for(int a = 2;a<(1<<10);a*=2){
+	for(int a = 2;a<11000;a*=2){
 		//theory: maximize sceduled time-working????
 		std::this_thread::sleep_for(milliseconds(1));
-	printf("zzz done");
+		printf("zzz");
 		
 		
 		Clock::time_point t0 = Clock::now();
-    processing_interrupted = false;
+		processing_interrupted = false;
 	
-    std::signal(SIGSTOP, &interrupt_processing);
-	pureCalculationSingle(a);
-    std::signal(SIGSTOP, SIG_DFL);
+		std::signal(SIGSTOP, &interrupt_processing);
+		pureCalculationSingle(a);
+		std::signal(SIGSTOP, SIG_DFL);
 	
-	printf("-%d time: %d: \n", a, tNow(t0));
+		printf("-%d time: %d: \n", a, tNow(t0));
 	if(processing_interrupted){
 		printf("INTERR");
-		break;
 	}		
 	
 	
