@@ -9,6 +9,9 @@ typedef std::chrono::milliseconds milliseconds;
 
 volatile std::atomic<bool> processing_interrupted;
 
+extern "C" void interrupt_processing(int) {
+    processing_interrupted = true;
+}
 
 int tNow(Clock::time_point tZero){
 	std::chrono::duration<double> d = Clock::now() - tZero;
@@ -45,7 +48,7 @@ int main(int argc, char **argv) {
 		Clock::time_point t0 = Clock::now();
     processing_interrupted = false;
 	
-    std::signal(SIGSTOP, &processing_interrupted);
+    std::signal(SIGSTOP, &interrupt_processing);
 	calculationMixed(a);
     std::signal(SIGSTOP, SIG_DFL);
 	
