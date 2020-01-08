@@ -16,7 +16,7 @@ echo "Testing TimedInterf"
 chmod +x timingThread
 
 export OMP_NUM_THREADS=4
-mpiexec -n 4 ./timingThread > tmd.out
+mpiexec -n 1 ./timingThread > tmdt.out
 
 echo "all started, we done"
 exit 0

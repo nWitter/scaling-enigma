@@ -8,14 +8,16 @@
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds milliseconds;
 
+volatile std::atomic_bool processing_interrupted = false;
+
+
 int tNow(Clock::time_point tZero){
 	std::chrono::duration<double> d = Clock::now() - tZero;
-	Millisec m = std::chrono::duration_cast<Millisec>(d);
+	milliseconds m = std::chrono::duration_cast<milliseconds>(d);
 	return m.count();
 }
 
 
-volatile std::sig_atomic_t processing_interrupted = false;
 
 int main(int argc, char **argv) {
 
@@ -28,16 +30,16 @@ int main(int argc, char **argv) {
 	printf("gogo");
 	for(int a = 10;a<200;a+=10){
 		//theory: maximize sceduled time-working????
-		std::this_thread::sleep_for(Millisec(1));
+		std::this_thread::sleep_for(milliseconds(1));
 	printf("zzz done");
 		
 		
 		Clock::time_point t0 = Clock::now();
     processing_interrupted = false;
 	
-    std::signal( SIGINT, & interrupt_processing );
+    std::signal(SIGSTOP, &processing_interrupted);
 	calculationMixed(a);
-    std::signal( SIGINT, SIG_DFL );
+    std::signal(SIGSTOP, SIG_DFL);
 	
 	printf("-%d time: %d: ", a, tNow(t0));
 	if(processing_interrupted)
@@ -53,7 +55,7 @@ int main(int argc, char **argv) {
 }
 
 void calculationMixed(int scale){
-	d_vec vector(scale);
+	std::vector<double> vector(scale);
 	for (int i = 0; i < scale; i++)
 		vector[i] = 1.0;
 	for (int i = 0; i < scale; i++){
