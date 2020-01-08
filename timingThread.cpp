@@ -7,7 +7,7 @@
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds milliseconds;
 
-volatile std::atomic<bool> processing_interrupted = false;
+volatile std::atomic<bool> processing_interrupted;
 
 
 int tNow(Clock::time_point tZero){
@@ -16,7 +16,16 @@ int tNow(Clock::time_point tZero){
 	return m.count();
 }
 
-
+void calculationMixed(int scale){
+	std::vector<double> vector(scale);
+	for (int i = 0; i < scale; i++)
+		vector[i] = 1.0;
+	for (int i = 0; i < scale; i++){
+		for (int a = 0; a < scale; a++) {
+			vector[a] = (vector[a] + 1) * 3;
+		}
+	}
+}
 
 int main(int argc, char **argv) {
 
@@ -53,14 +62,4 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-void calculationMixed(int scale){
-	std::vector<double> vector(scale);
-	for (int i = 0; i < scale; i++)
-		vector[i] = 1.0;
-	for (int i = 0; i < scale; i++){
-		for (int a = 0; a < scale; a++) {
-			vector[a] = (vector[a] + 1) * 3;
-		}
-	}
-}
 
