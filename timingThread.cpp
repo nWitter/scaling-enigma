@@ -5,7 +5,7 @@
 #include <csignal>
 
 typedef std::chrono::steady_clock Clock;
-typedef std::chrono::milliseconds milliseconds;
+typedef std::chrono::microseconds microseconds;
 
 volatile std::atomic<bool> processing_interrupted;
 
@@ -15,7 +15,7 @@ extern "C" void interrupt_processing(int) {
 
 int tNow(Clock::time_point tZero){
 	std::chrono::duration<double> d = Clock::now() - tZero;
-	milliseconds m = std::chrono::duration_cast<milliseconds>(d);
+	microseconds m = std::chrono::duration_cast<microseconds>(d);
 	return m.count();
 }
 
@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
 	printf("gogo");
 	for(int a = 2;a<11000;a*=2){
 		//theory: maximize sceduled time-working????
-		std::this_thread::sleep_for(milliseconds(1));
+		std::this_thread::sleep_for(microseconds(1));
 		printf("zzz");
 		
 		
