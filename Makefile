@@ -15,7 +15,7 @@ SRC      :=                      \
 
 OBJECTS := $(SRC:%.cpp=$%.o)
 
-all: enigma_loop.o enigma_loop MPI_Manager.o MPI_Manager
+all: enigma_loop.o enigma_loop MPI_Manager.o MPI_Manager timingThread.o timingThread
 
 enigma_loop.o: enigma_loop.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
@@ -30,6 +30,11 @@ MPI_Manager: MPI_Manager.o
 	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
 	
 
+timingThread.o: timingThread.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
+
+timingThread: timingThread.o
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
 
 debug: CXXFLAGS += -DDEBUG -g
 debug: all
@@ -39,10 +44,11 @@ release: all
 
 clean:
 	-@rm -fr enigma_loop.o
-	-@rm -fr interference
 	-@rm -fr enigma_loop
 	-@rm -fr MPI_Manager.o
 	-@rm -fr MPI_Manager
+	-@rm -fr timingThread.o
+	-@rm -fr timingThread
 	
 clearOUT:
 	-@rm eni*.out

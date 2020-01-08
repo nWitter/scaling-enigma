@@ -87,11 +87,9 @@ int main(int argc, char **argv)
 			
 			printf("#atmpt %d, actual slows %d\n", slow, assigned);
 			
-			// scatter blocking??
 			MPI_Scatter(scatterBuffer,bufferSize,MPI_CHAR,inbuffer,bufferSize,MPI_CHAR,0,MPI_COMM_WORLD);
 			
-			//test
-			std::this_thread::sleep_for(milliseconds(5));
+			
 			
 			int num_milliseconds = tNow(t0);
 			int sleep = intervalMillisec - num_milliseconds;
