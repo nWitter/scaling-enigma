@@ -16,7 +16,8 @@ echo "Testing TimedInterf"
 chmod +x timingThread
 
 export OMP_NUM_THREADS=4
-mpiexec -n 1 ./timingThread > tmdt.out
+mpiexec -n 1 ./timingThread > tmdt.out &
+mpiexec -n 1 ./enigma_loop > enix.out &
 
 echo "all started, we done"
 exit 0

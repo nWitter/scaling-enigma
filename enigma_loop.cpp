@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 		//nonsense
 	
 	printf("\n--Starting Interference:\nSteplength: %f, Slow %f\n\n", step_length, time_fraction);
-	for (int a = 2;a>0;a--) {
+	for (int a = 10;a>0;a--) {
 		Clock::time_point t0 = Clock::now();
 		time_fraction = step_length * time_fraction;
 		//printf("starting step, slow:%f\n", time_fraction);
