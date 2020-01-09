@@ -46,9 +46,9 @@ int main(int argc, char **argv) {
 		Clock::time_point t0 = Clock::now();
 		processing_interrupted = false;
 	
-		std::signal(SIGXCPU, &interrupt_processing);
+		std::signal(SIGCONT, &interrupt_processing);
 		pureCalculationSingle(a);
-		std::signal(SIGXCPU, SIG_DFL);
+		std::signal(SIGCONT, SIG_DFL);
 	
 		printf("-%d time: %d: \n", a, tNow(t0));
 	if(processing_interrupted){
