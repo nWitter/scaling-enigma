@@ -16,7 +16,7 @@ done
 echo "starting program"
 ./$1 $2 > $3 &
 echo "started prog and " $4 " interference instances"
-
+wait
 
 
 
