@@ -17,9 +17,10 @@ extern "C" void interrupt_processing(int s) {
 }
 
 int tNow(Clock::time_point tZero){
-	std::chrono::duration<double> d = Clock::now() - tZero;
-	microseconds m = std::chrono::duration_cast<microseconds>(d);
-	return m.count();
+	auto t1 = Clock::now();
+	std::chrono::duration<double> d = t1 - tZero;
+	//microseconds m = std::chrono::duration_cast<microseconds>(d);
+	return t1 - tZero;
 }
 
 void pureCalculationSingle(int scale){
@@ -42,10 +43,11 @@ int main(int argc, char **argv) {
 	printf("gogo");
 	for(int a = 2;a<91100;a*=2){
 		//theory: maximize sceduled time-working????
-		std::this_thread::sleep_for(microseconds(100));
+		//std::this_thread::sleep_for(microseconds(100));
+		
+		auto t0 = Clock::now();
 		
 		
-		Clock::time_point t0 = Clock::now();
 		processing_interrupted = false;
 	
 		std::signal(SIGCONT, &interrupt_processing);
