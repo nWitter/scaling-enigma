@@ -20,7 +20,7 @@ int tNow(Clock::time_point tZero){
 	auto t1 = Clock::now();
 	std::chrono::duration<double> d = t1 - tZero;
 	//microseconds m = std::chrono::duration_cast<microseconds>(d);
-	return t1 - tZero;
+	return microseconds(t1 - tZero);
 }
 
 void pureCalculationSingle(int scale){
