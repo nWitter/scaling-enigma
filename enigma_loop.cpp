@@ -32,7 +32,7 @@ void calculationMixed(int scale){
 	#pragma omp parallel for default(none) shared(vector, scale)
 	for (int i = 0; i < scale; i++){
 		for (int a = 0; a < scale; a++) {
-			vector[a] = (vector[a] + 1) * 3;
+			vector[i] = (i + 1.1) * a;
 		}
 	}
 }
@@ -81,7 +81,9 @@ int main(int argc, char **argv)
 		while (tNow(t0) < (time_fraction * 1000)) {
 			//choose function
 			calculationMixed(calcScale);
-			tmp++;			
+			tmp++;	
+			if(tmp >5)
+				break;
 		}		
 		printf(" -step done, \ttime:%d\tcalcs: %d\n", tNow(t0), tmp);
     	
