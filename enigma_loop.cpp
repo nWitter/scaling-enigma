@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 		//nonsense
 	
 	printf("\n--Starting Interference:\nSteplength: %f, Slow %f\n\n", step_length, time_fraction);
-	for (int x = 0; x < 2; x++) {
+	for (int x = 0; x < 9; x++) {
 		Clock::time_point t0 = Clock::now();
 		time_fraction = step_length * time_fraction;
 		//printf("starting step, slow:%f\n", time_fraction);
@@ -81,9 +81,7 @@ int main(int argc, char **argv)
 		while (tNow(t0) < (time_fraction * 1000)) {
 			//choose function
 			calculationMixed(calcScale);
-			tmp++;	
-			if(tmp >5)
-				break;
+			tmp++;
 		}		
 		printf(" -step done, \ttime:%d\tcalcs: %d\n", tNow(t0), tmp);
     	
