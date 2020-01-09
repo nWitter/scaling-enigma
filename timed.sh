@@ -6,6 +6,7 @@
 #SBATCH -D ./
 #SBATCH --get-user-env
 #SBATCH --clusters=mpp2
+#SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --time=00:03:00
@@ -20,7 +21,8 @@ chmod +x enigma_loop
 
 export OMP_NUM_THREADS=1
 mpiexec -n 1 ./enigma_loop > enix.out
-mpiexec -n 1 ./enigma_loop > eniy.out
+mpiexec -n 1 ./timingThread > timed.out
+#mpiexec -n 1 ./enigma_loop > eniy.out
 
 echo "all started, we done"
 exit 0
