@@ -20,8 +20,8 @@ chmod +x enigma_loop
 
 export OMP_NUM_THREADS=4
 #mpiexec -n 1 -o ./tmdCall.sh
-mpiexec -n 1 -o ./enigma_loop > enix.out &
-mpiexec -n 1 -o ./timingThread > tmdt.out &
+mpiexec -n 1 --overbook ./enigma_loop > enix.out &
+mpiexec -n 1 --overbook ./timingThread > tmdt.out &
 
 echo "all started, we done"
 exit 0
