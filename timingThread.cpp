@@ -38,10 +38,9 @@ int main(int argc, char **argv) {
 
     // Do something for a long time.
 	printf("gogo");
-	for(int a = 2;a<11100;a*=2){
+	for(int a = 2;a<21100;a*=2){
 		//theory: maximize sceduled time-working????
-		std::this_thread::sleep_for(microseconds(1000));
-		printf("zzz");
+		std::this_thread::sleep_for(microseconds(100));
 		
 		
 		Clock::time_point t0 = Clock::now();
