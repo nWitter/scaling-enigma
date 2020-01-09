@@ -11,7 +11,6 @@ volatile std::atomic<bool> processing_interrupted;
 std::atomic<double> average;
 std::atomic<int> scale_for_average;
 
--
 extern "C" void interrupt_processing(int s) {
 	printf("got signal %d", s);
     processing_interrupted = true;
