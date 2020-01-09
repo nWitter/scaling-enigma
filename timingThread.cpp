@@ -9,7 +9,8 @@ typedef std::chrono::microseconds microseconds;
 
 volatile std::atomic<bool> processing_interrupted;
 
-extern "C" void interrupt_processing(int) {
+extern "C" void interrupt_processing(int s) {
+	printf("got signal %d", s);
     processing_interrupted = true;
 }
 
@@ -37,7 +38,7 @@ int main(int argc, char **argv) {
 
     // Do something for a long time.
 	printf("gogo");
-	for(int a = 2;a<1100;a*=2){
+	for(int a = 2;a<5100;a*=2){
 		//theory: maximize sceduled time-working????
 		std::this_thread::sleep_for(microseconds(1000));
 		printf("zzz");
@@ -46,9 +47,9 @@ int main(int argc, char **argv) {
 		Clock::time_point t0 = Clock::now();
 		processing_interrupted = false;
 	
-		std::signal(SIGSTOP, &interrupt_processing);
+		std::signal(SIGINT, &interrupt_processing);
 		pureCalculationSingle(a);
-		std::signal(SIGSTOP, SIG_DFL);
+		std::signal(SIGINT, SIG_DFL);
 	
 		printf("-%d time: %d: \n", a, tNow(t0));
 	if(processing_interrupted){
