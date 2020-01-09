@@ -8,7 +8,10 @@ typedef std::chrono::steady_clock Clock;
 typedef std::chrono::microseconds microseconds;
 
 volatile std::atomic<bool> processing_interrupted;
+std::atomic<double> average;
+std::atomic<int> scale_for_average;
 
+-
 extern "C" void interrupt_processing(int s) {
 	printf("got signal %d", s);
     processing_interrupted = true;
@@ -38,7 +41,7 @@ int main(int argc, char **argv) {
 
     // Do something for a long time.
 	printf("gogo");
-	for(int a = 2;a<41100;a*=2){
+	for(int a = 2;a<91100;a*=2){
 		//theory: maximize sceduled time-working????
 		std::this_thread::sleep_for(microseconds(100));
 		
