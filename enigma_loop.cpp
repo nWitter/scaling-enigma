@@ -71,12 +71,12 @@ int main(int argc, char **argv)
 		//nonsense
 	
 	printf("\n--Starting Interference:\nSteplength: %f, Slow %f\n\n", step_length, time_fraction);
-	for (int x = 0; x < 29; x++) {
+	for (int x = 0; x < 20; x++) {
 		Clock::time_point t0 = Clock::now();
 		time_fraction = step_length * time_fraction;
 		//printf("starting step, slow:%f\n", time_fraction);
 
-		const int calcScale = 1 << 10;	
+		const int calcScale = 1 << 12;	
 		int tmp = 0;
 		while (tNow(t0) < (time_fraction * 1000)) {
 			//choose function
