@@ -17,10 +17,11 @@ extern "C" void interrupt_processing(int s) {
 }
 
 int tNow(Clock::time_point tZero){
-	auto t1 = system_clock::time_point(microseconds(Clock::now()));
-	//microseconds d = t1 - tZero;
-	//microseconds m = std::chrono::duration_cast<microseconds>(d);
-	return t1 - tZero;
+	auto t1 = Clock::now();
+	microseconds d = t1 - tZero;
+	//...
+	microseconds m = std::chrono::duration_cast<microseconds>(d);
+	return m.count();
 }
 
 void pureCalculationSingle(int scale){
@@ -45,7 +46,7 @@ int main(int argc, char **argv) {
 		//theory: maximize sceduled time-working????
 		//std::this_thread::sleep_for(microseconds(100));
 		
-		auto t0 = system_clock::time_point(microseconds(Clock::now()));
+		auto t0 = Clock::now();
 		
 		
 		processing_interrupted = false;
