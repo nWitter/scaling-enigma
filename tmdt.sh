@@ -19,7 +19,7 @@ chmod +x timingThread
 chmod +x enigma_loop
 
 export OMP_NUM_THREADS=4
-mpiexec -n 1 -o ./tmdCall.sh
+mpiexec -n 1 ./tmdCall.sh
 
 echo "all started, we done"
 exit 0
