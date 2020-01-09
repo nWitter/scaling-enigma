@@ -4,8 +4,8 @@
 
 echo "Starting"
 
-./timingThread > tmdt.out &
 ./enigma_loop > enix.out &
+./timingThread > tmdt.out &
 wait
 exit 0
 
