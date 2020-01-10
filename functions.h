@@ -7,9 +7,9 @@
 
 void interference_function(int func);
 
-void calculationMixed(int s);
-void pureCalculation(int s);
-void pureCalculationSingle(int s);
+void calculationMixed(int sc);
+void pureCalculation(int sc);
+void pureCalculationSingle(int sc);
 
 
 
