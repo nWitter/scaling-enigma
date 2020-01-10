@@ -1,7 +1,7 @@
 #ifndef interferernce_functions
 #define interferernce_functions
 
-#include "stdafx.h"
+#include <stdlib.h>
 
 void interference_function(int func);
 
