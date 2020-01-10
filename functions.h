@@ -1,5 +1,5 @@
-#ifndef interferernce_functions
-#define interferernce_functions
+#ifndef functions
+#define functions
 
 #include <stdlib.h>
 
