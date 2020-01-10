@@ -19,7 +19,7 @@ extern "C" void interrupt_processing(int s) {
 int tNow(Clock::time_point tZero){
 	auto t1 = Clock::now();
 	auto m = std::chrono::duration_cast<microseconds>(t1 - tZero);
-	return m;
+	return m.count();
 }
 
 void pureCalculationSingle(int scale){

@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include <omp.h>
 #include <thread>
-#include <time.h>
-#include <ctime>
 #include <chrono>
 #include <ratio>
 #include <vector>
 #include <functional>
+
+#include "functions.h"
 
 typedef std::vector<double> d_vec;
 
@@ -81,6 +81,7 @@ int main(int argc, char **argv)
 		while (tNow(t0) < (time_fraction * 1000)) {
 			//choose function
 			calculationMixed(calcScale);
+			interference_function(0);
 			tmp++;
 		}		
 		printf(" -step done, \ttime:%d\tcalcs: %d\n", tNow(t0), tmp);

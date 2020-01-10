@@ -17,10 +17,10 @@ echo "Testing TimedInterf"
 
 chmod +x tmdCall.sh
 chmod +x timingThread
-chmod +x enigma_loop
+chmod +x simple_loop
 
 export OMP_NUM_THREADS=28
-mpiexec -n 1 ./enigma_loop > enix.out
+mpiexec -n 1 ./simple_loop > enix.out
 mpiexec -n 1 ./timingThread > timed.out
 #mpiexec -n 1 ./enigma_loop > eniy.out
 

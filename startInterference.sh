@@ -3,12 +3,12 @@
 #
 
 echo "Starting instances:"
-chmod +x enigma_loop
+chmod +x simple_loop
 
 for ((i=0; i<$4; i++))
 do
 	echo "--started one instance"
-	./enigma_loop > enix.out &
+	./simple_loop > enix.out &
 done
 
 #./MPI_Manager
