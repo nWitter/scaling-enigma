@@ -15,25 +15,25 @@ SRC      :=                      \
 
 OBJECTS := $(SRC:%.cpp=$%.o)
 
-all: simple_loop.o simple_loop MPI_Manager.o MPI_Manager timingThread.o timingThread functions.o
-
-simple_loop.o: simple_loop.cpp functions.h
-	$(CXX) $(CXXFLAGS) simple_loop.cpp -o $@ -c $<
+all: functions.o simple_loop.o simple_loop MPI_Manager.o MPI_Manager timingThread.o timingThread 
 
 functions.o: functions.cpp functions.h
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(INCLUDE) $@ -c $<
+	
+simple_loop.o: simple_loop.cpp functions.h
+	$(CXX) $(CXXFLAGS) simple_loop.cpp $@ -c $<
 	
 simple_loop: simple_loop.o functions.o
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 MPI_Manager.o: MPI_Manager.cpp
-	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
+	$(MPICXX) $(CXXFLAGS) $(INCLUDE) $@ -c $<
 
 MPI_Manager: MPI_Manager.o
 	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -o $@ $<
 	
 timingThread.o: timingThread.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(INCLUDE) $@ -c $<
 
 timingThread: timingThread.o
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
