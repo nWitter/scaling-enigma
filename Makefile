@@ -1,6 +1,6 @@
 CXX      := -c++
 MPICXX   := mpiCC
-CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror -fopenmp
+CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror -fopenmp -std=gnu++11
 LDFLAGS  := -L/usr/lib -lstdc++ -lm
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
@@ -18,22 +18,22 @@ OBJECTS := $(SRC:%.cpp=$%.o)
 all: simple_loop.o simple_loop MPI_Manager.o MPI_Manager timingThread.o timingThread functions.o
 
 simple_loop.o: simple_loop.cpp functions.h
-	$(CXX) $(CXXFLAGS) simple_loop.cpp -std=gnu++11 -o $@ -c $<
+	$(CXX) $(CXXFLAGS) simple_loop.cpp -o $@ -c $<
 
 functions.o: functions.cpp functions.h
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 	
 simple_loop: simple_loop.o functions.o
-	$(CXX) $(CXXFLAGS) simple_loop simple_loop.o functions.o -std=gnu++11 -o $@ $<
+	$(CXX) $(CXXFLAGS) -o simple_loop simple_loop.o functions.o $@ $<
 
 MPI_Manager.o: MPI_Manager.cpp
-	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
+	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
 MPI_Manager: MPI_Manager.o
-	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
+	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -o $@ $<
 	
 timingThread.o: timingThread.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
 timingThread: timingThread.o
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
