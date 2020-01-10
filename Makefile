@@ -5,22 +5,22 @@ LDFLAGS  := -L/usr/lib -lstdc++ -lm
 
 all: functions.o simple_loop.o simple_loop MPI_Manager.o MPI_Manager timingThread.o timingThread 
 
-functions.o: functions.cpp functions.h
+functions.o: functions.h
 	$(CXX) $(CXXFLAGS) -c functions.cpp
 	
-simple_loop.o: simple_loop.cpp functions.h
+simple_loop.o: functions.h
 	$(CXX) $(CXXFLAGS) -c simple_loop.cpp
 	
 simple_loop: simple_loop.o functions.o
 	$(CXX) $(CXXFLAGS) -o simple_loop simple_loop.o functions.o
 
-MPI_Manager.o: MPI_Manager.cpp
-	$(MPICXX) $(CXXFLAGS) -c MPI_Manager.cpp
+MPI_Manager.o:
+	$(MPICXX) $(CXXFLAGS) -c
 
 MPI_Manager: MPI_Manager.o
 	$(MPICXX) $(CXXFLAGS) -o
 	
-timingThread.o: timingThread.cpp
+timingThread.o:
 	$(CXX) $(CXXFLAGS) -c
 
 timingThread: timingThread.o
