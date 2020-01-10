@@ -2,41 +2,29 @@ CXX      := -c++
 MPICXX   := mpiCC
 CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror -fopenmp -std=gnu++11
 LDFLAGS  := -L/usr/lib -lstdc++ -lm
-BUILD    := ./build
-OBJ_DIR  := $(BUILD)/objects
-APP_DIR  := $(BUILD)/apps
-TARGET   := enigma_loop
-INCLUDE  := -Iinclude/
-SRC      :=                      \
-   $(wildcard src/module1/*.cpp) \
-   $(wildcard src/module2/*.cpp) \
-   $(wildcard src/module3/*.cpp) \
-   $(wildcard src/*.cpp)         \
-
-OBJECTS := $(SRC:%.cpp=$%.o)
 
 all: functions.o simple_loop.o simple_loop MPI_Manager.o MPI_Manager timingThread.o timingThread 
 
 functions.o: functions.cpp functions.h
-	$(CXX) $(CXXFLAGS) -c $@ $<
+	$(CXX) $(CXXFLAGS) -c functions.cpp
 	
 simple_loop.o: simple_loop.cpp functions.h
 	$(CXX) $(CXXFLAGS) -c simple_loop.cpp
 	
 simple_loop: simple_loop.o functions.o
-	$(CXX) $(CXXFLAGS) -o $@ $<
+	$(CXX) $(CXXFLAGS) -o simple_loop simple_loop.o functions.o
 
 MPI_Manager.o: MPI_Manager.cpp
-	$(MPICXX) $(CXXFLAGS) $(INCLUDE) $@ -c $<
+	$(MPICXX) $(CXXFLAGS) -c MPI_Manager.cpp
 
 MPI_Manager: MPI_Manager.o
-	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -o $@ $<
+	$(MPICXX) $(CXXFLAGS) -o
 	
 timingThread.o: timingThread.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $@ -c $<
+	$(CXX) $(CXXFLAGS) -c
 
 timingThread: timingThread.o
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
+	$(CXX) $(CXXFLAGS) -o
 
 debug: CXXFLAGS += -DDEBUG -g
 debug: all
