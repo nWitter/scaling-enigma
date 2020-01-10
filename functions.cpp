@@ -9,40 +9,39 @@ void interference_function(int func, int scale){
 	}
 	
 	
-	
 	return;
 }
 
-void calculationMixed(int s){
-	d_vec vector(s);
-	for (int i = 0; i < s; i++)
+void calculationMixed(int sc){
+	d_vec vector(sc);
+	for (int i = 0; i < sc; i++)
 		vector[i] = 1.0;
-	#pragma omp parallel for default(none) shared(vector, s)
-	for (int i = 0; i < s; i++){
-		for (int a = 0; a < s; a++) {
+	#pragma omp parallel for default(none) shared(vector, sc)
+	for (int i = 0; i < sc; i++){
+		for (int a = 0; a < sc; a++) {
 			vector[i] = (i + 1.1) * a;
 		}
 	}
 }
 
 
-void pureCalculation(int s{
+void pureCalculation(int sc){
 	const int size = 1 << 10;
 	int vector[size];
 	for (int i = 0; i < size; i++)
 		vector[i] = 1.0;
-	#pragma omp parallel for default(none) shared(x, s)
+	#pragma omp parallel for default(none) shared(x, sc)
 	for (int a = 0; a < size; a++){
-		for (int b = 0; b < s; b++) {
+		for (int b = 0; b < sc; b++) {
 			vector[a] = (vector[a] + 1.1) * 1.1;
 		}
 	}
 }
 
-void pureCalculationSingle(int scale){
+void pureCalculationSingle(int sc){
 	double x = 1;
-	for (int a = 0; a < scale; a++){
-		for (int b = 0; b < scale; b++) {
+	for (int a = 0; a < sc; a++){
+		for (int b = 0; b < sc; b++) {
 			x = (x + 1.1) * 1.1;
 		}
 	}
