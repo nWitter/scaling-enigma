@@ -13,7 +13,7 @@ void interference_function(int func, int scale){
 }
 
 void calculationMixed(int sc){
-	d_vec vector(sc);
+	std::vector<double> vector(sc);
 	for (int i = 0; i < sc; i++)
 		vector[i] = 1.0;
 	#pragma omp parallel for default(none) shared(vector, sc)
@@ -30,7 +30,7 @@ void pureCalculation(int sc){
 	int vector[size];
 	for (int i = 0; i < size; i++)
 		vector[i] = 1.0;
-	#pragma omp parallel for default(none) shared(x, sc)
+	#pragma omp parallel for default(none) shared(vector, sc)
 	for (int a = 0; a < size; a++){
 		for (int b = 0; b < sc; b++) {
 			vector[a] = (vector[a] + 1.1) * 1.1;
