@@ -17,22 +17,22 @@ OBJECTS := $(SRC:%.cpp=$%.o)
 
 all: simple_loop.o simple_loop MPI_Manager.o MPI_Manager timingThread.o timingThread functions.o
 
-simple_loop.o: functions.h
+simple_loop.o: simple_loop.cpp functions.h
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 
-functions.o: functions.h
+functions.o: functions.cpp functions.h
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 	
 simple_loop: simple_loop.o functions.o
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
 
-MPI_Manager.o:
+MPI_Manager.o: MPI_Manager.cpp
 	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 
 MPI_Manager: MPI_Manager.o
 	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
 	
-timingThread.o:
+timingThread.o: timingThread.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 
 timingThread: timingThread.o
