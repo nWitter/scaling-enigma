@@ -24,7 +24,7 @@ functions.o: functions.cpp functions.h
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
 	
 simple_loop: simple_loop.o functions.o
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ $<
+	$(CXX) $(CXXFLAGS) simple_loop simple_loop.o functions.o -std=gnu++11 -o $@ $<
 
 MPI_Manager.o: MPI_Manager.cpp
 	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
