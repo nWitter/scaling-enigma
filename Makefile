@@ -18,7 +18,7 @@ OBJECTS := $(SRC:%.cpp=$%.o)
 all: functions.o simple_loop.o simple_loop MPI_Manager.o MPI_Manager timingThread.o timingThread 
 
 functions.o: functions.cpp functions.h
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $@ -c $<
+	$(CXX) $(CXXFLAGS) -c functions.cpp $@ $<
 	
 simple_loop.o: simple_loop.cpp functions.h
 	$(CXX) $(CXXFLAGS) simple_loop.cpp $@ -c $<
