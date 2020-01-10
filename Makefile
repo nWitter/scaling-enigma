@@ -24,7 +24,7 @@ functions.o: functions.cpp functions.h
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 	
 simple_loop: simple_loop.o functions.o
-	$(CXX) $(CXXFLAGS) -o simple_loop simple_loop.o functions.o $@ $<
+	$(CXX) $(CXXFLAGS) -o simple_loop.o functions.o $@ $<
 
 MPI_Manager.o: MPI_Manager.cpp
 	$(MPICXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
