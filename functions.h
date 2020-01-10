@@ -5,11 +5,11 @@
 #include <omp.h>
 #include <vector>
 
-void interference_function(int func);
+void interference_function();
 
-void calculationMixed(int sc);
-void pureCalculation(int sc);
-void pureCalculationSingle(int sc);
+void calculationMixed();
+void pureCalculation();
+void pureCalculationSingle();
 
 
 
