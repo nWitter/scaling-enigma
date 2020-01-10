@@ -15,7 +15,7 @@ SRC      :=                      \
 
 OBJECTS := $(SRC:%.cpp=$%.o)
 
-all: simple_loop.o simple_loop MPI_Manager.o MPI_Manager timingThread.o timingThread
+all: simple_loop.o simple_loop MPI_Manager.o MPI_Manager timingThread.o timingThread functions.o
 
 simple_loop.o: simple_loop.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -std=gnu++11 -o $@ -c $<
