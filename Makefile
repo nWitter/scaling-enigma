@@ -21,10 +21,10 @@ MPI_Manager: MPI_Manager.o
 	$(MPICXX) $(CXXFLAGS) -o MPI_Manager MPI_Manager.o
 	
 timingThread.o:
-	$(CXX) $(CXXFLAGS) -c
+	$(CXX) $(CXXFLAGS) -c timingThread.cpp
 
 timingThread: timingThread.o
-	$(CXX) $(CXXFLAGS) -o
+	$(CXX) $(CXXFLAGS) -o timingThread timingThread.o
 
 debug: CXXFLAGS += -DDEBUG -g
 debug: all
