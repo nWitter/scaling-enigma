@@ -54,6 +54,12 @@ void functionMemory(int sc){
 	}
 }
 
+double tNow(Clock::time_point tZero){
+	std::chrono::duration<double> d = Clock::now() - tZero;
+	milliseconds m = std::chrono::duration_cast<milliseconds>(d);
+	return m.count();
+}
+
 void pureCalculationSingle(int sc){
 	double x = 1;
 	for (int a = 0; a < sc; a++){

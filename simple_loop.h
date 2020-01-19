@@ -6,9 +6,7 @@
 #include <stdlib.h>
 #include <omp.h>
 #include <thread>
-#include <chrono>
 #include <ratio>
-#include <vector>
 #include <functional>
 
 #include "functions.h"

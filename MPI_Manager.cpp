@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <thread>
 #include <ratio>
-#include <chrono>
-#include <vector>
 #include <functional>
 
 #include "mpi.h"
@@ -23,11 +21,6 @@ float rndNum(){
 	return static_cast <float> (rand() % 10000) / 10000;
 }
 
-double tNow(Clock::time_point tZero){
-	std::chrono::duration<double> d = Clock::now() - tZero;
-	milliseconds m = std::chrono::duration_cast<milliseconds>(d);
-	return m.count();
-}
 
 int main(int argc, char **argv)
 {
