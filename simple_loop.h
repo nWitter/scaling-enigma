@@ -11,7 +11,7 @@
 #include <vector>
 #include <functional>
 
-#include "simple_loop.h"
+#include "functions.h"
 
 void interferenceLoop(float timeFraction, float stepLength, int functionType, int calcScale);
 

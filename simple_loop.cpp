@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "simple_loop.h"
 
 typedef std::vector<double> d_vec;
 
