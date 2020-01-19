@@ -60,7 +60,7 @@ double tNow(Clock::time_point tZero){
 	return m.count();
 }
 
-void pureCalculationSingle(int sc){
+void functionCalcSingle(int sc){
 	double x = 1;
 	for (int a = 0; a < sc; a++){
 		for (int b = 0; b < sc; b++) {

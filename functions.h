@@ -11,9 +11,11 @@ typedef std::chrono::milliseconds milliseconds;
 
 void interference_function(int func, int scale);
 
-void calculationMixed(int sc);
-void pureCalculation(int sc);
-void pureCalculationSingle(int sc);
+void functionMixed(int sc);
+void functionCalc(int sc);
+void functionMemory(int sc);
+
+void functionCalcSingle(int sc);
 
 double tNow(Clock::time_point tZero);
 
