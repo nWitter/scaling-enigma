@@ -3,13 +3,13 @@ MPICXX   := mpiCC
 CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror -fopenmp -std=gnu++11
 LDFLAGS  := -L/usr/lib -lstdc++ -lm
 
-all: functions.o simple_loop.o simple_loop MPI_Manager.o MPI_Manager timingThread.o timingThread 
+all: functions.o simple_loop.o MPI_Manager.o MPI_Manager timingThread.o timingThread 
 
 functions.o: functions.h
 	$(CXX) $(CXXFLAGS) -c functions.cpp
 	
 simple_loop.o: functions.h simple_loop.h
-	$(CXX) $(CXXFLAGS) -c simple_loop.cpp
+	$(CXX) $(CXXFLAGS) -c simple_loop.cpp functions.o
 
 MPI_Manager.o: simple_loop.h functions.h
 	$(MPICXX) $(CXXFLAGS) -c MPI_Manager.cpp
