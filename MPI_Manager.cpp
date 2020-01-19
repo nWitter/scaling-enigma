@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 
 	const int bufferSize = 3;
 	char* scatterBuffer = (char*)malloc(bufferSize * numtasks * sizeof(char));
-	char* inbuffer[bufferSize];
+	char inbuffer[bufferSize];
 	
 	
 	for (int x=0;x>duration;x++) {
