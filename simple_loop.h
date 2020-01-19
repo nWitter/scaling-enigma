@@ -9,7 +9,6 @@
 #include <ratio>
 #include <functional>
 
-#include "functions.h"
 
 void interferenceLoop(float timeFraction, float stepLength, int functionType, int calcScale);
 
