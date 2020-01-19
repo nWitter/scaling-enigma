@@ -34,18 +34,18 @@ int main(int argc, char **argv)
 
 void interferenceLoop(float timeFraction, float stepLength, int functionType, int calcScale){
 	Clock::time_point t0 = Clock::now();
-	time_fraction = step_length * time_fraction;
+	int activeTime = stepLength * timeFraction  * 1000;
 	printf("starting step,\tslow:%f\tlength:%f\n", timeFraction, stepLength);
 
 	int tmp = 0;
-	while (tNow(t0) < (time_fraction * 1000)) {
+	while (tNow(t0) < (activeTime)) {
 		interference_function(functionType, calcScale);
 		tmp++;
 	}
 	
-	if(time_fraction < 1){
+	if(timeFraction < 1){
 		int tim = tNow(t0);
-		int ms = milliseconds((int)(step_length * 1000 - tim));
+		int ms = milliseconds((int)(stepLength * 1000 - tim));
 		std::this_thread::sleep_for(ms);
 		printf("ending step \ttotal time: %d \ttime waited %d\n", tNow(t0), tim);
 	}
