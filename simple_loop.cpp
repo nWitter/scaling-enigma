@@ -6,7 +6,7 @@ typedef std::vector<double> d_vec;
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds milliseconds;
 
-int main(int argc, char **argv)
+int oldmain(int argc, char **argv)
 {
 	printf("Initiating Interference.\n");
 	
