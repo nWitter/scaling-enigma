@@ -42,7 +42,7 @@ void interferenceLoop(float timeFraction, float stepLength, int functionType, in
 		int tim = tNow(t0);
 		int ms = (int)(stepLength * 1000 - tim);
 		std::this_thread::sleep_for(milliseconds(ms));
-		printf("ending step \ttotal time: %d \ttime waited %d\n", tNow(t0), tim);
+		printf("ending step \ttotal time: %f \ttime waited %d\n", tNow(t0), tim);
 	}
 }
 
