@@ -32,7 +32,7 @@ double tNow(Clock::time_point tZero){
 int main(int argc, char **argv)
 {
 	const int intervalMillisec = 1000;
-	const int duration = 10;
+	const int duration = 5;
 	
 	if(argc>10)
 		argv[10]++;
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 	char inbuffer[bufferSize];
 	
 	
-	for (int x=0;x>duration;x++) {
+	for (int x=0;x<duration;x++) {
 		Clock::time_point t0 = Clock::now();
 		
 		// communication between ranks
@@ -108,6 +108,13 @@ int main(int argc, char **argv)
 		// interference
 		if(inbuffer[0] == ENI_INTERFERE){
 			//TODO
+			float time_fraction = 1.0;
+			float step_length = 1.0;
+			int function_type = 1;
+			int calc_scale = 1 << 12;
+			
+			
+			interferenceLoop(time_fraction, step_length, function_type, calc_scale);
 			
 		} else{
 			int tim = tNow(t0);
