@@ -6,12 +6,6 @@ typedef std::vector<double> d_vec;
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds milliseconds;
 
-int tNow(Clock::time_point tZero){
-	std::chrono::duration<double> d = Clock::now() - tZero;
-	milliseconds m = std::chrono::duration_cast<milliseconds>(d);
-	return m.count();
-}
-
 int main(int argc, char **argv)
 {
 	printf("Initiating Interference.\n");
