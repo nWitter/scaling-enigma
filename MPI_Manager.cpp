@@ -71,10 +71,9 @@ int main(int argc, char **argv)
 						break;
 					}
 					
-					int rnd = (int) (rndNum() * (numtasks+1));
-					int rndP = rnd * bufferSize;
-					if(scatterBuffer[tmp] == ENI_NULL){
-						scatterBuffer[tmp] = ENI_INTERFERE;
+					int rnd = (int) (rndNum() * (numtasks+1)) * bufferSize;
+					if(scatterBuffer[rnd] == ENI_NULL){
+						scatterBuffer[rnd] = ENI_INTERFERE;
 						interf_assigned++;
 					}
 				}

@@ -8,7 +8,7 @@ all: functions.o simple_loop.o MPI_Manager.o MPI_Manager timingThread.o timingTh
 functions.o: functions.h
 	$(CXX) $(CXXFLAGS) -c functions.cpp
 	
-simple_loop.o: functions.h simple_loop.h
+simple_loop.o: simple_loop.cpp functions.h simple_loop.h
 	$(CXX) $(CXXFLAGS) -c simple_loop.cpp functions.o
 
 MPI_Manager.o: simple_loop.h functions.h
