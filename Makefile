@@ -10,14 +10,11 @@ functions.o: functions.h
 	
 simple_loop.o: functions.h simple_loop.h
 	$(CXX) $(CXXFLAGS) -c simple_loop.cpp
-	
-simple_loop: simple_loop.o functions.o
-	$(CXX) $(CXXFLAGS) -o simple_loop simple_loop.o functions.o
 
 MPI_Manager.o: simple_loop.h functions.h
 	$(MPICXX) $(CXXFLAGS) -c MPI_Manager.cpp
 
-MPI_Manager: MPI_Manager.o simple_loop.o
+MPI_Manager: MPI_Manager.o simple_loop.o functions.o
 	$(MPICXX) $(CXXFLAGS) -o MPI_Manager MPI_Manager.o simple_loop.o functions.o
 	
 timingThread.o:

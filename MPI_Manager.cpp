@@ -16,12 +16,10 @@ const char ENI_SLEEP = 's';
 const char ENI_INTERFERE = 'i';
 const char ENI_NULL = ' ';
 
-
 // rnd {0,1} 5-digits
 float rndNum(){
 	return static_cast <float> (rand() % 10000) / 10000;
 }
-
 
 int main(int argc, char **argv)
 {
