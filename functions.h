@@ -6,6 +6,9 @@
 #include <vector>
 #include <chrono>
 
+typedef std::chrono::steady_clock Clock;
+typedef std::chrono::milliseconds milliseconds;
+
 void interference_function(int func, int scale);
 
 void calculationMixed(int sc);
