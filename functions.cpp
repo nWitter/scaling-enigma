@@ -3,18 +3,20 @@
 
 void interference_function(int func, int scale){
 	if(func == 1){
-		pureCalculation(scale);
+		functionCalc(scale);
+	} else if(func == 2){
+		functionMemory(scale);
 	} else {
-		calculationMixed(scale);
+		functionMixed(scale);
 	}
-	
 	
 	return;
 }
 
-void calculationMixed(int sc){
-	std::vector<double> vector(sc);
-	for (int i = 0; i < sc; i++)
+void functionMixed(int sc){
+	const int size = 1 << 10;
+	int vector[size];
+	for (int i = 0; i < size; i++)
 		vector[i] = 1.0;
 	#pragma omp parallel for default(none) shared(vector, sc)
 	for (int i = 0; i < sc; i++){
@@ -25,7 +27,7 @@ void calculationMixed(int sc){
 }
 
 
-void pureCalculation(int sc){
+void functionCalc(int sc){
 	const int size = 1 << 10;
 	int vector[size];
 	for (int i = 0; i < size; i++)
@@ -34,6 +36,20 @@ void pureCalculation(int sc){
 	for (int a = 0; a < size; a++){
 		for (int b = 0; b < sc; b++) {
 			vector[a] = (vector[a] + 1.1) * 1.1;
+		}
+	}
+}
+
+void functionMemory(int sc){
+	const int size = 1 << 10;
+	int vector[size];
+	for (int i = 0; i < size; i++)
+		vector[i] = 1.0;
+	#pragma omp parallel for default(none) shared(vector, sc)
+	for (int a = 0; a < size; a++){
+		for (int b = 0; b < sc; b++) {
+			int t = (a + size/2) % size;
+			vector[a] = vector[t];
 		}
 	}
 }
