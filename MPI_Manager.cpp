@@ -7,6 +7,7 @@
 
 #include "mpi.h"
 #include "simple_loop.h"
+#include "functions.h"
 
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds milliseconds;
