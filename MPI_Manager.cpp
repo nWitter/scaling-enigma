@@ -13,6 +13,10 @@
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds milliseconds;
 
+const char ENI_SLEEP = 's';
+const char ENI_INTERFERE = 'i';
+const char ENI_NULL = ' ';
+
 
 // rnd {0,1} 5-digits
 float rndNum(){
@@ -27,7 +31,8 @@ double tNow(Clock::time_point tZero){
 
 int main(int argc, char **argv)
 {
-	int intervalMillisec = 1000;
+	const int intervalMillisec = 1000;
+	const int duration = 10;
 	
 	if(argc>10)
 		argv[10]++;
@@ -48,75 +53,68 @@ int main(int argc, char **argv)
 	char* inbuffer;
 	
 	
-	for (int x=5;x>0;x--) {
+	for (int x=0;x>duration;x++) {
 		Clock::time_point t0 = Clock::now();
 		
+		// communication between ranks
+		// assigning ranks
 		if (rank == 0) {
+			
+			//TODO pattern
+			
+			
 			double affected = 0.5;
-			int slow = (int)(numtasks * affected);
-			int assigned = 0;
+			int interf_number = (int)(numtasks * affected);
+			int interf_assigned = 0;
 			
 			std::vector<char> msg(numtasks);
-			for(int a=0;a<numtasks* bufferSize;a++)
-				scatterBuffer[a] = '-';
+			for(int a = 0; a < numtasks * bufferSize; a++)
+				scatterBuffer[a] = ENI_NULL;
 			
-			//test
-			for(int a=1;a<numtasks* bufferSize;a+=3)
-				scatterBuffer[a] = '2';
-			
-			for(int a=2;a<numtasks* bufferSize;a+=3)
-				scatterBuffer[a] = '3';
-			
-			
-			if(numtasks>1){
-			while(assigned<slow && false){
-				if(affected<0||affected>1){
-					printf("#error invalid number of affected nodes");
-					break;
+			// designate interfering ranks
+			if(numtasks > 1){
+				while(interf_assigned < interf_number){
+					if(affected < 0|| affected > 1){
+						printf("#error invalid number of affected nodes");
+						break;
+					}
+					
+					int tmp = (int) (rndNum() * (numtasks+1));
+					if(scatterBuffer[tmp] == ENI_NULL){
+						scatterBuffer[tmp] = ENI_INTERFERE;
+						interf_assigned++;
+					}
 				}
-				
-				int tmp = (int) (rndNum() * (numtasks+1));
-				if(scatterBuffer[tmp]=='0'){
-					//TODO things
-					scatterBuffer[tmp]='s';
-					assigned++;
-				}
-			}
 			}else if(affected >= 0.5){
-				scatterBuffer[0] = '0';
-			}
-			
-			printf("#atmpt %d, actual slows %d\n", slow, assigned);
-			
-			MPI_Scatter(scatterBuffer,bufferSize,MPI_CHAR,inbuffer,bufferSize,MPI_CHAR,0,MPI_COMM_WORLD);
-			
-			if(inbuffer[0] == '0'){
-				
+				scatterBuffer[0] = ENI_INTERFERE;
 			} else {
-				
-			}
+				scatterBuffer[0] = ENI_SLEEP;
+			}			
+			printf("#atmpt %d, actual slows %d\n", interf_number, interf_assigned);
 			
-			int num_milliseconds = tNow(t0);
-			int sleep = intervalMillisec - num_milliseconds;
-			printf("#time %d, sleeping %d\n", num_milliseconds, sleep);
-			std::this_thread::sleep_for(milliseconds(sleep));
-
+			
+			MPI_Scatter(scatterBuffer, bufferSize, MPI_CHAR, inbuffer, bufferSize, MPI_CHAR, 0, MPI_COMM_WORLD);
+			
 		} else if (rank != 0) {
 			//MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
 			MPI_Scatter(scatterBuffer,bufferSize,MPI_CHAR,inbuffer,bufferSize,MPI_CHAR,0,MPI_COMM_WORLD);
 		}
 
+		
+		printf("--%d msg %c %c %c\n", rank, inbuffer[0], inbuffer[1], inbuffer[2]);
+		
 
 		
-		
-			if(inbuffer[0] == '0')
-				printf("--%d NOTHING\n", rank);
-			else if (inbuffer[0] == '1')
-				printf("--%d slow %c\n", rank, inbuffer[0]);
-			else
-				printf("--%d GOT SOMETHING %c %c %c\n", rank, inbuffer[0], inbuffer[1], inbuffer[2]);
-		//TODO do interference here
-
+		// interference
+		if(inbuffer[0] == ENI_INTERFERE){
+			//TODO
+			
+		} else{
+			int tim = tNow(t0);
+			int ms = intervalMillisec - tim;
+			printf("#time %d, sleeping %d\n", tim, ms);
+			std::this_thread::sleep_for(milliseconds(ms));
+		}
 	}
 
 	printf("done .\n");
