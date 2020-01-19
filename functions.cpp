@@ -19,9 +19,10 @@ void functionMixed(int sc){
 	for (int i = 0; i < size; i++)
 		vector[i] = 1.0;
 	#pragma omp parallel for default(none) shared(vector, sc)
-	for (int i = 0; i < sc; i++){
-		for (int a = 0; a < sc; a++) {
-			vector[i] = (i + 1.1) * a;
+	for (int a = 0; a < size; a++){
+		for (int b = 0; b < sc; b++) {
+			int t = (a + size/2) % size;
+			vector[a] = (vector[a] + a) * vector[t];
 		}
 	}
 }
