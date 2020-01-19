@@ -18,7 +18,7 @@ MPI_Manager.o: simple_loop.h MPI_Manager.cpp
 	$(MPICXX) $(CXXFLAGS) -c MPI_Manager.cpp
 
 MPI_Manager: MPI_Manager.o simple_loop.o
-	$(MPICXX) $(CXXFLAGS) -o MPI_Manager MPI_Manager.o
+	$(MPICXX) $(CXXFLAGS) -o MPI_Manager MPI_Manager.o simple_loop.o
 	
 timingThread.o:
 	$(CXX) $(CXXFLAGS) -c timingThread.cpp
