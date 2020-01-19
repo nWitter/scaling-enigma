@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 
 	const int bufferSize = 3;
 	char* scatterBuffer = (char*)malloc(bufferSize * numtasks * sizeof(char));
-	char inbuffer[bufferSize];
+	char* inbuffer;
 	
 	
 	for (int x=5;x>0;x--) {
@@ -90,7 +90,11 @@ int main(int argc, char **argv)
 			
 			MPI_Scatter(scatterBuffer,bufferSize,MPI_CHAR,inbuffer,bufferSize,MPI_CHAR,0,MPI_COMM_WORLD);
 			
-			
+			if(inbuffer[0] == '0'){
+				
+			} else {
+				
+			}
 			
 			int num_milliseconds = tNow(t0);
 			int sleep = intervalMillisec - num_milliseconds;
