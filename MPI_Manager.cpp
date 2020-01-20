@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 					}
 				}
 				//testing
-				scatterBuffer[1] = ENI_INTERFERE
+				scatterBuffer[1] = ENI_INTERFERE;
 			}else if(affected >= 0.5){
 				scatterBuffer[0] = ENI_INTERFERE;
 			} else {
