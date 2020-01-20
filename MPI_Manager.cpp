@@ -12,9 +12,9 @@
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::milliseconds milliseconds;
 
-const char ENI_SLEEP = 's';
-const char ENI_INTERFERE = 'i';
-const char ENI_NULL = ' ';
+const int ENI_SLEEP = -1;
+const int ENI_INTERFERE = 1;
+const int ENI_NULL = 0;
 
 // rnd {0,1} 5-digits
 float rndNum(){
@@ -41,8 +41,8 @@ int main(int argc, char **argv)
 	printf("Starting: ranks %d, tasks %d\n", rank, numtasks);
 
 	const int bufferSize = 3;
-	char* scatterBuffer = (char*)malloc(bufferSize * numtasks * sizeof(char));
-	char inbuffer[bufferSize];
+	int* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
+	int inbuffer[bufferSize];
 	
 	
 	for (int x=0;x<duration;x++) {
@@ -77,26 +77,26 @@ int main(int argc, char **argv)
 						interf_assigned++;
 					}
 				}
+				printf("#atmpt %d, actual slows %d\n", interf_number, interf_assigned);
 			}else if(affected >= 0.5){
 				scatterBuffer[0] = ENI_INTERFERE;
 			} else {
 				scatterBuffer[0] = ENI_SLEEP;
-			}			
-			printf("#atmpt %d, actual slows %d\n", interf_number, interf_assigned);
+			}
+			for(int a = 0; a < numtasks * bufferSize; a += bufferSize)
+				if(scatterBuffer[a] == ENI_NULL)
+					scatterBuffer[a] = ENI_SLEEP;
 			
 			
-			MPI_Scatter(scatterBuffer, bufferSize, MPI_CHAR, inbuffer, bufferSize, MPI_CHAR, 0, MPI_COMM_WORLD);
+			MPI_Scatter(scatterBuffer, bufferSize, MPI_INT, inbuffer, bufferSize, MPI_INT, 0, MPI_COMM_WORLD);
 			
 		} else if (rank != 0) {
 			//MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
-			MPI_Scatter(scatterBuffer, bufferSize, MPI_CHAR, inbuffer, bufferSize, MPI_CHAR, 0, MPI_COMM_WORLD);
+			MPI_Scatter(scatterBuffer, bufferSize, MPI_INT, inbuffer, bufferSize, MPI_INT, 0, MPI_COMM_WORLD);
 		}
 
 		
-		printf("--%d msg %c %c %c\n", rank, inbuffer[0], inbuffer[1], inbuffer[2]);
-		
-
-		
+		printf("--%d state: %c ; %c \n", rank, inbuffer[0], inbuffer[1]);
 		// interference
 		if(inbuffer[0] == ENI_INTERFERE){
 			//TODO
@@ -106,11 +106,13 @@ int main(int argc, char **argv)
 			int calc_scale = 1 << 12;
 			
 			
-			interferenceLoop(time_fraction, step_length, function_type, calc_scale);
-			
-		} else{
-			int tim = tNow(t0);
-			int ms = intervalMillisec - tim;
+			interferenceLoop(time_fraction, step_length, function_type, calc_scale);			
+		}
+
+		// fill intervall
+		int tim = tNow(t0);
+		int ms = intervalMillisec - tim;
+		if(ms > 1){
 			printf("#time %d, sleeping %d\n", tim, ms);
 			std::this_thread::sleep_for(milliseconds(ms));
 		}
