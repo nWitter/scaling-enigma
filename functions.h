@@ -8,7 +8,6 @@
 
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::nanoseconds nanosec;
-typedef std::chrono::duration<int, nanoseconds> dur_f;
 
 void interference_function(int func, int scale);
 

@@ -10,7 +10,7 @@
 #include "functions.h"
 
 typedef std::chrono::steady_clock Clock;
-typedef std::chrono::milliseconds milliseconds;
+typedef std::chrono::nanoseconds nanosec;
 
 const int ENI_SLEEP = -1;
 const int ENI_INTERFERE = 1;
@@ -111,7 +111,7 @@ int main(int argc, char **argv)
 		}
 
 		// fill intervall
-		nanoseconds ns = std::chrono::duration_cast<ms>(timeInterv(t0));
+		nanosec ns = timeInterv(t0);
 		int remainingInterv = intervalMillisec - ns.count();
 		if(remainingInterv > 1){
 			printf("\t--%d #time %d, sleeping %d\n", rank, ns.count(), remainingInterv);

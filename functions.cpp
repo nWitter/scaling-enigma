@@ -56,8 +56,8 @@ void functionMemory(int sc){
 }
 
 double tNow(Clock::time_point tZero){
-	std::chrono::duration<double> d = Clock::now() - tZero;
-	milliseconds m = std::chrono::duration_cast<milliseconds>(d);
+	nanosec d = Clock::now() - tZero;
+	nanosec m = std::chrono::duration_cast<nanosec>(d);
 	return m.count();
 }
 
