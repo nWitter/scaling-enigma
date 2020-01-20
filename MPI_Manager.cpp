@@ -117,7 +117,7 @@ int main(int argc, char **argv)
 			printf("\t--%d #time %f, sleeping %d\n", rank, static_cast<double>(ns.count()), remainingInterv);
 			std::this_thread::sleep_for(nanosec(remainingInterv));
 		}
-		printf("\t--%d passed %f\n", rank, (double)ns.count());
+		printf("\t--%d passed %f\t sleept%d\n", rank, (double)ns.count(), remainingInterv);
 	}
 
 	printf("done .\n");
