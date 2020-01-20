@@ -112,8 +112,8 @@ int main(int argc, char **argv)
 		}
 
 		// fill intervall
-		nanosec ns = timeInterv(t1);
-		nanosec ns2 = timeInterv(t0);
+		nanosec ns = timeInterv(t0);
+		nanosec ns2 = t1 - t0;
 		int remainingInterv = intervalNanosec - ns.count();
 		double nsInt = static_cast<double>(ns.count());
 		double nsWait = static_cast<double>(ns2.count());
