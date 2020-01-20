@@ -5,11 +5,12 @@ const int vector_size = 1 << 6;
 int interference_function(int func, int scale, Clock::time_point tZero, nanosec activeT){
 	int vector[vector_size];
 	int cnt = 0;
+	bool end = true;
 	for (int i = 0; i < vector_size; i++)
 		vector[i] = 1.0;
-	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale, cnt)
+	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale, cnt, end)
 	for (int a = 0; a < vector_size; a++){
-		while (timeInterv(tZero) < (activeT)) {
+		while (end) {
 			for (int b = 0; b < scale; b++) {
 				if(func == 1){
 					functionCalc(vector, a);
@@ -20,6 +21,8 @@ int interference_function(int func, int scale, Clock::time_point tZero, nanosec 
 				}
 			}
 			cnt++;
+			if(timeInterv(tZero) < (activeT))
+				end = false;
 		}
 	}
 	
