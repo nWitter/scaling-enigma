@@ -112,10 +112,10 @@ int main(int argc, char **argv)
 
 		// fill intervall
 		nanosec ns = timeInterv(t0);
-		int remainingInterv = intervalMillisec - ns.count();
+		int remainingInterv = intervalNanosec - ns.count();
 		if(remainingInterv > 1){
-			printf("\t--%d #time %d, sleeping %d\n", rank, ns.count(), remainingInterv);
-			std::this_thread::sleep_for(nanoseconds(remainingInterv));
+			printf("\t--%d #time %f, sleeping %d\n", rank, ns.count(), remainingInterv);
+			std::this_thread::sleep_for(nanosec(remainingInterv));
 		}
 	}
 
