@@ -9,9 +9,8 @@
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::nanoseconds nanosec;
 
-const int vector_size = 1 << vector_scale;
 
-void interference_function(int func, int scale, Clock::time_point tZero, nanosec activeT);
+int interference_function(int func, int scale, Clock::time_point tZero, nanosec activeT);
 
 void functionMixed(int* v, int x);
 void functionCalc(int* v, int x);
