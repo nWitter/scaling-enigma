@@ -12,11 +12,11 @@ int interference_function(int func, int scale, Clock::time_point tZero, nanosec 
 		while (timeInterv(tZero) < (activeT)) {
 			for (int b = 0; b < scale; b++) {
 				if(func == 1){
-					functionCalc(vector);
+					functionCalc(vector, a);
 				} else if(func == 2){
-					functionMemory(vector);
+					functionMemory(vector, a);
 				} else {
-					functionMixed(vector);
+					functionMixed(vector, a);
 				}
 			}
 			cnt++;
@@ -27,20 +27,20 @@ int interference_function(int func, int scale, Clock::time_point tZero, nanosec 
 }
 
 // 0 default
-void functionMixed(int* v){
-	int t = (a + vector_size/2) % vector_size;
-	v[a] = (v[a] + a) * v[t];
+void functionMixed(int* v, int x){
+	int t = (x + vector_size/2) % vector_size;
+	v[x] = (v[x] + x) * v[t];
 }
 
 // 1
-void functionCalc(int* v){
-	vector[a] = vector[a] + 1.1) * 1.1;
+void functionCalc(int* v, int x){
+	v[x] = v[x] + 1.1) * 1.1;
 }
 
 // 2
-void functionMemory(int* v){
-	int t = (a + vector_size/2) % vector_size;
-	v[a] = v[t];
+void functionMemory(int* v, int x){
+	int t = (x + vector_size/2) % vector_size;
+	v[x] = v[t];
 }
 
 nanosec timeInterv(Clock::time_point tZero){
