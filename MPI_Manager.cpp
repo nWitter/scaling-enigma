@@ -118,15 +118,15 @@ int main(int argc, char **argv)
 		double nsInt = static_cast<double>(ns.count());
 		double nsWait = static_cast<double>(ns2.count());
 		if(remainingInterv > 1){
-			//printf("\t--%d #time %f, sleeping %d\n", rank, ns2, remainingInterv);
+			printf("\t--%d zz %d\n", rank, remainingInterv);
 			std::this_thread::sleep_for(nanosec(remainingInterv));
 		}
-		printf("\t--%d\t n: %d\t time %f\t sleept%d \t waited%f\n", rank, x, nsInt, remainingInterv, nsWait);
+		printf("--%d\t n: %d\t time %f\t sleept%d \t waited%f\n", rank, x, nsInt, remainingInterv, nsWait);
 	}
 
-	printf("done .\n");
-	MPI_Get_count(&Stat, MPI_CHAR, &count);
-	printf("Task %d: Received %d char(s) from task %d with tag %d \n", rank, count, Stat.MPI_SOURCE, Stat.MPI_TAG);
+	printf("%d done .\n", rank);
+	//MPI_Get_count(&Stat, MPI_CHAR, &count);
+	//printf("Task %d: Received %d char(s) from task %d with tag %d \n", rank, count, Stat.MPI_SOURCE, Stat.MPI_TAG);
 
 	free(scatterBuffer);
 	MPI_Finalize();
