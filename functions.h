@@ -9,15 +9,14 @@
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::nanoseconds nanosec;
 
-void interference_function(int func, int scale);
+void interference_function(int func, int scale, Clock::time_point tZero, nanosec activeT);
 
-void functionMixed(int sc);
-void functionCalc(int sc);
-void functionMemory(int sc);
+void functionMixed(int* v, int s, int sc);
+void functionCalc(int* v, int s, int sc);
+void functionMemory(int* v, int s, int sc);
 
 void functionCalcSingle(int sc);
 
-double tNow(Clock::time_point tZero);
 nanosec timeInterv(Clock::time_point tZero);
 
 

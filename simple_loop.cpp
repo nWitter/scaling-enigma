@@ -32,11 +32,8 @@ void interferenceLoop(float timeFraction, float stepLength, int functionType, in
 	int l = stepLength * timeFraction * 1000000;
 	nanosec activeTime = nanosec(l);
 
-	int tmp = 0;
-	while (timeInterv(t0) < (activeTime)) {
-		interference_function(functionType, calcScale);
-		tmp++;
-	}
+	int tmp = interference_function(functionType, calcScale, t0, activeTime);
+	
 	double d = static_cast<double>(activeTime.count());
-	printf(" activeTime:frac%f\t time:%f\t cnt%d\t\n", timeFraction, d, tmp);
+	printf(" activeTime %f\t frac:%f\t cnt %d\t\n", static_cast<double>(timeInterv(t0).count()), timeFraction, tmp);
 }
