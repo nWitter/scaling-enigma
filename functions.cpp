@@ -1,6 +1,5 @@
 #include "functions.h"
 
-const int vector_size = 1 << vector_scale;
 
 int interference_function(int func, int scale, Clock::time_point tZero, nanosec activeT){
 	int vector[vector_size];
@@ -8,7 +7,7 @@ int interference_function(int func, int scale, Clock::time_point tZero, nanosec 
 	for (int i = 0; i < vector_size; i++)
 		vector[i] = 1.0;
 	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale)
-	for (int a = 0; a < size; a++){
+	for (int a = 0; a < vector_size; a++){
 		while (timeInterv(tZero) < (activeT)) {
 			for (int b = 0; b < scale; b++) {
 				if(func == 1){
@@ -34,7 +33,7 @@ void functionMixed(int* v, int x){
 
 // 1
 void functionCalc(int* v, int x){
-	v[x] = v[x] + 1.1) * 1.1;
+	v[x] = (v[x] + 1.1) * 1.1;
 }
 
 // 2
