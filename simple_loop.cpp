@@ -39,3 +39,4 @@ void interferenceLoop(float timeFraction, float stepLength, int functionType, in
 	}
 	double d = static_cast<double>(activeTime.count());
 	printf(" activeTime:frac%f\t time:%f\t cnt%d\t\n", timeFraction, d, tmp);
+}
