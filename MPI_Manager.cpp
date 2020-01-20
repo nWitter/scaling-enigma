@@ -112,9 +112,9 @@ int main(int argc, char **argv)
 
 		// fill intervall
 		nanoseconds ns = std::chrono::duration_cast<ms>(timeInterv(t0));
-		int remainingInterv = intervalMillisec - ns;
-		if(ns > 1){
-			printf("\t--%d #time %d, sleeping %d\n", rank, ns, remainingInterv);
+		int remainingInterv = intervalMillisec - ns.count();
+		if(remainingInterv > 1){
+			printf("\t--%d #time %d, sleeping %d\n", rank, ns.count(), remainingInterv);
 			std::this_thread::sleep_for(nanoseconds(remainingInterv));
 		}
 	}

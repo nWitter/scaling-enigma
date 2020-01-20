@@ -61,9 +61,8 @@ double tNow(Clock::time_point tZero){
 	return m.count();
 }
 
-dur_f timeInterv(Clock::time_point tZero){
-	Clock::time_point t1 = Clock::now();
-	dur_f d = t1 - tZero;
+nanosec timeInterv(Clock::time_point tZero){
+	nanosec d = lock::now() - tZero;
 	return d;
 }
 

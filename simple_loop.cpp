@@ -4,9 +4,7 @@
 typedef std::vector<double> d_vec;
 
 typedef std::chrono::steady_clock Clock;
-typedef std::chrono::milliseconds milliseconds;
-typedef std::chrono::nanoseconds nanoseconds;
-typedef std::chrono::duration<float> dur_f;
+typedef std::chrono::nanoseconds nanosec;
 
 int oldmain(int argc, char **argv)
 {
@@ -31,7 +29,8 @@ int oldmain(int argc, char **argv)
 
 void interferenceLoop(float timeFraction, float stepLength, int functionType, int calcScale){
 	Clock::time_point t0 = Clock::now();
-	dur_f activeTime = nanoseconds(stepLength * timeFraction * 1000000);
+	int l = stepLength * timeFraction * 1000000;
+	nanosec activeTime = nanosec(l);
 	printf("starting step\t%f \t%f \t%f\n", timeFraction, stepLength, activeTime.count());
 
 	int tmp = 0;

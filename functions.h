@@ -7,9 +7,8 @@
 #include <chrono>
 
 typedef std::chrono::steady_clock Clock;
-typedef std::chrono::milliseconds milliseconds;
-typedef std::chrono::nanoseconds nanoseconds;
-typedef std::chrono::duration<float> dur_f;
+typedef std::chrono::nanoseconds nanosec;
+typedef std::chrono::duration<int, nanoseconds> dur_f;
 
 void interference_function(int func, int scale);
 
@@ -20,7 +19,7 @@ void functionMemory(int sc);
 void functionCalcSingle(int sc);
 
 double tNow(Clock::time_point tZero);
-dur_f timeInterv(Clock::time_point tZero);
+nanosec timeInterv(Clock::time_point tZero);
 
 
 #endif
