@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	printf("Starting: ranks %d, tasks %d\n", rank, numtasks);
+	printf("Starting: rank %d, tasks %d\n", rank, numtasks);
 
 	const int bufferSize = 3;
 	int* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
