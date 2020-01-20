@@ -115,7 +115,7 @@ int main(int argc, char **argv)
 		nanosec ns = timeInterv(t0);
 		int remainingInterv = intervalNanosec - ns.count();
 		if(remainingInterv > 1){
-			printf("\t--%d zz time %f\n", rank, remainingInterv);
+			printf("\t--%d zz time %d\n", rank, remainingInterv);
 			std::this_thread::sleep_for(nanosec(remainingInterv));
 		}
 		
@@ -123,7 +123,7 @@ int main(int argc, char **argv)
 		nanosec ns2 = t1 - t0;
 		int nsWait = ns2.count();
 		
-		printf("--%d\t n: %d\t time %f\t sleept%d \t waited%d\n", rank, x, nsInt, remainingInterv, nsWait);
+		printf("--%d\t n: %d\t time %f\t sleept%d \t waited%d\n", rank, x, nsTotal, remainingInterv, nsWait);
 	}
 
 	printf("%d done .\n", rank);
