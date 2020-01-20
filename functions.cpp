@@ -62,7 +62,7 @@ double tNow(Clock::time_point tZero){
 }
 
 nanosec timeInterv(Clock::time_point tZero){
-	nanosec d = clock::now() - tZero;
+	nanosec d = Clock::now() - tZero;
 	return d;
 }
 
