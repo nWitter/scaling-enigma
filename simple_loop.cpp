@@ -39,4 +39,3 @@ void interferenceLoop(float timeFraction, float stepLength, int functionType, in
 		tmp++;
 	}
 }
-
