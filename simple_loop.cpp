@@ -33,6 +33,6 @@ void interferenceLoop(float timeFraction, float stepLength, int functionType, in
 	nanosec activeTime = nanosec(l);
 
 	int tmp = interference_function(functionType, calcScale, t0, activeTime);
-	
-	printf("\t activeTime %d\t rate %f\t cnt %d\t\n", timeInterv(t0).count(), 1.0 * timeInterv(t0).count() / activeTime.count(), tmp);
+	float r = timeInterv(t0).count() / activeTime.count();
+	printf("\t activeTime %d\t rate %f\t cnt %d\t\n", timeInterv(t0).count(), r, tmp);
 }
