@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 {
 	const int intervalNanosec = 1000000;
 	const int duration = 10;
-	const int calc_scale = 1 << 10;
+	const int calc_scale = 1 << 9;
 	
 	if(argc>10)
 		argv[10]++;
