@@ -72,10 +72,12 @@ int main(int argc, char **argv)
 						break;
 					}					
 					int rnd = (int) (rndNum() * (numtasks+1)) * bufferSize;
+					int b = 0;
 					//test
 					rnd = 1;
-					while(scatterBuffer[rnd * bufferSize] != ENI_NULL){						
+					while(scatterBuffer[rnd * bufferSize] != ENI_NULL && b < a){						
 						rnd = (rnd + 1) % numtasks;
+						b++;
 					}
 					scatterBuffer[rnd * bufferSize] = ENI_INTERFERE;
 				}
@@ -123,7 +125,7 @@ int main(int argc, char **argv)
 		nanosec ns2 = t1 - t0;
 		int nsWait = ns2.count();
 		
-		printf("--%d\t n: %d\t time %f\t sleept%d \t waited%d\n", rank, x, nsTotal, remainingInterv, nsWait);
+		printf("--%d\t n: %d\t time %f\t sleept%d\t waited %d\n", rank, x, nsTotal, remainingInterv, nsWait);
 	}
 
 	printf("%d done .\n", rank);
