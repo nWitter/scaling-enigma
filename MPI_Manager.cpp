@@ -104,7 +104,7 @@ int main(int argc, char **argv)
 			float time_fraction = 1.0;
 			float step_length = 1.0;
 			int function_type = 1;
-			int calc_scale = 1 << 12;
+			int calc_scale = 1 << 10;
 			
 			
 			interferenceLoop(time_fraction, step_length, function_type, calc_scale);			
@@ -114,7 +114,7 @@ int main(int argc, char **argv)
 		nanosec ns = timeInterv(t0);
 		int remainingInterv = intervalNanosec - ns.count();
 		if(remainingInterv > 1){
-			printf("\t--%d #time %f, sleeping %d\n", rank, (double)ns.count(), remainingInterv);
+			printf("\t--%d #time %f, sleeping %d\n", rank, static_cast<double>(ns.count()), remainingInterv);
 			std::this_thread::sleep_for(nanosec(remainingInterv));
 		}
 		printf("\t--%d passed %f\n", rank, (double)ns.count());
