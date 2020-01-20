@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 						interf_assigned++;
 					}
 				}
-				printf("#atmpt %d, actual slows %d\n", interf_number, interf_assigned);
+				//printf("#atmpt %d, actual slows %d\n", interf_number, interf_assigned);
 			}else if(affected >= 0.5){
 				scatterBuffer[0] = ENI_INTERFERE;
 			} else {
@@ -96,10 +96,11 @@ int main(int argc, char **argv)
 		}
 
 		
-		printf("--%d state: %c ; %c \n", rank, inbuffer[0], inbuffer[1]);
+		printf("--%d state: %d ; %d \n", rank, inbuffer[0], inbuffer[1]);
 		// interference
 		if(inbuffer[0] == ENI_INTERFERE){
 			//TODO
+			printf("\t--%d \t interf\n", rank);
 			float time_fraction = 1.0;
 			float step_length = 1.0;
 			int function_type = 1;
@@ -113,7 +114,7 @@ int main(int argc, char **argv)
 		int tim = tNow(t0);
 		int ms = intervalMillisec - tim;
 		if(ms > 1){
-			printf("#time %d, sleeping %d\n", tim, ms);
+			printf("\t--%d #time %d, sleeping %d\n", rank, tim, ms);
 			std::this_thread::sleep_for(milliseconds(ms));
 		}
 	}
