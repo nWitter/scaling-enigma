@@ -113,7 +113,7 @@ int main(int argc, char **argv)
 		// fill intervall
 		nanosec ns = timeInterv(t0);
 		int remainingInterv = intervalNanosec - ns.count();
-		double ns2 = tatic_cast<double>(ns.count());
+		double ns2 = static_cast<double>(ns.count());
 		if(remainingInterv > 1){
 			printf("\t--%d #time %f, sleeping %d\n", rank, ns2, remainingInterv);
 			std::this_thread::sleep_for(nanosec(remainingInterv));
