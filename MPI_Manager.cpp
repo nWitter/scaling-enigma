@@ -95,7 +95,8 @@ int main(int argc, char **argv)
 		} else if (rank != 0) {
 			MPI_Scatter(scatterBuffer, bufferSize, MPI_INT, inbuffer, bufferSize, MPI_INT, 0, MPI_COMM_WORLD);
 		}
-
+		
+		Clock::time_point t1 = Clock::now();
 		
 		//printf("--%d state: %d ; %d \n", rank, inbuffer[0], inbuffer[1]);
 		// interference
@@ -111,14 +112,16 @@ int main(int argc, char **argv)
 		}
 
 		// fill intervall
-		nanosec ns = timeInterv(t0);
+		nanosec ns = timeInterv(t1);
+		nanosec ns2 = timeInterv(t0);
 		int remainingInterv = intervalNanosec - ns.count();
-		double ns2 = static_cast<double>(ns.count());
+		double nsInt = static_cast<double>(ns.count());
+		double nsWait = static_cast<double>(ns2.count());
 		if(remainingInterv > 1){
 			//printf("\t--%d #time %f, sleeping %d\n", rank, ns2, remainingInterv);
 			std::this_thread::sleep_for(nanosec(remainingInterv));
 		}
-		printf("\t--%d\t n: %d\t time %f\t sleept%d\n", rank, x, ns2, remainingInterv);
+		printf("\t--%d\t n: %d\t time %f\t sleept%d \t waited%d\n", rank, x, nsInt, remainingInterv, nsWait);
 	}
 
 	printf("done .\n");
