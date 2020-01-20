@@ -23,7 +23,7 @@ float rndNum(){
 
 int main(int argc, char **argv)
 {
-	const int intervalMillisec = 1000;
+	const int intervalNanosec = 1000000;
 	const int duration = 5;
 	
 	if(argc>10)
@@ -83,15 +83,15 @@ int main(int argc, char **argv)
 			} else {
 				scatterBuffer[0] = ENI_SLEEP;
 			}
-			for(int a = 0; a < numtasks * bufferSize; a += bufferSize)
-				if(scatterBuffer[a] == ENI_NULL)
+			for(int a = 0; a < numtasks * bufferSize; a += bufferSize){
+				if(scatterBuffer[a] == ENI_NULL){
 					scatterBuffer[a] = ENI_SLEEP;
-			
+				}
+			}
 			
 			MPI_Scatter(scatterBuffer, bufferSize, MPI_INT, inbuffer, bufferSize, MPI_INT, 0, MPI_COMM_WORLD);
 			
 		} else if (rank != 0) {
-			//MPI_Recv(&inmsg, 1, MPI_CHAR, source, tag, MPI_COMM_WORLD, &Stat);
 			MPI_Scatter(scatterBuffer, bufferSize, MPI_INT, inbuffer, bufferSize, MPI_INT, 0, MPI_COMM_WORLD);
 		}
 
@@ -111,11 +111,11 @@ int main(int argc, char **argv)
 		}
 
 		// fill intervall
-		int tim = tNow(t0);
-		int ms = intervalMillisec - tim;
-		if(ms > 1){
-			printf("\t--%d #time %d, sleeping %d\n", rank, tim, ms);
-			std::this_thread::sleep_for(milliseconds(ms));
+		nanoseconds ns = std::chrono::duration_cast<ms>(timeInterv(t0));
+		int remainingInterv = intervalMillisec - ns;
+		if(ns > 1){
+			printf("\t--%d #time %d, sleeping %d\n", rank, ns, remainingInterv);
+			std::this_thread::sleep_for(nanoseconds(remainingInterv));
 		}
 	}
 

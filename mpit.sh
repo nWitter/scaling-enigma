@@ -13,10 +13,12 @@
 
 
 echo "Testing MPIsetup"
+export I_MPI_PIN_DOMAIN=auto
+export I_MPI_PIN=1
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 chmod +x MPI_Manager
 
-export OMP_NUM_THREADS=4
-mpiexec -n 4 ./MPI_Manager > mpi.out
+mpiexec -n $SLURM_NTASKS ./MPI_Manager > mpi.out
 
 echo "all started, we done"
 exit 0

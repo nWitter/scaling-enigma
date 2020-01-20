@@ -61,6 +61,12 @@ double tNow(Clock::time_point tZero){
 	return m.count();
 }
 
+dur_f timeInterv(Clock::time_point tZero){
+	Clock::time_point t1 = Clock::now();
+	dur_f d = t1 - tZero;
+	return d;
+}
+
 void functionCalcSingle(int sc){
 	double x = 1;
 	for (int a = 0; a < sc; a++){
