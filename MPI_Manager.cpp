@@ -66,7 +66,7 @@ int main(int argc, char **argv)
 			
 			// designate interfering ranks
 			if(numtasks > 1){
-				while(interf_assigned < interf_number){
+				while(false&&interf_assigned < interf_number){
 					if(affected < 0|| affected > 1){
 						printf("#error invalid number of affected nodes");
 						break;
@@ -78,7 +78,8 @@ int main(int argc, char **argv)
 						interf_assigned++;
 					}
 				}
-				//printf("#atmpt %d, actual slows %d\n", interf_number, interf_assigned);
+				//testing
+				scatterBuffer[1] = ENI_INTERFERE
 			}else if(affected >= 0.5){
 				scatterBuffer[0] = ENI_INTERFERE;
 			} else {
