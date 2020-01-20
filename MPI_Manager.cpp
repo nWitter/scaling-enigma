@@ -24,7 +24,8 @@ float rndNum(){
 int main(int argc, char **argv)
 {
 	const int intervalNanosec = 1000000;
-	const int duration = 5;
+	const int duration = 10;
+	const int calc_scale = 1 << 10;
 	
 	if(argc>10)
 		argv[10]++;
@@ -96,7 +97,7 @@ int main(int argc, char **argv)
 		}
 
 		
-		printf("--%d state: %d ; %d \n", rank, inbuffer[0], inbuffer[1]);
+		//printf("--%d state: %d ; %d \n", rank, inbuffer[0], inbuffer[1]);
 		// interference
 		if(inbuffer[0] == ENI_INTERFERE){
 			//TODO
@@ -104,7 +105,6 @@ int main(int argc, char **argv)
 			float time_fraction = 1.0;
 			float step_length = 1.0;
 			int function_type = 1;
-			int calc_scale = 1 << 10;
 			
 			
 			interferenceLoop(time_fraction, step_length, function_type, calc_scale);			
@@ -115,10 +115,10 @@ int main(int argc, char **argv)
 		int remainingInterv = intervalNanosec - ns.count();
 		double ns2 = static_cast<double>(ns.count());
 		if(remainingInterv > 1){
-			printf("\t--%d #time %f, sleeping %d\n", rank, ns2, remainingInterv);
+			//printf("\t--%d #time %f, sleeping %d\n", rank, ns2, remainingInterv);
 			std::this_thread::sleep_for(nanosec(remainingInterv));
 		}
-		printf("\t--%d passed %f\t sleept%d\n", rank, ns2, remainingInterv);
+		printf("\t--%d\t n: %d\t time %f\t sleept%d\n", rank, x ns2, remainingInterv);
 	}
 
 	printf("done .\n");
