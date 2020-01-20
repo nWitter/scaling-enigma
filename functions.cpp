@@ -1,6 +1,6 @@
 #include "functions.h"
 
-const int vector_size = 1 << 6;
+const int vector_size = 1 << 7;
 
 int interference_function(int func, int scale, Clock::time_point tZero, nanosec activeT){
 	int vector[vector_size];
@@ -21,8 +21,9 @@ int interference_function(int func, int scale, Clock::time_point tZero, nanosec 
 				}
 			}
 			cnt++;
-			if(timeInterv(tZero) > (activeT))
+			if(timeInterv(tZero) > (activeT)){
 				end = false;
+			}
 		}
 	}
 	
