@@ -102,7 +102,7 @@ int main(int argc, char **argv)
 		
 		//printf("--%d state: %d ; %d \n", rank, inbuffer[0], inbuffer[1]);
 		// interference
-		if(inbuffer[0] == ENI_INTERFERE){
+		if(inbuffer[0] == ENI_INTERFERE && x != 0){
 			//TODO
 			printf("\t--%d \t interf\n", rank);
 			float time_fraction = 1.0;
