@@ -121,7 +121,7 @@ int main(int argc, char **argv)
 			//printf("\t--%d #time %f, sleeping %d\n", rank, ns2, remainingInterv);
 			std::this_thread::sleep_for(nanosec(remainingInterv));
 		}
-		printf("\t--%d\t n: %d\t time %f\t sleept%d \t waited%d\n", rank, x, nsInt, remainingInterv, nsWait);
+		printf("\t--%d\t n: %d\t time %f\t sleept%d \t waited%f\n", rank, x, nsInt, remainingInterv, nsWait);
 	}
 
 	printf("done .\n");
