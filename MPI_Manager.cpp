@@ -74,10 +74,10 @@ int main(int argc, char **argv)
 					int rnd = (int) (rndNum() * (numtasks+1)) * bufferSize;
 					//test
 					rnd = 1;
-					while(scatterBuffer[rnd] != ENI_NULL){						
-						rnd = (rnd + bufferSize) % (numtasks * bufferSize);
+					while(scatterBuffer[rnd * bufferSize] != ENI_NULL){						
+						rnd = (rnd + 1) % numtasks;
 					}
-					scatterBuffer[rnd] = ENI_INTERFERE;
+					scatterBuffer[rnd * bufferSize] = ENI_INTERFERE;
 				}
 			}else if(affected >= 0.5){
 				scatterBuffer[0] = ENI_INTERFERE;
