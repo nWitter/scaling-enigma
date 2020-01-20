@@ -66,20 +66,19 @@ int main(int argc, char **argv)
 			
 			// designate interfering ranks
 			if(numtasks > 1){
-				while(false&&interf_assigned < interf_number){
-					if(affected < 0|| affected > 1){
+				for(int a = 0; a < interf_number; a++){
+					if(affected < 0 || affected > 1){
 						printf("#error invalid number of affected nodes");
 						break;
-					}
-					
+					}					
 					int rnd = (int) (rndNum() * (numtasks+1)) * bufferSize;
-					if(scatterBuffer[rnd] == ENI_NULL){
-						scatterBuffer[rnd] = ENI_INTERFERE;
-						interf_assigned++;
+					//test
+					rnd = 1;
+					while(scatterBuffer[rnd] != ENI_NULL){						
+						rnd = (rnd + bufferSize) % (numtasks * bufferSize);
 					}
+					scatterBuffer[rnd] = ENI_INTERFERE;
 				}
-				//testing
-				scatterBuffer[1] = ENI_INTERFERE;
 			}else if(affected >= 0.5){
 				scatterBuffer[0] = ENI_INTERFERE;
 			} else {
