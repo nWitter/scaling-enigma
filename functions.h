@@ -11,9 +11,9 @@ typedef std::chrono::nanoseconds nanosec;
 
 void interference_function(int func, int scale, Clock::time_point tZero, nanosec activeT);
 
-void functionMixed(int* v, int s, int sc);
-void functionCalc(int* v, int s, int sc);
-void functionMemory(int* v, int s, int sc);
+void functionMixed(int* v);
+void functionCalc(int* v);
+void functionMemory(int* v);
 
 void functionCalcSingle(int sc);
 

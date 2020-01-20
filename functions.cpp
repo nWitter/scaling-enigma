@@ -1,23 +1,22 @@
 #include "functions.h"
 
-const int vector_scale = 10;
+const int vector_size = 1 << vector_scale;
 
 int interference_function(int func, int scale, Clock::time_point tZero, nanosec activeT){
-	const int size = 1 << vector_scale;
-	int vector[size];
+	int vector[vector_size];
 	int cnt = 0;
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < vector_size; i++)
 		vector[i] = 1.0;
-	#pragma omp parallel for default(none) shared(vector, sc, tZero, activeT, size, scale)
+	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale)
 	for (int a = 0; a < size; a++){
 		while (timeInterv(tZero) < (activeT)) {
-			for (int b = 0; b < sc; b++) {
+			for (int b = 0; b < scale; b++) {
 				if(func == 1){
-					functionCalc(vector, size, scale);
+					functionCalc(vector);
 				} else if(func == 2){
-					functionMemory(vector, size, scale);
+					functionMemory(vector);
 				} else {
-					functionMixed(vector, size, scale);
+					functionMixed(vector);
 				}
 			}
 			cnt++;
@@ -28,19 +27,19 @@ int interference_function(int func, int scale, Clock::time_point tZero, nanosec 
 }
 
 // 0 default
-void functionMixed(int* v, int s, int sc){
-	int t = (a + s/2) % s;
+void functionMixed(int* v){
+	int t = (a + vector_size/2) % vector_size;
 	v[a] = (v[a] + a) * v[t];
 }
 
 // 1
-void functionCalc(int* v, int s, int sc){
-	vector[a] = vector[a] + s) * 1.1;
+void functionCalc(int* v){
+	vector[a] = vector[a] + 1.1) * 1.1;
 }
 
 // 2
-void functionMemory(int* v, int s, int sc){
-	int t = (a + s/2) % s;
+void functionMemory(int* v){
+	int t = (a + vector_size/2) % vector_size;
 	v[a] = v[t];
 }
 
