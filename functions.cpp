@@ -21,7 +21,7 @@ int interference_function(int func, int scale, Clock::time_point tZero, nanosec 
 				}
 			}
 			cnt++;
-			if(timeInterv(tZero) < (activeT))
+			if(timeInterv(tZero) > (activeT))
 				end = false;
 		}
 	}
