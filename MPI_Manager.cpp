@@ -113,15 +113,17 @@ int main(int argc, char **argv)
 
 		// fill intervall
 		nanosec ns = timeInterv(t0);
-		nanosec ns2 = t1 - t0;
 		int remainingInterv = intervalNanosec - ns.count();
-		double nsInt = static_cast<double>(ns.count());
-		double nsWait = static_cast<double>(ns2.count());
 		if(remainingInterv > 1){
-			printf("\t--%d zz %d\n", rank, remainingInterv);
+			printf("\t--%d zz time %f\n", rank, remainingInterv);
 			std::this_thread::sleep_for(nanosec(remainingInterv));
 		}
-		printf("--%d\t n: %d\t time %f\t sleept%d \t waited%f\n", rank, x, nsInt, remainingInterv, nsWait);
+		
+		double nsTotal = static_cast<double>(timeInterv(t0).count());
+		nanosec ns2 = t1 - t0;
+		int nsWait = ns2.count();
+		
+		printf("--%d\t n: %d\t time %f\t sleept%d \t waited%d\n", rank, x, nsInt, remainingInterv, nsWait);
 	}
 
 	printf("%d done .\n", rank);
