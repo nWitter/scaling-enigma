@@ -1,6 +1,6 @@
 #include "functions.h"
 
-const int vector_size = 1 << 10;
+const int vector_size = 1 << 6;
 
 int interference_function(int func, int scale, Clock::time_point tZero, nanosec activeT){
 	int vector[vector_size];

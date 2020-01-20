@@ -13,7 +13,7 @@ int oldmain(int argc, char **argv)
 	float time_fraction = 1;
 	float step_length = 1.0;
 	int function_type = 1;
-	const int calc_scale = 1 << 12;	
+	const int calc_scale = 1 << 8;	
 	int duration = 60;
 	
 	if(argc>10)
@@ -34,5 +34,5 @@ void interferenceLoop(float timeFraction, float stepLength, int functionType, in
 
 	int tmp = interference_function(functionType, calcScale, t0, activeTime);
 	
-	printf(" activeTime %f\t frac:%f\t cnt %d\t\n", static_cast<double>(timeInterv(t0).count()), timeFraction, tmp);
+	printf("\t activeTime %f\t cnt %d\t\n", static_cast<double>(timeInterv(t0).count()), tmp);
 }
