@@ -37,9 +37,11 @@ int main(int argc, char **argv)
 		//nonsense
 	for (int a = 0; a < argc; a++){
 		if(a == 1){
-			float x = atof(argv[a]);
-			if(x > 0 && x < 1){
-				interferingNodes = x;
+			int x = atoi(argv[a]);
+			if(x == 0){
+				interferingNodes = 0;
+			} else if(x == 1){
+				interferingNodes = 1;
 			}
 		}
 	}
