@@ -22,6 +22,7 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 
 mpiexec -n $SLURM_NTASKS ./MPI_Manager $3 &
+sleep 20
 mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 > $2 &
 wait
 
