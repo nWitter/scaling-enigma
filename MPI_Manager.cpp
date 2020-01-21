@@ -24,7 +24,7 @@ float rndNum(){
 int main(int argc, char **argv)
 {
 	const int intervalMillisec = 1000000;
-	const int duration = 30;
+	const int duration = 60;
 	const int calc_scale = 1 << 9;
 	
 	double interferingNodes = 0.5;
@@ -118,7 +118,7 @@ int main(int argc, char **argv)
 		//printf("--%d state: %d ; %d \n", rank, inbuffer[0], inbuffer[1]);
 		// interference
 		// initially run on all nodes to start OMP
-		if(inbuffer[0] == ENI_INTERFERE && x == 0){
+		if(inbuffer[0] == ENI_INTERFERE || x == 0){
 			//TODO
 			//printf("\t--%d \t interf\n", rank);
 			time_fraction = 1.0;
