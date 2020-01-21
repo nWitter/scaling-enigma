@@ -132,7 +132,7 @@ int main(int argc, char **argv)
 		}
 		
 		int nsTotal = timeInterv(t0).count();
-		microsec ns2 = microsec(t1 - t0);
+		microsec ns2 = std::chrono::duration_cast<microsec>(t1 - t0);
 		int nsWait = ns2.count();
 		
 		printf("--%d\t n: %d\t time %d\t sleept %d\t waited %d\n", rank, x, nsTotal, remainingInterv, nsWait);
