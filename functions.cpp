@@ -2,7 +2,7 @@
 
 const int vector_size = 1 << 7;
 
-int interference_function(int func, int scale, Clock::time_point tZero, nanosec activeT){
+int interference_function(int func, int scale, Clock::time_point tZero, microsec activeT){
 	int vector[vector_size];
 	int cnt = 0;
 	bool end = true;
@@ -47,8 +47,8 @@ void functionMemory(int* v, int x){
 	v[x] = v[t];
 }
 
-nanosec timeInterv(Clock::time_point tZero){
-	nanosec d = Clock::now() - tZero;
+microsec timeInterv(Clock::time_point tZero){
+	microsec d = Clock::now() - tZero;
 	return d;
 }
 
