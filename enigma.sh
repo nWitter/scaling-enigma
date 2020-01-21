@@ -8,7 +8,7 @@
 #SBATCH --clusters=mpp2
 #SBATCH --ntasks=2
 #SBATCH --cpus-per-task=28
-#SBATCH --time=00:04:00
+#SBATCH --time=00:03:00
 
 module load slurm_setup
 export I_MPI_PIN_DOMAIN=auto
