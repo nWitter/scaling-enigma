@@ -24,7 +24,7 @@ float rndNum(){
 int main(int argc, char **argv)
 {
 	const int intervalMillisec = 1000000;
-	const int duration = 10;
+	const int duration = 20;
 	const int calc_scale = 1 << 9;
 	
 	double interferingNodes = 0.5;
@@ -43,6 +43,7 @@ int main(int argc, char **argv)
 			} else if(x == 1){
 				interferingNodes = 1;
 			}
+			printf("arg: %d\n", x);
 		}
 	}
 	
@@ -119,8 +120,7 @@ int main(int argc, char **argv)
 		// interference
 		// initially run on all nodes to start OMP
 		if(inbuffer[0] == ENI_INTERFERE || x == 0){
-			//TODO
-			//printf("\t--%d \t interf\n", rank);
+			printf("\t--%d \t interf\n", rank);
 			//time_fraction = 1.0;
 			//step_length = 1.0;
 			//function_type = 1;
@@ -132,7 +132,7 @@ int main(int argc, char **argv)
 		microsec ns = timeInterv(t0);
 		int remainingInterv = intervalMillisec - ns.count();
 		if(remainingInterv > 1){
-			printf("\t--%d zz time %d\n", rank, remainingInterv);
+			printf("\t--%d \t sleep\n", rank, remainingInterv);
 			std::this_thread::sleep_for(microsec(remainingInterv));
 		}
 		
