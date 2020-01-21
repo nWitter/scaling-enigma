@@ -48,7 +48,7 @@ void functionMemory(int* v, int x){
 }
 
 microsec timeInterv(Clock::time_point tZero){
-	microsec d = Clock::now() - tZero;
+	microsec d = microsec(Clock::now() - tZero);
 	return d;
 }
 

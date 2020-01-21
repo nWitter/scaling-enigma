@@ -10,7 +10,7 @@
 #include "functions.h"
 
 typedef std::chrono::steady_clock Clock;
-typedef std::chrono::milliseconds millisec;
+typedef std::chrono::microseconds microsec;
 
 const int ENI_SLEEP = -1;
 const int ENI_INTERFERE = 1;
@@ -124,15 +124,15 @@ int main(int argc, char **argv)
 		}
 
 		// fill intervall
-		millisec ns = timeInterv(t0);
+		microsec ns = timeInterv(t0);
 		int remainingInterv = intervalMillisec - ns.count();
 		if(remainingInterv > 1){
 			printf("\t--%d zz time %d\n", rank, remainingInterv);
-			std::this_thread::sleep_for(millisec(remainingInterv));
+			std::this_thread::sleep_for(microsec(remainingInterv));
 		}
 		
 		int nsTotal = timeInterv(t0).count();
-		millisec ns2 = t1 - t0;
+		microsec ns2 = microsec(t1 - t0);
 		int nsWait = ns2.count();
 		
 		printf("--%d\t n: %d\t time %d\t sleept %d\t waited %d\n", rank, x, nsTotal, remainingInterv, nsWait);

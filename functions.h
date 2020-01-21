@@ -7,7 +7,7 @@
 #include <chrono>
 
 typedef std::chrono::steady_clock Clock;
-typedef std::chrono::milliseconds millisec;
+typedef std::chrono::microseconds microsec;
 
 
 int interference_function(int func, int scale, Clock::time_point tZero, microsec activeT);
@@ -18,7 +18,7 @@ void functionMemory(int* v, int x);
 
 void functionCalcSingle(int sc);
 
-millisec timeInterv(Clock::time_point tZero);
+microsec timeInterv(Clock::time_point tZero);
 
 
 #endif
