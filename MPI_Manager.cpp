@@ -23,8 +23,8 @@ float rndNum(){
 
 int main(int argc, char **argv)
 {
-	const int intervalNanosec = 1000000;
-	const int duration = 30;
+	const int intervalMicrosec = 1000000;
+	const int duration = 60;
 	const int calc_scale = 1 << 9;
 	
 	double interferingNodes = 0.5;
@@ -125,7 +125,7 @@ int main(int argc, char **argv)
 
 		// fill intervall
 		microsec ns = timeInterv(t0);
-		int remainingInterv = intervalNanosec - ns.count();
+		int remainingInterv = intervalMicrosec - ns.count();
 		if(remainingInterv > 1){
 			printf("\t--%d zz time %d\n", rank, remainingInterv);
 			std::this_thread::sleep_for(microsec(remainingInterv));
