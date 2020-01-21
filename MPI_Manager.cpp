@@ -24,7 +24,7 @@ float rndNum(){
 int main(int argc, char **argv)
 {
 	const int intervalMillisec = 1000000;
-	const int duration = 30;
+	const int duration = 10;
 	const int calc_scale = 1 << 9;
 	
 	double interferingNodes = 0.5;
