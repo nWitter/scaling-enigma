@@ -23,7 +23,7 @@ float rndNum(){
 
 int main(int argc, char **argv)
 {
-	const int intervalMillisec = 1000;
+	const int intervalMillisec = 1000000;
 	const int duration = 30;
 	const int calc_scale = 1 << 9;
 	
