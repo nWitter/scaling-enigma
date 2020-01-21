@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	if(argc>10)
 		argv[10]++;
 		//nonsense
-	for (int a = 0; a < argc; x++){
+	for (int a = 0; a < argc; a++){
 		if(a == 1){
 			float x = atof(argv[a]);
 			if(x > 0 && x < 1){
