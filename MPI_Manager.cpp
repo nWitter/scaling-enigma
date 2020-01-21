@@ -24,12 +24,23 @@ float rndNum(){
 int main(int argc, char **argv)
 {
 	const int intervalNanosec = 1000000;
-	const int duration = 10;
+	const int duration = 30;
 	const int calc_scale = 1 << 9;
+	
+	double interferingNodes = 0.5;
 	
 	if(argc>10)
 		argv[10]++;
 		//nonsense
+	for (int a = 0; a < argc; x++){
+		if(a == 1){
+			float x = atof(argv[a]);
+			if(x > 0 && x < 1){
+				interferingNodes = x;
+			}
+		}
+	}
+	
 	
 
 	int numtasks, rank, dest, source, rc, count, tag = 1;
@@ -56,8 +67,7 @@ int main(int argc, char **argv)
 			//TODO pattern
 			
 			
-			double affected = 0.5;
-			int interf_number = (int)(numtasks * affected);
+			int interf_number = (int)(numtasks * interferingNodes);
 			int interf_assigned = 0;
 			
 			std::vector<char> msg(numtasks);
@@ -65,9 +75,9 @@ int main(int argc, char **argv)
 				scatterBuffer[a] = ENI_NULL;
 			
 			// designate interfering ranks
-			if(numtasks > 1){
+			if(numtasks > 1 && interferingNodes > 0){
 				for(int a = 0; a < interf_number; a++){
-					if(affected < 0 || affected > 1){
+					if(interferingNodes < 0 || interferingNodes > 1){
 						printf("#error invalid number of affected nodes");
 						break;
 					}					
@@ -81,7 +91,7 @@ int main(int argc, char **argv)
 					}
 					scatterBuffer[rnd * bufferSize] = ENI_INTERFERE;
 				}
-			}else if(affected >= 0.5){
+			}else if(interferingNodes >= 0.5){
 				scatterBuffer[0] = ENI_INTERFERE;
 			} else {
 				scatterBuffer[0] = ENI_SLEEP;
@@ -102,13 +112,13 @@ int main(int argc, char **argv)
 		
 		//printf("--%d state: %d ; %d \n", rank, inbuffer[0], inbuffer[1]);
 		// interference
-		if(inbuffer[0] == ENI_INTERFERE && x != 0){
+		// initially run on all nodes to start OMP
+		if(inbuffer[0] == ENI_INTERFERE && x == 0){
 			//TODO
 			printf("\t--%d \t interf\n", rank);
 			float time_fraction = 1.0;
 			float step_length = 1.0;
 			int function_type = 1;
-			
 			
 			interferenceLoop(time_fraction, step_length, function_type, calc_scale);			
 		}
