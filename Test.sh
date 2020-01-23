@@ -7,7 +7,7 @@ chmod +x enigma.sh
 
 for ii in 0
 do
-	sbatch --ntasks=2 --cpus-per-task=28 enigma.sh 1000 output/2-28-0-$ii.out 50
+	sbatch --ntasks=2 --cpus-per-task=28 enigma.sh 700 output/2-28-0-$ii.out 50
 	#sbatch --ntasks=2 --cpus-per-task=28 enigma.sh 900 output/2-28-1-$ii.out 1
 	#sbatch --ntasks=2 --cpus-per-task=28 enigma.sh 700 output/2-28-0-$ii.out 0
 	#sbatch --ntasks=2 --cpus-per-task=28 enigma.sh 700 output/2-28-1-$ii.out 1

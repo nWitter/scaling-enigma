@@ -14,10 +14,11 @@ module load slurm_setup
 export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-#export VT_PCTRACE=1
 chmod +x startInterference.sh
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
+
+#export VT_PCTRACE=1
 
 echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 
