@@ -130,7 +130,7 @@ int main(int argc, char **argv)
 
 		// fill intervall
 		microsec ns = timeInterv(t0);
-		int remainingInterv = intervalMillisec - ns.count();
+		int remainingInterv = (int)(intervalMillisec * step_length) - ns.count();
 		if(remainingInterv > 1){
 			printf("\t--%d \t sleep\n", rank);
 			std::this_thread::sleep_for(microsec(remainingInterv));
