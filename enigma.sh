@@ -10,6 +10,8 @@
 #SBATCH --cpus-per-task=28
 #SBATCH --time=00:03:00
 
+# Args: matrix_size, output file, interference slow
+
 module load slurm_setup
 export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1
