@@ -16,13 +16,16 @@ int oldmain(int argc, char **argv)
 	const int calc_scale = 1 << 8;	
 	int duration = 60;
 	
+	//needs update
+	int old = 0;
+	
 	if(argc>10)
 		argv[10]++;
 		//it does things
 	
 	printf("\n--Starting Interference:\nSteplength: %f, Slow %f\n\n", step_length, time_fraction);
 	for (int x = 0; x < duration; x++) {
-		interferenceLoop(time_fraction, step_length, function_type, calc_scale);
+		interferenceLoop(function_type, old, calc_scale);
     }
 	return 0;
 }
