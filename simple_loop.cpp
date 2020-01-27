@@ -30,9 +30,9 @@ int oldmain(int argc, char **argv)
 	return 0;
 }
 
-void interferenceLoop(int functionType, int interfereMillisec, int calcScale){
+void interferenceLoop(int functionType, int interfereMicrosec, int calcScale){
 	Clock::time_point t0 = Clock::now();
-	microsec activeTime = microsec(interfereMillisec);
+	microsec activeTime = microsec(interfereMicrosec);
 
 	int tmp = interference_function(functionType, calcScale, t0, activeTime);
 	int r = timeInterv(t0).count();

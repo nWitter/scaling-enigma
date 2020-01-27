@@ -10,7 +10,7 @@
 #include <functional>
 
 
-void interferenceLoop(int functionType, int interfereMillisec, int calcScale);
+void interferenceLoop(int functionType, int interfereMicrosec, int calcScale);
 
 
 #endif

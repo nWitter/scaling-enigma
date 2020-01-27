@@ -2,21 +2,11 @@
 #########################
 #
 
-echo "Starting instances:"
-chmod +x simple_loop
+echo "additional step"
+echo $2
+echo $3
 
-for ((i=0; i<$4; i++))
-do
-	echo "--started one instance"
-	./simple_loop > enix.out &
-done
-
-#./MPI_Manager
-
-echo "starting program"
-./$1 $2 > $3 &
-echo "started prog and " $4 " interference instances"
-wait
+mpiexec -n $1 $2 $3&
 
 
 

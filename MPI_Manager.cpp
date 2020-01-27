@@ -23,7 +23,7 @@ float rndNum(){
 
 int main(int argc, char **argv)
 {
-	const int intervalMillisec = 1000000;
+	const int intervalBase = 1000000;
 	const int duration = 50;
 	const int calc_scale = 1 << 10;
 	
@@ -46,14 +46,14 @@ int main(int argc, char **argv)
 			printf("arg: %d\n", x);
 		} else if(a == 2){
 			float x = atof(argv[a]);
-			if(x <= 1 && x >= 0){
+			if(0 <= x && x <= 1){
 				time_fraction = x;
 			}
 		}
 	}
 	
-	int step_millisec = intervalMillisec * step_length;
-	int interfere_millisec = step_millisec * time_fraction;
+	int step_time = intervalBase * step_length;
+	int interfere_time = step_time * time_fraction;
 	
 
 	int numtasks, rank, dest, source, rc, count, tag = 1;
@@ -132,12 +132,12 @@ int main(int argc, char **argv)
 			//step_length = 1.0;
 			//function_type = 1;
 			
-			interferenceLoop(function_type, interfere_millisec, calc_scale);			
+			interferenceLoop(function_type, interfere_time, calc_scale);			
 		}
 
 		// fill intervall
 		microsec ns = timeInterv(t0);
-		int remainingInterv = step_millisec - ns.count();
+		int remainingInterv = step_time - ns.count();
 		if(remainingInterv > 1){
 			printf("\t--%d \t sleep\n", rank);
 			std::this_thread::sleep_for(microsec(remainingInterv));
