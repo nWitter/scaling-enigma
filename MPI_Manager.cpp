@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 {
 	const int intervalBase = 1000000;
 	const int duration = 50;
-	const int calc_scale = 1 << 12;
+	const int calc_scale = 1 << 14;
 	
 	double interferingNodes = 0.5;
 	float time_fraction = 0.5;
