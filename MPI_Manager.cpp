@@ -137,11 +137,12 @@ int main(int argc, char **argv)
 			std::this_thread::sleep_for(microsec(remainingInterv));
 		}
 		
+		
 		int nsTotal = timeInterv(t0).count();
 		microsec ns2 = std::chrono::duration_cast<microsec>(t1 - t0);
 		int nsWait = ns2.count();
 		
-		printf("--%d\t n: %d\t time %d\t sleept %d\t waited %d\n", rank, x, nsTotal, remainingInterv, nsWait);
+		printf("--%d\t n: %d,\t time %d,\t sleept %d,\t waited %d\n", rank, x, nsTotal, remainingInterv, nsWait);
 	}
 
 	printf("%d done .\n", rank);
