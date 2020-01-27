@@ -27,7 +27,7 @@ echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 mpiexec -n $SLURM_NTASKS ./MPI_Manager $3 $4 &
 #mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 > $2 &
 #srun -n$SLURM_NTASKS ./MPI_Manager $3 &
-srun -n$SLURM_NTASKS --nice=10000 ./startInterference.sh $SLURM_NTASKS $MATRIX_PATH $1 > $2 &
+srun -n$SLURM_NTASKS --nice=10000 ./startInterference.sh $SLURM_NTASKS $MATRIX_PATH $1 $2 &
 wait
 
 echo "all started, we done"
