@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 {
 	const int intervalBase = 1000000;
 	const int duration = 50;
-	const int calc_scale = 1 << 10;
+	const int calc_scale = 1 << 12;
 	
 	double interferingNodes = 0.5;
 	float time_fraction = 0.5;
@@ -127,12 +127,12 @@ int main(int argc, char **argv)
 		// interference
 		// initially run on all nodes to start OMP
 		if(inbuffer[0] == ENI_INTERFERE || x == 0){
-			printf("\t--%d \t interf\n", rank);
 			//time_fraction = 1.0;
 			//step_length = 1.0;
 			//function_type = 1;
 			
-			interferenceLoop(function_type, interfere_time, calc_scale);			
+			int f = interferenceLoop(function_type, interfere_time, calc_scale);	
+			printf("\t--%d \t interf\t cnt: %d\n", rank, f);		
 		}
 
 		// fill intervall
