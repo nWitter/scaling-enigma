@@ -25,12 +25,11 @@ int main(int argc, char **argv)
 {
 	const int intervalMillisec = 1000000;
 	const int duration = 50;
-	const int calc_scale = 1 << 9;
+	const int calc_scale = 1 << 10;
 	
 	double interferingNodes = 0.5;
 	float time_fraction = 0.5;
 	float step_length = 2.0;
-	int step_time = intervalMillisec * step_length;
 	int function_type = 1;
 	
 	if(argc>10)
@@ -53,6 +52,8 @@ int main(int argc, char **argv)
 		}
 	}
 	
+	int step_millisec = intervalMillisec * step_length;
+	int interfere_millisec = step_millisec * time_fraction;
 	
 
 	int numtasks, rank, dest, source, rc, count, tag = 1;
@@ -131,12 +132,12 @@ int main(int argc, char **argv)
 			//step_length = 1.0;
 			//function_type = 1;
 			
-			interferenceLoop(time_fraction, step_length, function_type, calc_scale);			
+			interferenceLoop(function_type, interfere_millisec, calc_scale);			
 		}
 
 		// fill intervall
 		microsec ns = timeInterv(t0);
-		int remainingInterv = step_time - ns.count();
+		int remainingInterv = step_millisec - ns.count();
 		if(remainingInterv > 1){
 			printf("\t--%d \t sleep\n", rank);
 			std::this_thread::sleep_for(microsec(remainingInterv));

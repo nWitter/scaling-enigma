@@ -27,10 +27,9 @@ int oldmain(int argc, char **argv)
 	return 0;
 }
 
-void interferenceLoop(float timeFraction, float stepLength, int functionType, int calcScale){
+void interferenceLoop(int functionType, int interfereMillisec int calcScale){
 	Clock::time_point t0 = Clock::now();
-	int l = stepLength * timeFraction * 1000000;
-	microsec activeTime = microsec(l);
+	microsec activeTime = microsec(interfereMillisec);
 
 	int tmp = interference_function(functionType, calcScale, t0, activeTime);
 	int r = timeInterv(t0).count();
