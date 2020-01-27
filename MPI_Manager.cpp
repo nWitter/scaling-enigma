@@ -30,6 +30,7 @@ int main(int argc, char **argv)
 	double interferingNodes = 0.5;
 	float time_fraction = 1.0;
 	float step_length = 2.0;
+	int step_time = intervalMillisec * step_length;
 	int function_type = 1;
 	
 	if(argc>10)
@@ -130,7 +131,7 @@ int main(int argc, char **argv)
 
 		// fill intervall
 		microsec ns = timeInterv(t0);
-		int remainingInterv = (int)(intervalMillisec * step_length) - ns.count();
+		int remainingInterv = step_time - ns.count();
 		if(remainingInterv > 1){
 			printf("\t--%d \t sleep\n", rank);
 			std::this_thread::sleep_for(microsec(remainingInterv));
