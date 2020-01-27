@@ -27,7 +27,7 @@ int oldmain(int argc, char **argv)
 	return 0;
 }
 
-void interferenceLoop(int functionType, int interfereMillisec int calcScale){
+void interferenceLoop(int functionType, int interfereMillisec, int calcScale){
 	Clock::time_point t0 = Clock::now();
 	microsec activeTime = microsec(interfereMillisec);
 
