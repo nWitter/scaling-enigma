@@ -24,11 +24,11 @@ float rndNum(){
 int main(int argc, char **argv)
 {
 	const int intervalMillisec = 1000000;
-	const int duration = 20;
+	const int duration = 50;
 	const int calc_scale = 1 << 9;
 	
 	double interferingNodes = 0.5;
-	float time_fraction = 1.0;
+	float time_fraction = 0.5;
 	float step_length = 2.0;
 	int step_time = intervalMillisec * step_length;
 	int function_type = 1;
