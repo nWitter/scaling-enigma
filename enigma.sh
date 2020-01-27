@@ -10,7 +10,7 @@
 #SBATCH --cpus-per-task=28
 #SBATCH --time=00:03:00
 
-# Args: matrix_size, output file, interference slow
+# Args: matrix_size, output file, interfNodePercentage, interferenceSlow
 
 module load slurm_setup
 export I_MPI_PIN_DOMAIN=auto
@@ -27,7 +27,7 @@ echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 mpiexec -n $SLURM_NTASKS ./MPI_Manager $3 $4 > eni0.out &
 #mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 > $2 &
 #srun -n$SLURM_NTASKS ./MPI_Manager $3 &
-srun -n$SLURM_NTASKS --nice=1000 ./startInterference.sh $SLURM_NTASKS $MATRIX_PATH $1 $2 >eni1.out &
+srun -n$SLURM_NTASKS --nice=1000 ./startInterference.sh $SLURM_NTASKS $MATRIX_PATH $1 $2 > eni1.out &
 wait
 
 echo "all started, we done"
