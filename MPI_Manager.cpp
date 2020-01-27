@@ -45,6 +45,11 @@ int main(int argc, char **argv)
 				interferingNodes = 1;
 			}
 			printf("arg: %d\n", x);
+		} else if(a == 2){
+			float x = atof(argv[a]);
+			if(x <= 1 && x >= 0){
+				time_fraction = x;
+			}
 		}
 	}
 	
