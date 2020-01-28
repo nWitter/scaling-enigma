@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 	if(argc>10)
 		argv[10]++;
 		//nonsense
-	for (int a = 0; a < argc; a++){
+	for (int a = 1; a <= argc; a++){
 		if(a == 1){
 			int x = atoi(argv[a]);
 			if(x == 0){

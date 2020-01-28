@@ -23,6 +23,7 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 #export VT_PCTRACE=1
 
 echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
+echo "arguments: " $@
 if [ $3 == -1 ]; then
 	echo "launch interf"
 	mpiexec -n $SLURM_NTASKS -rr ./MPI_Manager $3 $4 &
