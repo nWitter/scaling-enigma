@@ -20,7 +20,7 @@ chmod +x startInterference.sh
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
-#export VT_PCTRACE=1
+export VT_PCTRACE=1
 
 echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 echo "arguments: " $@
