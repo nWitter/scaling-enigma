@@ -7,6 +7,7 @@
 #SBATCH --get-user-env
 #SBATCH --clusters=mpp2
 #SBATCH --nodes=2
+#SBATCH --tasks-per-node=1
 #SBATCH --time=00:03:00
 
 # Args: matrix_size, output file, interfNodePercentage, interferenceSlow
