@@ -24,7 +24,7 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
 echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 
-mpiexec -n $SLURM_NTASKS startProgram.sh $@
+mpiexec -n $SLURM_NTASKS ./startProgram.sh $@
 
 echo "all started, we done"
 exit 0
