@@ -17,7 +17,7 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 echo "args: " $@
 
 #start interference in different thread
-chmod +x startProgram.sh
+chmod +x startInterference.sh
 ./startInterference.sh $3 $4
 
 $MATRIX_PATH $1 100 100 > $2
