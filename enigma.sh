@@ -6,8 +6,8 @@
 #SBATCH -D ./
 #SBATCH --get-user-env
 #SBATCH --clusters=mpp2
-#SBATCH --ntasks=2
-#SBATCH --cpus-per-task=28
+#SBATCH --nodes=2
+#SBATCH --cpus-per-node=28
 #SBATCH --time=00:03:00
 
 # Args: matrix_size, output file, interfNodePercentage, interferenceSlow
@@ -16,11 +16,10 @@ module load slurm_setup
 export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-chmod +x startInterference.sh
+chmod +x startProgram.sh
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
-export VT_PCTRACE=1
 
 echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 echo "arguments: " $@
@@ -31,6 +30,7 @@ else
 	echo "PROGRAM only"
 fi
 mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 > $2 &
+#mpiexec -n $SLURM_NTASKS startProgram.sh $@
 #srun -n$SLURM_NTASKS ./MPI_Manager $3 &
 #srun -n$SLURM_NTASKS --nice=10000 ./startInterference.sh $SLURM_NTASKS $MATRIX_PATH $1 $2 > eni1.out &
 wait

@@ -16,6 +16,32 @@ const int ENI_SLEEP = -1;
 const int ENI_INTERFERE = 1;
 const int ENI_NULL = 0;
 
+
+/*
+
+{weight; duration; percentage nodes initiating slow; slow percentage; assigning policy}
+
+Todo ?
+
+-assigning policy:
+0 random
+1 round-robin
+
+*/
+
+const int num_pattern = 1;
+float pattern[num_pattern * 5] = {100, 10, 0.5, 1, 0};
+
+
+
+
+
+
+
+
+
+
+
 // rnd {0,1} 5-digits
 float rndNum(){
 	return static_cast <float> (rand() % 10000) / 10000;
@@ -24,17 +50,16 @@ float rndNum(){
 int main(int argc, char **argv)
 {
 	const int intervalBase = 1000000;
-	const int duration = 50;
 	const int calc_scale = 1 << 14;
 	
-	double interferingNodes = 0.5;
-	float time_fraction = 0.5;
+	const int duration = 30;
 	float step_length = 2.0;
+	
+	float interferingNodes = 0.5;
+	float time_fraction = 0.5;
 	int function_type = 1;
 	
-	if(argc>10)
-		argv[10]++;
-		//nonsense
+	
 	for (int a = 1; a <= argc; a++){
 		if(a == 1){
 			int x = atoi(argv[a]);
@@ -55,7 +80,7 @@ int main(int argc, char **argv)
 	int step_time = intervalBase * step_length;
 	int interfere_time = step_time * time_fraction;
 	
-
+	//mpi
 	int numtasks, rank, dest, source, rc, count, tag = 1;
 	char inmsg, outmsg = 'x';
 	MPI_Status Stat;
@@ -65,8 +90,8 @@ int main(int argc, char **argv)
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	printf("Starting: rank %d, tasks %d\n", rank, numtasks);
 
-	const int bufferSize = 3;
-	int* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
+	const int bufferSize = 2;
+	int* scatterBufferscatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
 	int inbuffer[bufferSize];
 	
 	

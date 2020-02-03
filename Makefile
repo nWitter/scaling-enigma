@@ -42,4 +42,6 @@ clearOUT:
 	-@rm mpi.out
 	-@rm tmdt.out
 	-@rm enix.out
+	
+clearTrace:
 	-@rm main.*
