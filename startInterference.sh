@@ -8,5 +8,4 @@ if [ $1 != -1 ]; then
 else
 	echo "PROGRAM only"
 fi
-
 exit
