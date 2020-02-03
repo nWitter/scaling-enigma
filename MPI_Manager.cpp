@@ -17,9 +17,6 @@ const int ENI_INTERFERE = 1;
 const int ENI_NULL = 0;
 
 
-const int num_pattern = 1;
-float pattern[num_pattern * 5] = {100, 10, 0.5, 1, 0};
-
 
 
 
@@ -91,7 +88,7 @@ int main(int argc, char **argv)
 	printf("Starting: rank %d, tasks %d\n", rank, numtasks);
 
 	const int bufferSize = 2;
-	int* scatterBufferscatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
+	int* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
 	int inbuffer[bufferSize];
 	
 	
