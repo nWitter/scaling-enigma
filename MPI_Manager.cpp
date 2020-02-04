@@ -109,15 +109,14 @@ int main(int argc, char **argv)
 		}
 	}
 	
-	std::vector <std::string> sources;
-    std::string destination;
-	for (int i = 1; i < argc; ++i) { 
+	
+	for (int i = 1; i =< argc; i++) { 
         std::string arg = argv[i];
 		if(arg == "-affected"){
-			float x = atof(argv[i]);
+			float x = atof(argv[i++]);
 			//TODO viability check
 			affected_num = x;
-		} else {
+		} else if (false){
 		
 		
 		//TODO
@@ -153,6 +152,7 @@ int main(int argc, char **argv)
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	printf("Starting: rank %d, tasks %d\n", rank, numtasks);
 
+	//mpi buffer
 	const int bufferSize = 2;
 	int* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
 	int inbuffer[bufferSize];
