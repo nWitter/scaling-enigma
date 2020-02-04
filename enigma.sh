@@ -17,14 +17,14 @@ export OMP_NUM_THREADS=28
 
 export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1
-chmod +x startProgram.sh
-
-MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
-
 
 echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 
-mpiexec -n $SLURM_NTASKS ./startProgram.sh $@
+#start interference in different thread
+chmod +x startInterference.sh
+./startInterference.sh $@
+
+mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 > $2
 
 echo "all started, we done"
 exit 0

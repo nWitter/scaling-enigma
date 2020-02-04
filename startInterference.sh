@@ -4,7 +4,7 @@
 
 if [ $1 != -1 ]; then
 	echo "launch interf"
-	./MPI_Manager $1 $2 &
+	mpiexec -n $SLURM_NTASKS ./MPI_Manager $3 $4
 else
 	echo "PROGRAM only"
 fi
