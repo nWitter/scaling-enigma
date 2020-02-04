@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	const int intervalBase = 1000000;
 	const int calc_scale = 1 << 14;
 	
-	const int duration = 30;
+	int duration = 30;
 	float step_length = 2.0;
 	
 	float interferingNodes = 0.5;
