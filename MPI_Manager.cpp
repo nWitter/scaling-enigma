@@ -209,27 +209,18 @@ int main(int argc, char **argv)
 		}
 		
 		Clock::time_point t1 = Clock::now();
-		
-		//printf("--%d state: %d ; %d \n", rank, inbuffer[0], inbuffer[1]);
 		// interference
 		// initially run on all nodes to start OMP
-		if(inbuffer[0] == ENI_INTERFERE || x == 0){
-			//time_fraction = 1.0;
-			//step_length = 1.0;
-			//function_type = 1;
-			
-			int f = -42;
+		if(inbuffer[0] == ENI_INTERFERE || x == 0){			
 			std::thread interf_thread(interferenceLoop, function_type, interfere_time, calc_scale);	
-			interf_thread.detach();
-			
-			printf("\t--%d \t interf\t cnt: %d\n", rank, f);		
+			interf_thread.detach();			
+			printf("\t--%d \t interf\n", rank);		
 		}
 
 		// fill intervall
 		microsec ns = timeInterv(t0);
 		int remainingInterv = step_time - ns.count();
 		if(remainingInterv > 1){
-			printf("\t--%d \t sleep\n", rank);
 			std::this_thread::sleep_for(microsec(remainingInterv));
 		}
 		
@@ -237,7 +228,6 @@ int main(int argc, char **argv)
 		int nsTotal = timeInterv(t0).count();
 		microsec ns2 = std::chrono::duration_cast<microsec>(t1 - t0);
 		int nsWait = ns2.count();
-		
 		printf("--%d\t n: %d,\t time %d,\t sleept %d,\t waited %d\n", rank, x, nsTotal, remainingInterv, nsWait);
 	}
 
