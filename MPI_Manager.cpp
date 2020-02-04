@@ -36,7 +36,8 @@ float rndNum(){
 /*
 
 args:
-
+ 1 interfNodePercentage 
+ 2 interferenceSlow
 
 -assigning policy:
 0 random

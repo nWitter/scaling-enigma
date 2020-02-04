@@ -14,7 +14,7 @@
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
-echo "args: " $@
+echo "Interf args: " $@
 
 #start interference in different thread
 chmod +x startInterference.sh
