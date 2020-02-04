@@ -33,8 +33,11 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
 mpiexec -n $SLURM_NTASKS ./MPI_Manager $3 $4 $5 &
 #mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 &
-mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 > $2 &
-
+if [ $SLURM_NTASKS == 2 ]; then
+	echo "launch for 2 nodes"
+	mpiexec -n 2 $MATRIX_PATH $1 100 100 > $2 &
+fi
+wait
 
 echo "all started, we done"
 exit 0
