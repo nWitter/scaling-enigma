@@ -25,10 +25,9 @@ const int POLICY_FIXED = 12;
 
 
 
-
-// only to avoid errors
-const int instance_hard_limit = 10;
-
+const int instance_hard_limit = 10; // purely to avoid errors
+const int intervalBase = 1000000; // one second in microsec
+const int calc_scale = 1 << 14;
 
 
 
@@ -53,20 +52,36 @@ policy: default random, last assigned policy takes priority
 -round_robin
 -fixed_nodes
 
+-function {n}
+used function, available 0 processing heavy, 1 memory, 2 mixed TODO condfirm numbers
+
+-step_length {n}
+multiplier to length of the timestep, 1s; default 2 -> timestep of 2s
 
 */
 
 int main(int argc, char **argv)
 {
-	const int intervalBase = 1000000; // one second in microsec
-	const int calc_scale = 1 << 14;
 	
-	int duration = 60;
-	float step_length = 2.0;
+	// configurable by args
+	int designation_policy = 0;
 	
+	bool intervall_rnd = false;
 	float interferingNodes = 0.5;
-	float time_fraction = 0.5;
+
+	bool affected_rnd = false;
+	bool affected_flat = false;
+	float time_fraction = 0.5; // TODO
+	float affected_num = 0.5;
+	float affected_max = 1;
+	
+	float step_length = 2.0;
 	int function_type = 1;
+	
+
+	//
+	int duration = 30;
+	
 	
 	
 	for (int a = 1; a <= argc; a++){
@@ -99,10 +114,26 @@ int main(int argc, char **argv)
 	for (int i = 1; i < argc; ++i) { 
         std::string arg = argv[i];
 		if(arg == "-affected"){
-			
+			float x = atof(argv[a]);
+			//TODO viability check
+			affected_num = x;
+		} else {
+		
+		
+		//TODO
+	designation_policy = 0;
+	
+	intervall_rnd = false;
+	interferingNodes = 0.5;
+
+	affected_rnd = false;
+	affected_flat = false;
+	affected_num = 0.5;
+	affected_max = 1;
+	
+	step_length = 2.0;
+	function_type = 1;
 		}
-		
-		
     }
 	
 	

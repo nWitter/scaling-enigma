@@ -37,6 +37,7 @@ if [ $SLURM_NTASKS == 2 ]; then
 	echo "launch for 2 nodes"
 	mpiexec -n 2 $MATRIX_PATH $1 100 100 > $2 &
 fi
+
 wait
 
 echo "all started, we done"
