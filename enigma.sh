@@ -23,7 +23,7 @@ export OMP_NUM_THREADS=28
 export I_MPI_PIN_DOMAIN=omp
 export I_MPI_PIN=1
 
-echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
+echo "tasks " $SLURM_NTASKS
 echo "args: " $@
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
@@ -34,6 +34,7 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
 mpiexec -n $SLURM_NTASKS ./MPI_Manager $3 $4 &
 mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 > $2 &
+wait
 
 echo "all started, we done"
 exit 0
