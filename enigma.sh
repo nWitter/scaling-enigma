@@ -8,7 +8,7 @@
 #SBATCH --clusters=mpp2
 #SBATCH --nodes=2
 #SBATCH --tasks-per-node=1
-#SBATCH --time=00:03:00
+#SBATCH --time=00:04:00
 #
 #
 # Args: matrix_size, output file, interfNodePercentage, interferenceSlow
@@ -34,7 +34,7 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
 mpiexec -n $SLURM_NTASKS ./MPI_Manager $3 $4 $5 &
 mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 > $2 &
-wait
+
 
 echo "all started, we done"
 exit 0
