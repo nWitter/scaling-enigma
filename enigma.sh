@@ -20,7 +20,7 @@
 module load slurm_setup
 
 export OMP_NUM_THREADS=28
-export I_MPI_PIN_DOMAIN=omp
+export I_MPI_PIN_DOMAIN=node
 export I_MPI_PIN=1
 
 echo "tasks " $SLURM_NTASKS
