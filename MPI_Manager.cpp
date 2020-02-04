@@ -114,7 +114,7 @@ int main(int argc, char **argv)
 	for (int i = 1; i < argc; ++i) { 
         std::string arg = argv[i];
 		if(arg == "-affected"){
-			float x = atof(argv[a]);
+			float x = atof(argv[i]);
 			//TODO viability check
 			affected_num = x;
 		} else {
