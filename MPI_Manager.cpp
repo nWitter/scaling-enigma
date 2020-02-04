@@ -62,7 +62,7 @@ multiplier to length of the timestep, 1s; default 2 -> timestep of 2s
 
 int main(int argc, char **argv)
 {
-	
+	printf("0");
 	// configurable by args
 	int designation_policy = 0;
 	
@@ -79,6 +79,7 @@ int main(int argc, char **argv)
 	int function_type = 1;
 	
 
+	printf("00");
 	//
 	int duration = 30;
 	
@@ -108,6 +109,7 @@ int main(int argc, char **argv)
 		}
 	}
 	
+	printf("000");
 	
 	for (int i = 1; i <= argc; i++) { 
         std::string arg = argv[i];
@@ -136,6 +138,7 @@ int main(int argc, char **argv)
 	
 	
 	
+	printf("0000");
 	
 	
 	int step_time = intervalBase * step_length;
@@ -156,6 +159,7 @@ int main(int argc, char **argv)
 	int* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
 	int inbuffer[bufferSize];
 	
+	printf("111");
 	
 	for (int x = 0; x < duration; x++) {
 		Clock::time_point t0 = Clock::now();
