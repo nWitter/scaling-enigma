@@ -20,6 +20,7 @@ module load slurm_setup
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 export I_MPI_PIN_DOMAIN=node
 export I_MPI_PIN=1
+export I_MPI_ADJUST_BARRIER=1
 
 echo "tasks " $SLURM_NTASKS
 echo "cores per task " $SLURM_CPUS_PER_TASK
