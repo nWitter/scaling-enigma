@@ -9,8 +9,13 @@
 #SBATCH --nodes=2
 #SBATCH --tasks-per-node=1
 #SBATCH --time=00:03:00
-
+#
+#
 # Args: matrix_size, output file, interfNodePercentage, interferenceSlow
+#
+#
+# TODO allow 1,2,4,8 nodes
+
 
 module load slurm_setup
 export OMP_NUM_THREADS=28
@@ -24,6 +29,7 @@ echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 chmod +x startInterference.sh
 ./startInterference.sh $@
 
+MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 > $2
 
 echo "all started, we done"
