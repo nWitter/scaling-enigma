@@ -33,7 +33,8 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 #./startInterference.sh $@ &
 
 #mpiexec -n $SLURM_NTASKS ./MPI_Manager $3 $4 $5 &
-mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 > $2 &
+#mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 &
+#mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 > $2 &
 
 
 echo "all started, we done"
