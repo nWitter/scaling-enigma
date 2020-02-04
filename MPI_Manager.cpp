@@ -82,8 +82,7 @@ int main(int argc, char **argv)
 	//
 	int duration = 30;
 	
-	
-	
+	// args	
 	for (int a = 1; a <= argc; a++){
 		if(a == 1){
 			int x = atoi(argv[a]);
@@ -110,7 +109,7 @@ int main(int argc, char **argv)
 	}
 	
 	
-	for (int i = 1; i =< argc; i++) { 
+	for (int i = 1; i <= argc; i++) { 
         std::string arg = argv[i];
 		if(arg == "-affected"){
 			float x = atof(argv[i++]);
