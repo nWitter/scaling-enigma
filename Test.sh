@@ -8,7 +8,7 @@ chmod +x enigma.sh
 
 	sbatch --nodes=2 --tasks-per-node=1 enigma.sh 900 output/0.out -1 0 40
 	#sbatch --nodes=2 enigma.sh 1000 output/1.out 0.5 1 60
-	sbatch --nodes=2 --tasks-per-node=1 enigma.sh 900 output/1.out 1 1 40
+	sbatch --nodes=2 --tasks-per-node=1 enigma.sh 900 output/1.out 1 1
 	
 	#sbatch --nodes=2 enigma.sh 1200 output/3.out 1 1
 	#sbatch --nodes=2 enigma.sh 800 output/0.out 2 1

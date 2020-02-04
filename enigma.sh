@@ -1,11 +1,10 @@
 #!/bin/bash
-#########################
-#
-#SBATCH --job-name=scaling-test
+##########################
+#SBATCH --job-name=interference-test
 #SBATCH -o ./eni%j.out
 #SBATCH -D ./
 #SBATCH --get-user-env
-#SBATCH --clusters=mpp2
+#SBATCH --partition=mpp2_inter
 #SBATCH --nodes=2
 #SBATCH --tasks-per-node=1
 #SBATCH --time=00:04:00
@@ -19,12 +18,12 @@
 
 module load slurm_setup
 
-export OMP_NUM_THREADS=28
+#export OMP_NUM_THREADS=28
 export I_MPI_PIN_DOMAIN=auto
 export I_MPI_PIN=1
 
 echo "tasks " $SLURM_NTASKS
-echo "args: " $@
+echo "args: " $1
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
