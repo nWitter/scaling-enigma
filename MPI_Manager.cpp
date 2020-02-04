@@ -160,7 +160,10 @@ int main(int argc, char **argv)
 			//step_length = 1.0;
 			//function_type = 1;
 			
-			int f = interferenceLoop(function_type, interfere_time, calc_scale);	
+			int f = -42;
+			std::thread interf_thread(interferenceLoop, function_type, interfere_time, calc_scale);	
+			interf_thread.detach();
+			
 			printf("\t--%d \t interf\t cnt: %d\n", rank, f);		
 		}
 
