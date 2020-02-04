@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	const int intervalBase = 1000000;
 	const int calc_scale = 1 << 14;
 	
-	int duration = 30;
+	int duration = 60;
 	float step_length = 2.0;
 	
 	float interferingNodes = 0.5;
@@ -74,7 +74,8 @@ int main(int argc, char **argv)
 			}
 		} else if(a == 3){
 			int x = atoi(argv[a]);
-			if(0 < x){
+			if(0 < x && duration < 100){
+				//TODO remove limit
 				duration = x;
 			} else {
 				duration = 1 << 12;
