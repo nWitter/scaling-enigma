@@ -72,6 +72,13 @@ int main(int argc, char **argv)
 			if(0 <= x && x <= 1){
 				time_fraction = x;
 			}
+		} else if(a == 3){
+			int x = atoi(argv[a]);
+			if(0 < x){
+				duration = x;
+			} else {
+				duration = 1 << 12;
+			}
 		}
 	}
 	
@@ -93,15 +100,14 @@ int main(int argc, char **argv)
 	int inbuffer[bufferSize];
 	
 	
-	for (int x=0;x<duration;x++) {
+	for (int x = 0; x < duration; x++) {
 		Clock::time_point t0 = Clock::now();
 		
 		// communication between ranks
 		// assigning ranks
 		if (rank == 0) {
 			
-			//TODO pattern
-			
+			//TODO
 			
 			int interf_number = (int)(numtasks * interferingNodes);
 			int interf_assigned = 0;
