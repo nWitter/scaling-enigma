@@ -18,9 +18,9 @@
 
 
 module load slurm_setup
-export OMP_NUM_THREADS=28
 
-export I_MPI_PIN_DOMAIN=auto
+export OMP_NUM_THREADS=28
+export I_MPI_PIN_DOMAIN=omp
 export I_MPI_PIN=1
 
 echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
@@ -29,8 +29,10 @@ echo "args: " $@
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
 #start interference in different thread
-chmod +x startInterference.sh
-./startInterference.sh $@ &
+#chmod +x startInterference.sh
+#./startInterference.sh $@ &
+
+mpiexec -n $SLURM_NTASKS ./MPI_Manager $3 $4 &
 mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 > $2 &
 
 echo "all started, we done"
