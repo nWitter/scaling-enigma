@@ -4,6 +4,8 @@
 #include <thread>
 #include <ratio>
 #include <functional>
+#include <string>
+#include <vector>
 
 #include "mpi.h"
 #include "simple_loop.h"
@@ -82,6 +84,19 @@ int main(int argc, char **argv)
 			}
 		}
 	}
+	
+	std::vector <std::string> sources;
+    std::string destination;
+	for (int i = 1; i < argc; ++i) { 
+        std::string arg = argv[i];
+		
+		
+		
+    }
+	
+	
+	
+	
 	
 	int step_time = intervalBase * step_length;
 	int interfere_time = step_time * time_fraction;
