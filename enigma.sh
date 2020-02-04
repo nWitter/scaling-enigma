@@ -31,7 +31,7 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 chmod +x startInterference.sh
 #./startInterference.sh $@ &
 
-mpiexec -n $SLURM_NTASKS startInterference.sh $@
+mpiexec -n $SLURM_NTASKS ./startInterference.sh $@
 #mpirun -n $SLURM_NTASKS -rr ./MPI_Manager $3 $4 $5 &
 if [ $SLURM_NTASKS == 2 ]; then
 	echo "launch for 2 nodes"
