@@ -62,7 +62,6 @@ multiplier to length of the timestep, 1s; default 2 -> timestep of 2s
 
 int main(int argc, char **argv)
 {
-	printf("0;");
 	// configurable by args
 	int designation_policy = 0;
 	
@@ -78,8 +77,6 @@ int main(int argc, char **argv)
 	float step_length = 2.0;
 	int function_type = 1;
 	
-
-	printf("00;");
 	//
 	int duration = 30;
 	
@@ -111,8 +108,6 @@ int main(int argc, char **argv)
 			}
 		}
 	}
-	
-	printf("0x0");
 	
 	for (int i = 0; i < argc; ++i) { 
         std::string arg = argv[i];
