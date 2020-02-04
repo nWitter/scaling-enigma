@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 	int duration = 30;
 	
 	// args	
-	for (int a = 1; a <= argc; a++){
+	for (int a = 0; a < argc; ++a){
 		if(a == 1){
 			int x = atoi(argv[a]);
 			if(x == 0){
@@ -94,7 +94,9 @@ int main(int argc, char **argv)
 			}
 			printf("arg: %d\n", x);
 		} else if(a == 2){
+	printf("nuwhy;");
 			float x = atof(argv[a]);
+	printf("yyyy;");
 			if(0 <= x && x <= 1){
 				time_fraction = x;
 			}
