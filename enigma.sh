@@ -29,6 +29,8 @@ echo "tasks " $SLURM_NTASKS ", cpuPerTask " $SLURM_CPUS_PER_TASK
 chmod +x startInterference.sh
 ./startInterference.sh $@
 
+wait 5
+
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 > $2
 
