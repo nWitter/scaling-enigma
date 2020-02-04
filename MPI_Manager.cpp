@@ -62,7 +62,7 @@ multiplier to length of the timestep, 1s; default 2 -> timestep of 2s
 
 int main(int argc, char **argv)
 {
-	printf("0");
+	printf("0;");
 	// configurable by args
 	int designation_policy = 0;
 	
@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 	int function_type = 1;
 	
 
-	printf("00");
+	printf("00;");
 	//
 	int duration = 30;
 	
@@ -99,6 +99,7 @@ int main(int argc, char **argv)
 				time_fraction = x;
 			}
 		} else if(a == 3){
+	printf("buwhy;");
 			int x = atoi(argv[a]);
 			if(0 < x && duration < 100){
 				//TODO remove limit
@@ -109,11 +110,11 @@ int main(int argc, char **argv)
 		}
 	}
 	
-	printf("000");
+	printf("0x0");
 	
-	for (int i = 1; i <= argc; i++) { 
+	for (int i = 0; i < argc; ++i) { 
         std::string arg = argv[i];
-		if(arg == "-affected" && i+1 < argc){
+		if( i+1 < argc && arg == "-affected"){
 			float x = atof(argv[i++]);
 			//TODO viability check
 			affected_num = x;
@@ -138,8 +139,6 @@ int main(int argc, char **argv)
 	
 	
 	
-	printf("0000");
-	
 	
 	int step_time = intervalBase * step_length;
 	int interfere_time = step_time * time_fraction;
@@ -159,7 +158,6 @@ int main(int argc, char **argv)
 	int* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
 	int inbuffer[bufferSize];
 	
-	printf("111");
 	
 	for (int x = 0; x < duration; x++) {
 		Clock::time_point t0 = Clock::now();
