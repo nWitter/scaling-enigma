@@ -5,8 +5,8 @@
 #SBATCH -D ./
 #SBATCH --get-user-env
 #SBATCH --partition=mpp2_inter
-#SBATCH --nodes=2
-#SBATCH --tasks-per-node=1
+#SBATCH --ntasks=2
+#SBATCH --cpus-per-task=28
 #SBATCH --time=00:04:00
 #
 #
@@ -17,9 +17,8 @@
 
 
 module load slurm_setup
-
-#export OMP_NUM_THREADS=28
-export I_MPI_PIN_DOMAIN=auto
+export OMP_NUM_THREADS=28
+export I_MPI_PIN_DOMAIN=node
 export I_MPI_PIN=1
 
 echo "tasks " $SLURM_NTASKS
@@ -31,9 +30,9 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 #chmod +x startInterference.sh
 #./startInterference.sh $@ &
 
-#mpiexec -n $SLURM_NTASKS ./MPI_Manager $3 $4 $5 &
+mpiexec -n $SLURM_NTASKS ./MPI_Manager $3 $4 $5 &
 #mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 &
-#mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 > $2 &
+mpiexec -n $SLURM_NTASKS $MATRIX_PATH $1 100 100 > $2 &
 
 
 echo "all started, we done"
