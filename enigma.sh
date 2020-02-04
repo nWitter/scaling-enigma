@@ -17,12 +17,13 @@
 
 
 module load slurm_setup
-export OMP_NUM_THREADS=28
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 export I_MPI_PIN_DOMAIN=node
 export I_MPI_PIN=1
 
 echo "tasks " $SLURM_NTASKS
-echo "args: " $1
+echo "cores per task " $SLURM_CPUS_PER_TASK
+echo "args: " $@
 
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 

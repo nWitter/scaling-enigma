@@ -18,13 +18,16 @@ const int ENI_SLEEP = -1;
 const int ENI_INTERFERE = 1;
 const int ENI_NULL = 0;
 
+const int POLICY_RANDOM = 10;
+const int POLICY_ROUNDROBIN = 11;
+const int POLICY_FIXED = 12;
 
 
 
 
 
-
-
+// only to avoid errors
+const int instance_hard_limit = 10;
 
 
 
@@ -37,19 +40,25 @@ float rndNum(){
 
 /*
 
-args:
- 1 interfNodePercentage 
- 2 interferenceSlow
+-affected {n}
+-affectedRnd {n} {m}
+TODO add flat values
 
--assigning policy:
-0 random
-1 round-robin
+-intervall {n}
+-intervallRnd {n} {m}
+the timefraction per step the interference program is running (inbetween 0 - 1) TODO multiple instances if greater 1 (max 10)
+e.g. -intervall 0.5 runs interference for 1s in each 2s timestep(default)
+
+policy: default random, last assigned policy takes priority
+-round_robin
+-fixed_nodes
+
 
 */
 
 int main(int argc, char **argv)
 {
-	const int intervalBase = 1000000;
+	const int intervalBase = 1000000; // one second in microsec
 	const int calc_scale = 1 << 14;
 	
 	int duration = 60;
@@ -89,7 +98,9 @@ int main(int argc, char **argv)
     std::string destination;
 	for (int i = 1; i < argc; ++i) { 
         std::string arg = argv[i];
-		
+		if(arg == "-affected"){
+			
+		}
 		
 		
     }
