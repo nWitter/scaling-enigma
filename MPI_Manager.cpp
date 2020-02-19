@@ -41,6 +41,7 @@ float rndNum(){
 
 -a {n} || --affected {n}
 -ar {n} {m} || --affectedRnd {n} {m}
+nodes slowed simultaniously
 
 -i {n} || --intervall {n}
 -ir {n} {m} || --intervallRnd {n} {m}
@@ -63,7 +64,6 @@ multiplier to length of the timestep, 1s; default 2 -> timestep of 2s
 number of steps executed, default runs without time limit
 
 TODO
-ir
 function
 stepl
 

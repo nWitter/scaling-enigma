@@ -6,13 +6,10 @@ mkdir -p output
 chmod +x enigma.sh
 
 
-	sbatch --ntasks=2 --cpus-per-task=28 ./enigma.sh 1200 output/00.out 0 0
+	sbatch --ntasks=2 --cpus-per-task=28 ./enigma.sh 1000 output/00.out -a 1 -i 1 -f
 	#sbatch --ntasks=2 --cpus-per-task=28 ./enigma.sh 1200 output/01.out 0 0
 	#sbatch --ntasks=2 --cpus-per-task=28 ./enigma.sh 1200 output/10.out 1 1
-	sbatch --ntasks=2 --cpus-per-task=28 ./enigma.sh 1200 output/11.out 1 1
-	
-	
-	#sbatch --ntasks=2 --cpus-per-task=28 ./enigma.sh 1000 output/t.out 0.5 1
+	#sbatch --ntasks=2 --cpus-per-task=28 ./enigma.sh 1200 output/11.out 1 1
 
 
 

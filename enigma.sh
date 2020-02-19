@@ -27,10 +27,6 @@ echo "cores per task " $SLURM_CPUS_PER_TASK
 echo "args: " $@
 
 
-
-
-MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
-
 #start interference in different thread
 chmod +x startInterference.sh
 
