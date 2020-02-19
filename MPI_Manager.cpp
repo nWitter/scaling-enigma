@@ -118,7 +118,7 @@ int main(int argc, char **argv)
 		}
 	}
 	
-	for (int i = 0; i < argc; ++i) { 
+	for (int i = 0; i < argc; ++i) {
         std::string arg = argv[i];
 		if(i+1 <= argc && (arg == "-a" || arg == "--affected")){
 			float x = atof(argv[i++]);
@@ -144,9 +144,9 @@ int main(int argc, char **argv)
 			//TODO viability check
 			intervall_time = x;
 			intervall_time_max = y;
-			intervall_rnd = true;
+			intervall_time_rnd = true;
 			i+=2;
-		} elseif(arg == "-rr" || arg == "--round_robin"){
+		} else if(arg == "-rr" || arg == "--round_robin"){
 			designation_policy = POLICY_ROUNDROBIN;
 		} else if(arg == "-f" || arg == "--fixed_nodes"){
 			designation_policy = POLICY_FIXED;
@@ -170,16 +170,16 @@ int main(int argc, char **argv)
 	int numtasks, rank, dest, source, rc, count, tag = 1;
 	char inmsg, outmsg = 'x';
 	MPI_Status Stat;
-
-	//mpi buffer
-	const int bufferSize = 2;
-	int* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
-	int inbuffer[bufferSize];
 	
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	printf("Starting: rank %d, tasks %d\n", rank, numtasks);
+
+	//mpi buffer
+	const int bufferSize = 2;
+	int* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
+	int inbuffer[bufferSize];
 	
 	//
 	for (int x = 0; interference_infinite || x < interference_duration; x++) {
@@ -191,8 +191,6 @@ int main(int argc, char **argv)
 			// affected nodes in time step
 			int affected_final;
 			if(affected_rnd){
-				//TODO
-				(int) (rndNum() * (numtasks+1))
 				affected_final = affected_num + (int)((affected_num_max - affected_num) * rndNum());
 			} else {
 				affected_final = affected_num;
@@ -203,7 +201,7 @@ int main(int argc, char **argv)
 			
 			// interference time in step
 			float intervall_final;
-			if(intervall_rnd){
+			if(intervall_time_rnd){
 				intervall_final = intervall_time + (intervall_time_max - intervall_time) * rndNum();
 			} else {
 				intervall_final = intervall_time;
