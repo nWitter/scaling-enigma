@@ -25,9 +25,9 @@ const int POLICY_FIXED = 12;
 
 
 
-const int instance_hard_limit = 10; // purely to avoid errors
+const int instance_hard_limit = 10; // avoid errors, no technical reasons
 const int intervalBase = 1000000; // one second in microsec
-const int calc_scale = 1 << 14;
+const int calc_scale = 1 << 10;
 
 
 
@@ -39,24 +39,34 @@ float rndNum(){
 
 /*
 
--affected {n}
--affectedRnd {n} {m}
-TODO add flat values
+-a {n} || --affected {n}
+-ar {n} {m} || --affectedRnd {n} {m}
+TODO add parcentage values
 
--intervall {n}
--intervallRnd {n} {m}
-the timefraction per step the interference program is running (inbetween 0 - 1) TODO multiple instances if greater 1 (max 10)
+-i {n} || --intervall {n}
+-ir {n} {m} || --intervallRnd {n} {m}
+the timefraction per step the interference program is running (inbetween 0 - 1)
 e.g. -intervall 0.5 runs interference for 1s in each 2s timestep(default)
 
+TODO multiple instances if greater 1 (max 10)
+
 policy: default random, last assigned policy takes priority
--round_robin
--fixed_nodes
+-rr || --round_robin
+-f || --fixed_nodes
 
 -function {n}
 used function, available 0 processing heavy, 1 memory, 2 mixed TODO condfirm numbers
 
 -step_length {n}
 multiplier to length of the timestep, 1s; default 2 -> timestep of 2s
+
+-t {n}
+number of steps executed, default runs without time limit
+
+TODO
+ir
+function
+stepl
 
 */
 
@@ -65,20 +75,24 @@ int main(int argc, char **argv)
 	// configurable by args
 	int designation_policy = 0;
 	
-	bool intervall_rnd = false;
-	float interferingNodes = 0.5;
 
-	bool affected_rnd = false;
-	bool affected_flat = false;
-	float time_fraction = 0.5; // TODO
 	float affected_num = 0.5;
 	float affected_max = 1;
+	bool affected_rnd = false;
+	bool affected_flat = true;
+	
+	float interferingNodes = 0.5;
+	float interferingNodesMax = 1;
+	bool intervall_rnd = false;
+	
+	float time_fraction = 0.5; // TODO
 	
 	float step_length = 2.0;
 	int function_type = 1;
 	
 	//
-	int duration = 30;
+	int interference_duration = -1;
+	bool interference_infinite = true;
 	
 	// args	
 	for (int a = 0; a < argc; ++a){
@@ -91,46 +105,52 @@ int main(int argc, char **argv)
 			}
 			printf("arg: %d\n", x);
 		} else if(a == 2){
-	printf("nuwhy;");
 			float x = atof(argv[a]);
-	printf("yyyy;");
 			if(0 <= x && x <= 1){
 				time_fraction = x;
 			}
 		} else if(a == 3){
-	printf("buwhy;");
 			int x = atoi(argv[a]);
-			if(0 < x && duration < 100){
+			if(0 < x && interference_duration < 100){
 				//TODO remove limit
-				duration = x;
+				interference_duration = x;
 			} else {
-				duration = 1 << 12;
+				interference_duration = 1 << 12;
 			}
 		}
 	}
 	
 	for (int i = 0; i < argc; ++i) { 
         std::string arg = argv[i];
-		if( i+1 < argc && arg == "-affected"){
+		if(i+1 <= argc && (arg == "-a" || arg == "--affected")){
 			float x = atof(argv[i++]);
 			//TODO viability check
 			affected_num = x;
-		} else if (false){
-		
-		
-		//TODO
-	designation_policy = 0;
-	
-	intervall_rnd = false;
-	interferingNodes = 0.5;
-
-	affected_rnd = false;
-	affected_flat = false;
-	affected_num = 0.5;
-	affected_max = 1;
-	
-	step_length = 2.0;
-	function_type = 1;
+			i++;
+		} else if(i+2 <= argc && (arg == "-ar" || arg == "--affectedRnd")){
+			float x = atof(argv[i++]);
+			float y = atof(argv[i++]);
+			//TODO viability check
+			affected_num = x;
+			affected_max = y;
+			affected_rnd = true;
+			i+=2;
+		} else if(i+1 <= argc && (arg == "-i" || arg == "--intervall")){
+			float x = atof(argv[i++]);
+			//TODO viability check
+			affected_num = x;
+			i++;
+		} else if(arg == "-rr" || arg == "--round_robin"){
+			designation_policy = POLICY_ROUNDROBIN;
+		} else if(arg == "-f" || arg == "--fixed_nodes"){
+			designation_policy = POLICY_FIXED;
+		} else if(i+1 <= argc && (arg == "-t" || arg == "--time")){
+			int x = atoi(argv[i++]);
+			if(x > 0){
+				interference_duration = x;
+				interference_infinite = false;
+			}
+			i++;
 		}
     }
 	
@@ -145,18 +165,18 @@ int main(int argc, char **argv)
 	char inmsg, outmsg = 'x';
 	MPI_Status Stat;
 
-	MPI_Init(&argc, &argv);
-	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	printf("Starting: rank %d, tasks %d\n", rank, numtasks);
-
 	//mpi buffer
 	const int bufferSize = 2;
 	int* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
 	int inbuffer[bufferSize];
 	
+	MPI_Init(&argc, &argv);
+	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	printf("Starting: rank %d, tasks %d\n", rank, numtasks);
 	
-	for (int x = 0; x < duration; x++) {
+	//
+	for (int x = 0; interference_infinite || x < interference_duration; x++) {
 		Clock::time_point t0 = Clock::now();
 		
 		// communication between ranks
