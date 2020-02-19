@@ -92,32 +92,6 @@ int main(int argc, char **argv)
 	int interference_duration = -1;
 	bool interference_infinite = true;
 	
-	// args	
-	for (int a = 0; a < argc; ++a){
-		if(a == 1){
-			int x = atoi(argv[a]);
-			if(x == 0){
-				interferingNodes = 0;
-			} else if(x == 1){
-				interferingNodes = 1;
-			}
-			printf("arg: %d\n", x);
-		} else if(a == 2){
-			float x = atof(argv[a]);
-			if(0 <= x && x <= 1){
-				time_fraction = x;
-			}
-		} else if(a == 3){
-			int x = atoi(argv[a]);
-			if(0 < x && interference_duration < 100){
-				//TODO remove limit
-				interference_duration = x;
-			} else {
-				interference_duration = 1 << 12;
-			}
-		}
-	}
-	
 	for (int i = 0; i < argc; ++i) {
         std::string arg = argv[i];
 		if(i+1 <= argc && (arg == "-a" || arg == "--affected")){
