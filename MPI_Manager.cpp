@@ -41,7 +41,6 @@ float rndNum(){
 
 -a {n} || --affected {n}
 -ar {n} {m} || --affectedRnd {n} {m}
-TODO add parcentage values
 
 -i {n} || --intervall {n}
 -ir {n} {m} || --intervallRnd {n} {m}
@@ -74,16 +73,15 @@ int main(int argc, char **argv)
 {
 	// configurable by args
 	int designation_policy = 0;
+	int policy_round_robin_var = 0;
 	
-
 	float affected_num = 0.5;
-	float affected_max = 1;
+	float affected_num_max = 1;
 	bool affected_rnd = false;
-	bool affected_flat = true;
 	
-	float interferingNodes = 0.5;
-	float interferingNodesMax = 1;
-	bool intervall_rnd = false;
+	float intervall_time = 0.5;
+	float intervall_time_max = 1;
+	bool intervall_time_rnd = false;
 	
 	float time_fraction = 0.5; // TODO
 	
@@ -132,15 +130,23 @@ int main(int argc, char **argv)
 			float y = atof(argv[i++]);
 			//TODO viability check
 			affected_num = x;
-			affected_max = y;
+			affected_num_max = y;
 			affected_rnd = true;
 			i+=2;
 		} else if(i+1 <= argc && (arg == "-i" || arg == "--intervall")){
 			float x = atof(argv[i++]);
 			//TODO viability check
-			affected_num = x;
+			intervall_time = x;
 			i++;
-		} else if(arg == "-rr" || arg == "--round_robin"){
+		} else if(i+2 <= argc && (arg == "-ir" || arg == "--intervallRnd")){
+			float x = atof(argv[i++]);
+			float y = atof(argv[i++]);
+			//TODO viability check
+			intervall_time = x;
+			intervall_time_max = y;
+			intervall_rnd = true;
+			i+=2;
+		} elseif(arg == "-rr" || arg == "--round_robin"){
 			designation_policy = POLICY_ROUNDROBIN;
 		} else if(arg == "-f" || arg == "--fixed_nodes"){
 			designation_policy = POLICY_FIXED;
@@ -182,46 +188,64 @@ int main(int argc, char **argv)
 		// communication between ranks
 		// assigning ranks
 		if (rank == 0) {
+			// affected nodes in time step
+			int affected_final;
+			if(affected_rnd){
+				//TODO
+				(int) (rndNum() * (numtasks+1))
+				affected_final = affected_num + (int)((affected_num_max - affected_num) * rndNum());
+			} else {
+				affected_final = affected_num;
+			}
 			
-			//TODO
+			if(affected_final > numtasks)
+				affected_final = numtasks;
 			
-			int interf_number = (int)(numtasks * interferingNodes);
-			int interf_assigned = 0;
+			// interference time in step
+			float intervall_final;
+			if(intervall_rnd){
+				intervall_final = intervall_time + (intervall_time_max - intervall_time) * rndNum();
+			} else {
+				intervall_final = intervall_time;
+			}
 			
-			std::vector<char> msg(numtasks);
-			for(int a = 0; a < numtasks * bufferSize; a++)
-				scatterBuffer[a] = ENI_NULL;
+			for(int a = 0; a < numtasks; a++){
+				scatterBuffer[a * bufferSize] = ENI_SLEEP;
+				scatterBuffer[a * bufferSize + 1] = 0;
+			}
 			
 			// designate interfering ranks
-			if(numtasks > 1 && interferingNodes > 0){
-				for(int a = 0; a < interf_number; a++){
-					if(interferingNodes < 0 || interferingNodes > 1){
-						printf("#error invalid number of affected nodes");
-						break;
-					}					
-					int rnd = (int) (rndNum() * (numtasks+1)) * bufferSize;
-					int b = 0;
-					//test
-					rnd = 1;
-					while(scatterBuffer[rnd * bufferSize] != ENI_NULL && b < a){						
-						rnd = (rnd + 1) % numtasks;
-						b++;
+			if(designation_policy == POLICY_FIXED){
+				for(int a = 0; a < affected_final; a++){
+					scatterBuffer[a] = ENI_INTERFERE;
+					scatterBuffer[a + 1] = intervall_final;
+				}				
+			} else if(designation_policy == POLICY_ROUNDROBIN){
+				for(int a = 0; a < affected_final; a++){
+					int b = (policy_round_robin_var + a) % numtasks;
+					scatterBuffer[b] = ENI_INTERFERE;
+					scatterBuffer[b + 1] = intervall_final;
+				}
+				policy_round_robin_var = (policy_round_robin_var + affected_final) % numtasks;
+			} else if(designation_policy == POLICY_RANDOM){
+				for(int a = 0; a < affected_final; a++){
+					int rnd = (int) (rndNum() * (numtasks+1));
+					
+					// shift if selected node is already interfering
+					for(int b = 0; b < a; a++){
+						int c = (rnd + b) * bufferSize;
+						if(scatterBuffer[c] != ENI_INTERFERE){						
+							scatterBuffer[c] = ENI_INTERFERE;
+							scatterBuffer[c + 1] = intervall_final;							
+						}
 					}
-					scatterBuffer[rnd * bufferSize] = ENI_INTERFERE;
 				}
-			}else if(interferingNodes >= 0.5){
+			}else {
 				scatterBuffer[0] = ENI_INTERFERE;
-			} else {
-				scatterBuffer[0] = ENI_SLEEP;
-			}
-			for(int a = 0; a < numtasks * bufferSize; a += bufferSize){
-				if(scatterBuffer[a] == ENI_NULL){
-					scatterBuffer[a] = ENI_SLEEP;
-				}
 			}
 			
+			//send
 			MPI_Scatter(scatterBuffer, bufferSize, MPI_INT, inbuffer, bufferSize, MPI_INT, 0, MPI_COMM_WORLD);
-			
 		} else if (rank != 0) {
 			MPI_Scatter(scatterBuffer, bufferSize, MPI_INT, inbuffer, bufferSize, MPI_INT, 0, MPI_COMM_WORLD);
 		}
