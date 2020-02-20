@@ -99,7 +99,7 @@ int main(int argc, char **argv)
 			if(x > 0)
 				affected_num = x;
 			else
-				cout << "arg affected ignored: negative";
+				std::cout << "arg affected ignored: negative";
 			i++;
 		} else if(i+2 <= argc && (arg == "-ar" || arg == "--affectedRnd")){
 			float x = atof(argv[i++]);
@@ -109,14 +109,14 @@ int main(int argc, char **argv)
 				affected_num_max = y;
 				affected_rnd = true;
 			} else
-				cout << "arg affectedRnd ignored: negative";
+				std::cout << "arg affectedRnd ignored: negative";
 			i+=2;
 		} else if(i+1 <= argc && (arg == "-i" || arg == "--intervall")){
 			float x = atof(argv[i++]);
 			if(x > 0)
 				intervall_time = x;
 			else
-				cout << "arg intervall ignored: negative";
+				std::cout << "arg intervall ignored: negative";
 			i++;
 		} else if(i+2 <= argc && (arg == "-ir" || arg == "--intervallRnd")){
 			float x = atof(argv[i++]);
@@ -126,14 +126,14 @@ int main(int argc, char **argv)
 				intervall_time_max = y;
 				intervall_time_rnd = true;
 			} else
-				cout << "arg intervallRnd ignored: negative";
+				std::cout << "arg intervallRnd ignored: negative";
 			i+=2;
 		} else if(i+1 <= argc && (arg == "-step" || arg == "--step_length")){
 			float x = atof(argv[i++]);
 			if(x > 0)
-				step_length = x
+				step_length = x;
 			else
-				cout << "arg step_length ignored: negative";
+				std::cout << "arg step_length ignored: negative";
 			i++;
 		} else if(arg == "-rr" || arg == "--round_robin"){
 			designation_policy = POLICY_ROUNDROBIN;
@@ -145,7 +145,7 @@ int main(int argc, char **argv)
 				interference_duration = x;
 				interference_infinite = false;
 			} else
-				cout << "arg time ignored: negative";
+				std::cout << "arg time ignored: negative";
 			i++;
 		}
     }
@@ -190,7 +190,7 @@ int main(int argc, char **argv)
 			} else {
 				intervall_final = intervall_time;
 			}
-			intervall_final *=  * intervalBase * step_length;
+			intervall_final *=  intervalBase * step_length;
 			
 			for(int a = 0; a < numtasks; a++){
 				scatterBuffer[a * bufferSize] = ENI_SLEEP;
