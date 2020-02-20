@@ -92,14 +92,14 @@ int main(int argc, char **argv)
 	int interference_duration = -1;
 	bool interference_infinite = true;
 	
-	for (int i = 0; i < argc; ++i) {
+	for (int i = 1; i <= argc; i++) {
         std::string arg = argv[i];
 		if(i+1 <= argc && (arg == "-a" || arg == "--affected")){
 			float x = atof(argv[i++]);
 			if(x > 0)
 				affected_num = x;
 			else
-				std::cout << "arg affected ignored: negative";
+				std::cout << "arg affected ignored: negative/n" << x;
 			i++;
 		} else if(i+2 <= argc && (arg == "-ar" || arg == "--affectedRnd")){
 			float x = atof(argv[i++]);
@@ -109,14 +109,14 @@ int main(int argc, char **argv)
 				affected_num_max = y;
 				affected_rnd = true;
 			} else
-				std::cout << "arg affectedRnd ignored: negative";
+				std::cout << "arg affectedRnd ignored: negative/n" << x << y;
 			i+=2;
 		} else if(i+1 <= argc && (arg == "-i" || arg == "--intervall")){
 			float x = atof(argv[i++]);
 			if(x > 0)
 				intervall_time = x;
 			else
-				std::cout << "arg intervall ignored: negative";
+				std::cout << "arg intervall ignored: negative/n" << x;
 			i++;
 		} else if(i+2 <= argc && (arg == "-ir" || arg == "--intervallRnd")){
 			float x = atof(argv[i++]);
@@ -126,14 +126,14 @@ int main(int argc, char **argv)
 				intervall_time_max = y;
 				intervall_time_rnd = true;
 			} else
-				std::cout << "arg intervallRnd ignored: negative";
+				std::cout << "arg intervallRnd ignored: negative/n" << x << y;
 			i+=2;
 		} else if(i+1 <= argc && (arg == "-step" || arg == "--step_length")){
 			float x = atof(argv[i++]);
 			if(x > 0)
 				step_length = x;
 			else
-				std::cout << "arg step_length ignored: negative";
+				std::cout << "arg step_length ignored: negative/n" << x;
 			i++;
 		} else if(arg == "-rr" || arg == "--round_robin"){
 			designation_policy = POLICY_ROUNDROBIN;
@@ -145,7 +145,7 @@ int main(int argc, char **argv)
 				interference_duration = x;
 				interference_infinite = false;
 			} else
-				std::cout << "arg time ignored: negative";
+				std::cout << "arg time ignored: negative/n" << x;
 			i++;
 		}
     }
