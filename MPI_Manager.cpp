@@ -6,6 +6,7 @@
 #include <functional>
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "mpi.h"
 #include "simple_loop.h"
@@ -57,15 +58,16 @@ policy: default random, last assigned policy takes priority
 -function {n}
 used function, available 0 processing heavy, 1 memory, 2 mixed TODO condfirm numbers
 
--step_length {n}
-multiplier to length of the timestep, 1s; default 2 -> timestep of 2s
+-step {n} || --step_length {n}
+set length of the timestep in seconds; default: 1; -step 0.5 -> timestep of 0.5s
 
 -t {n}
 number of steps executed, default runs without time limit
 
-TODO
-function
-stepl
+TODO function
+TODO stepl
+TODO random seed
+
 
 */
 
@@ -75,7 +77,7 @@ int main(int argc, char **argv)
 	int designation_policy = 0;
 	int policy_round_robin_var = 0;
 	
-	float affected_num = 0.5;
+	float affected_num = 1;
 	float affected_num_max = 1;
 	bool affected_rnd = false;
 	
@@ -83,9 +85,7 @@ int main(int argc, char **argv)
 	float intervall_time_max = 1;
 	bool intervall_time_rnd = false;
 	
-	float time_fraction = 0.5; // TODO
-	
-	float step_length = 2.0;
+	float step_length = 1.0;
 	int function_type = 1;
 	
 	//
@@ -96,30 +96,45 @@ int main(int argc, char **argv)
         std::string arg = argv[i];
 		if(i+1 <= argc && (arg == "-a" || arg == "--affected")){
 			float x = atof(argv[i++]);
-			//TODO viability check
-			affected_num = x;
+			if(x > 0)
+				affected_num = x;
+			else
+				cout << "arg affected ignored: negative";
 			i++;
 		} else if(i+2 <= argc && (arg == "-ar" || arg == "--affectedRnd")){
 			float x = atof(argv[i++]);
 			float y = atof(argv[i++]);
-			//TODO viability check
-			affected_num = x;
-			affected_num_max = y;
-			affected_rnd = true;
+			if(x > 0 && y > 0) {
+				affected_num = x;
+				affected_num_max = y;
+				affected_rnd = true;
+			} else
+				cout << "arg affectedRnd ignored: negative";
 			i+=2;
 		} else if(i+1 <= argc && (arg == "-i" || arg == "--intervall")){
 			float x = atof(argv[i++]);
-			//TODO viability check
-			intervall_time = x;
+			if(x > 0)
+				intervall_time = x;
+			else
+				cout << "arg intervall ignored: negative";
 			i++;
 		} else if(i+2 <= argc && (arg == "-ir" || arg == "--intervallRnd")){
 			float x = atof(argv[i++]);
 			float y = atof(argv[i++]);
-			//TODO viability check
-			intervall_time = x;
-			intervall_time_max = y;
-			intervall_time_rnd = true;
+			if(x > 0 && y > 0) {
+				intervall_time = x;
+				intervall_time_max = y;
+				intervall_time_rnd = true;
+			} else
+				cout << "arg intervallRnd ignored: negative";
 			i+=2;
+		} else if(i+1 <= argc && (arg == "-step" || arg == "--step_length")){
+			float x = atof(argv[i++]);
+			if(x > 0)
+				step_length = x
+			else
+				cout << "arg step_length ignored: negative";
+			i++;
 		} else if(arg == "-rr" || arg == "--round_robin"){
 			designation_policy = POLICY_ROUNDROBIN;
 		} else if(arg == "-f" || arg == "--fixed_nodes"){
@@ -129,16 +144,11 @@ int main(int argc, char **argv)
 			if(x > 0){
 				interference_duration = x;
 				interference_infinite = false;
-			}
+			} else
+				cout << "arg time ignored: negative";
 			i++;
 		}
     }
-	
-	
-	
-	
-	int step_time = intervalBase * step_length;
-	int interfere_time = step_time * time_fraction;
 	
 	//mpi
 	int numtasks, rank, dest, source, rc, count, tag = 1;
@@ -173,20 +183,21 @@ int main(int argc, char **argv)
 			if(affected_final > numtasks)
 				affected_final = numtasks;
 			
-			// interference time in step
+			// interference time: final active time in microseconds
 			float intervall_final;
 			if(intervall_time_rnd){
-				intervall_final = intervall_time + (intervall_time_max - intervall_time) * rndNum();
+				intervall_final = (intervall_time + (intervall_time_max - intervall_time) * rndNum());
 			} else {
 				intervall_final = intervall_time;
 			}
+			intervall_final *=  * intervalBase * step_length;
 			
 			for(int a = 0; a < numtasks; a++){
 				scatterBuffer[a * bufferSize] = ENI_SLEEP;
 				scatterBuffer[a * bufferSize + 1] = 0;
 			}
 			
-			// designate interfering ranks
+			// designate active ranks for the next timestep according to policy
 			if(designation_policy == POLICY_FIXED){
 				for(int a = 0; a < affected_final; a++){
 					scatterBuffer[a] = ENI_INTERFERE;
@@ -225,30 +236,27 @@ int main(int argc, char **argv)
 		Clock::time_point t1 = Clock::now();
 		// interference
 		// initially run on all nodes to start OMP
-		if(inbuffer[0] == ENI_INTERFERE || x == 0){			
-			std::thread interf_thread(interferenceLoop, function_type, interfere_time, calc_scale);	
+		if(inbuffer[rank * 2] == ENI_INTERFERE || x == 0){			
+			std::thread interf_thread(interferenceLoop, function_type, inbuffer[rank * 2 + 1], calc_scale);	
 			interf_thread.detach();			
 			printf("\t--%d \t interf\n", rank);		
 		}
 
-		// fill intervall
+		// wait for rest of the timestep
 		microsec ns = timeInterv(t0);
-		int remainingInterv = step_time - ns.count();
+		int remainingInterv = intervalBase * step_length - ns.count();
 		if(remainingInterv > 1){
 			std::this_thread::sleep_for(microsec(remainingInterv));
 		}
 		
-		
-		int nsTotal = timeInterv(t0).count();
-		microsec ns2 = std::chrono::duration_cast<microsec>(t1 - t0);
-		int nsWait = ns2.count();
-		printf("--%d\t n: %d,\t time %d,\t sleept %d,\t waited %d\n", rank, x, nsTotal, remainingInterv, nsWait);
+		if(false){
+			int nsTotal = timeInterv(t0).count();
+			microsec ns2 = std::chrono::duration_cast<microsec>(t1 - t0);
+			int nsWait = ns2.count();
+			printf("--%d\t n: %d,\t time %d,\t sleept %d,\t waited %d\n", rank, x, nsTotal, remainingInterv, nsWait);
+		}
 	}
-
-	printf("%d done .\n", rank);
-	//MPI_Get_count(&Stat, MPI_CHAR, &count);
-	//printf("Task %d: Received %d char(s) from task %d with tag %d \n", rank, count, Stat.MPI_SOURCE, Stat.MPI_TAG);
-
+	
 	free(scatterBuffer);
 	MPI_Finalize();
 }
