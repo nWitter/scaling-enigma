@@ -158,7 +158,7 @@ int main(int argc, char **argv)
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	printf("Starting: rank %d, tasks %d\n", rank, numtasks);
+	std::cout << "Starting: rank" << rank << ", tasks " << numtasks;
 
 	//mpi buffer
 	const int bufferSize = 2;
