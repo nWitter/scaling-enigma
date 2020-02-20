@@ -11,6 +11,5 @@ int interferenceLoop(int functionType, int interfereMicrosec, int calcScale){
 	microsec activeTime = microsec(interfereMicrosec);
 
 	int tmp = interference_function(functionType, calcScale, t0, activeTime);
-	int r = timeInterv(t0).count();
 	return tmp;
 }
