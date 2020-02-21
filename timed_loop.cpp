@@ -10,8 +10,8 @@ volatile std::atomic<bool> processing_interrupted;
 std::atomic<double> average;
 std::atomic<int> scale_for_average;
 
-final int maximum_attempts = 3;
-final double maximum_fraction = 0.5;
+const int maximum_attempts = 3;
+const double maximum_fraction = 0.5;
 
 int loop_cnt = 0;
 int loop_duration = 0;
@@ -54,11 +54,11 @@ void generate_repetition_num(int functionType, int interfereMicrosec){
 		//theory: maximize sceduled time
 		std::this_thread::sleep_for(microseconds(1));
 		processing_interrupted = false;
-		t0 = Clock::now()
+		t0 = Clock::now();
 	
 		// attempt to run one repetition without interruprion by the scheduler
 		std::signal(SIGCONT, &interrupt_processing);
-		interference_single(vector, vector_size, functionType, current_rep)
+		interference_single(vector, vector_size, functionType, current_rep);
 		std::signal(SIGCONT, SIG_DFL);
 		
 		if(!processing_interrupted){			

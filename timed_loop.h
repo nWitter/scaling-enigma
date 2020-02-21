@@ -11,6 +11,7 @@
 #include <atomic>
 #include <vector>
 #include <csignal>
+#include <unistd.h>
 
 void interferenceTimed(int functionType, int interfereMicrosec);
 

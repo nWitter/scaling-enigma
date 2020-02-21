@@ -3,10 +3,9 @@
 int interference_function(int func, int scale, Clock::time_point tZero, microsec activeT){
 	int vector[vector_size];
 	int cnt = 0;
-	bool end = true;
 	for (int i = 0; i < vector_size; i++)
 		vector[i] = 1.0;
-	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale, cnt, end)
+	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale, cnt)
 	for (int a = 0; a < vector_size; a++){
 		// TEST TODO
 		while (timeInterv(tZero) < (activeT)) {
@@ -27,25 +26,25 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 }
 
 void interference_function_fixed_length(int func, int loop_length, int repetitions){
-	int vector[vector_size];
+	int vec[vector_size];
 	for (int i = 0; i < vector_size; i++)
-		vector[i] = 1.0;
+		vec[i] = 1.0;
 	
 	for (int b = 0; b < repetitions; b++) {
-		interference_single(vector, vector_size, func, int repetitions);
+		interference_single(vec, vector_size, func, loop_length);
 	}
 }
 
 void interference_single(int* vec, int len, int func, int rep){
-	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale, cnt, end)
-	for (int a = 0; a < vector_size; a++){
+	#pragma omp parallel for default(none) shared(vec, func)
+	for (int a = 0; a < len; a++){
 		for (int c = 0; c < rep; c++) {
 			if(func == 1){
-				functionCalc(vector, a);
+				functionCalc(vec, a);
 			} else if(func == 2){
-				functionMemory(vector, a);
+				functionMemory(vec, a);
 			} else {
-				functionMixed(vector, a);
+				functionMixed(vec, a);
 			}
 		}
 	}	
