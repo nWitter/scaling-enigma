@@ -36,7 +36,7 @@ void interference_function_fixed_length(int func, int loop_length, int repetitio
 }
 
 void interference_single(int* vec, int len, int func, int rep){
-	#pragma omp parallel for default(none) shared(vec, func)
+	#pragma omp parallel for default(none) shared(vec, len, func, rep)
 	for (int a = 0; a < len; a++){
 		for (int c = 0; c < rep; c++) {
 			if(func == 1){
