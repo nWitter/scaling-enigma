@@ -1,7 +1,5 @@
 #include "functions.h"
 
-const int vector_size = 1 << 10;
-
 int interference_function(int func, int scale, Clock::time_point tZero, microsec activeT){
 	int vector[vector_size];
 	int cnt = 0;
@@ -28,6 +26,35 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 	return cnt;
 }
 
+void interference_function_fixed_length(int func, int loop_length, int repetitions){
+	int vector[vector_size];
+	for (int i = 0; i < vector_size; i++)
+		vector[i] = 1.0;
+	
+	for (int b = 0; b < repetitions; b++) {
+		interference_single(vector, vector_size, func, int repetitions);
+	}
+}
+
+void interference_single(int* vec, int len, int func, int rep){
+	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale, cnt, end)
+	for (int a = 0; a < vector_size; a++){
+		for (int c = 0; c < rep; c++) {
+			if(func == 1){
+				functionCalc(vector, a);
+			} else if(func == 2){
+				functionMemory(vector, a);
+			} else {
+				functionMixed(vector, a);
+			}
+		}
+	}	
+	return;
+}
+
+
+
+
 // 0 default
 void functionMixed(int* v, int x){
 	int t = (x + vector_size/2) % vector_size;
@@ -48,13 +75,4 @@ void functionMemory(int* v, int x){
 microsec timeInterv(Clock::time_point tZero){
 	microsec d = std::chrono::duration_cast<microsec>(Clock::now() - tZero);
 	return d;
-}
-
-void functionCalcSingle(int sc){
-	double x = 1;
-	for (int a = 0; a < sc; a++){
-		for (int b = 0; b < sc; b++) {
-			x = (x + 1.1) * 1.1;
-		}
-	}
 }

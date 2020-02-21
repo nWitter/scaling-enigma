@@ -61,12 +61,13 @@ used function, available 0 processing heavy, 1 memory, 2 mixed TODO condfirm num
 -step {n} || --step_length {n}
 set length of the timestep in seconds; default: 1; -step 0.5 -> timestep of 0.5s
 
--t {n}
+-t {n} || --time {n}
 number of steps executed, default runs without time limit
 
 TODO function
 TODO stepl
 TODO random seed
+TODO run timed version
 
 
 */
@@ -87,6 +88,7 @@ int main(int argc, char **argv)
 	
 	float step_length = 1.0;
 	int function_type = 1;
+	bool use_timed_loop = false;
 	
 	//
 	int interference_duration = -1;
@@ -99,7 +101,7 @@ int main(int argc, char **argv)
 			if(x > 0)
 				affected_num = x;
 			else
-				std::cout << "arg affected ignored: negative/n" << x;
+				std::cout << "arg affected ignored: negative" << x << "/n";
 			i++;
 		} else if(i+2 <= argc && (arg == "-ar" || arg == "--affectedRnd")){
 			float x = atof(argv[i++]);
@@ -109,14 +111,14 @@ int main(int argc, char **argv)
 				affected_num_max = y;
 				affected_rnd = true;
 			} else
-				std::cout << "arg affectedRnd ignored: negative/n" << x << y;
+				std::cout << "arg affectedRnd ignored: negative" << x << y << "/n";
 			i+=2;
 		} else if(i+1 <= argc && (arg == "-i" || arg == "--intervall")){
 			float x = atof(argv[i++]);
 			if(x > 0)
 				intervall_time = x;
 			else
-				std::cout << "arg intervall ignored: negative/n" << x;
+				std::cout << "arg intervall ignored: negative" << x << "/n";
 			i++;
 		} else if(i+2 <= argc && (arg == "-ir" || arg == "--intervallRnd")){
 			float x = atof(argv[i++]);
@@ -126,14 +128,14 @@ int main(int argc, char **argv)
 				intervall_time_max = y;
 				intervall_time_rnd = true;
 			} else
-				std::cout << "arg intervallRnd ignored: negative/n" << x << y;
+				std::cout << "arg intervallRnd ignored: negative" << x << y << "/n";
 			i+=2;
 		} else if(i+1 <= argc && (arg == "-step" || arg == "--step_length")){
 			float x = atof(argv[i++]);
 			if(x > 0)
 				step_length = x;
 			else
-				std::cout << "arg step_length ignored: negative/n" << x;
+				std::cout << "arg step_length ignored: negative" << x << "/n";
 			i++;
 		} else if(arg == "-rr" || arg == "--round_robin"){
 			designation_policy = POLICY_ROUNDROBIN;
@@ -145,7 +147,7 @@ int main(int argc, char **argv)
 				interference_duration = x;
 				interference_infinite = false;
 			} else
-				std::cout << "arg time ignored: negative/n" << x;
+				std::cout << "arg time ignored: negative" << x << "/n";
 			i++;
 		}
     }
@@ -158,7 +160,7 @@ int main(int argc, char **argv)
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	std::cout << "Starting: rank" << rank << ", tasks " << numtasks;
+	std::cout << "Starting: rank" << rank << ", tasks " << numtasks << "/n";
 
 	//mpi buffer
 	const int bufferSize = 2;
@@ -236,10 +238,14 @@ int main(int argc, char **argv)
 		Clock::time_point t1 = Clock::now();
 		// interference
 		// initially run on all nodes to start OMP
-		if(inbuffer[rank * 2] == ENI_INTERFERE || x == 0){			
-			std::thread interf_thread(interferenceLoop, function_type, inbuffer[rank * 2 + 1], calc_scale);	
-			interf_thread.detach();			
-			printf("\t--%d \t interf\n", rank);		
+		if(inbuffer[rank * 2] == ENI_INTERFERE || x == 0){
+			if(!use_timed_loop){
+				std::thread interf_thread(interferenceLoop, function_type, inbuffer[rank * 2 + 1], calc_scale);	
+				interf_thread.detach();			
+				std::cout << "\t--" << rank << " \t interfed\n";
+			} else {
+				
+			}
 		}
 
 		// wait for rest of the timestep
