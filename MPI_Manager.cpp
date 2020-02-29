@@ -187,10 +187,16 @@ int main(int argc, char **argv)
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	std::cout << "Starting: rank" << rank << ", tasks " << numtasks << "\n";
 
-	//mpi buffer
+	/*
+	mpi buffer; use:
+		0: interference state
+		1: interference time per step
+	
+	*/
 	const int bufferSize = 2;
-	int* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
-	int inbuffer[bufferSize];
+	float* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
+	float inbuffer[bufferSize];
+	
 	
 	//
 	for (int x = 0; interference_infinite || x < interference_duration; x++) {
@@ -213,15 +219,15 @@ int main(int argc, char **argv)
 			// interference time: final active time in microseconds
 			float intervall_final;
 			if(intervall_time_rnd){
-				intervall_final = (intervall_time + (intervall_time_max - intervall_time) * rndNum());
+				intervall_final = intervall_time + (intervall_time_max - intervall_time) * rndNum();
 			} else {
 				intervall_final = intervall_time;
 			}
-			intervall_final *=  intervalBase * step_length;
 			
 			for(int a = 0; a < numtasks; a++){
 				scatterBuffer[a * bufferSize] = ENI_SLEEP;
 				scatterBuffer[a * bufferSize + 1] = 0;
+				scatterBuffer[a * bufferSize + 2] = 0;
 			}
 			
 			// designate active ranks for the next timestep according to policy
@@ -259,16 +265,16 @@ int main(int argc, char **argv)
 			}
 			
 			//send
-			MPI_Scatter(scatterBuffer, bufferSize, MPI_INT, inbuffer, bufferSize, MPI_INT, 0, MPI_COMM_WORLD);
+			MPI_Scatter(scatterBuffer, bufferSize, MPI_FLOAT, inbuffer, bufferSize, MPI_FLOAT, 0, MPI_COMM_WORLD);
 		} else if (rank != 0) {
-			MPI_Scatter(scatterBuffer, bufferSize, MPI_INT, inbuffer, bufferSize, MPI_INT, 0, MPI_COMM_WORLD);
+			MPI_Scatter(scatterBuffer, bufferSize, MPI_FLOAT, inbuffer, bufferSize, MPI_FLOAT, 0, MPI_COMM_WORLD);
 		}
 		
 		Clock::time_point t1 = Clock::now();
 		// interference
 		// initially run on all nodes to start OMP
 		if(inbuffer[0] == ENI_INTERFERE || x == 0){
-			int total = inbuffer[1];
+			float total = inbuffer[1];
 			std::cout << total << "\n";
 			if(total > 10)
 				total = 10;
@@ -277,17 +283,18 @@ int main(int argc, char **argv)
 			while (total > 0.1){
 				int var;
 				if(total > 1){
-					var = 1;
+					var = intervalBase * step_length;
 					total -= 1;
 				} else {
-					var = total;
+					var = (int)(total * intervalBase * step_length);
 				}
 				
-				if(!use_timed_loop){
+				if(!use_timed_loop){					
 					std::thread interf_thread(interferenceLoop, function_type, var, calc_scale);	
 					interf_thread.detach();
 				} else {
-				
+					std::thread interf_thread(interferenceTimed, function_type, var);	
+					interf_thread.detach();				
 				}
 			}
 			std::cout << "\t--" << rank << " " << x << "\t #interfed with " << inbuffer[1] << "\n";
