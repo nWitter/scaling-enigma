@@ -42,31 +42,33 @@ float rndNum(){
 
 -a {n} || --affected {n}
 -ar {n} {m} || --affectedRnd {n} {m}
-nodes slowed simultaniously
+nodes affected simultaniously by interference
 
 -i {n} || --intervall {n}
 -ir {n} {m} || --intervallRnd {n} {m}
-the timefraction per step the interference program is running (inbetween 0 - 1)
-e.g. -intervall 0.5 runs interference for 1s in each 2s timestep(default)
-
-TODO multiple instances if greater 1 (max 10)
+the timefraction per step the interference program is running, values greater 1 run multiple instances
+e.g. -intervall 0.5 -> runs interference for 0.5s in each 1s timestep(default)
 
 policy: default random, last assigned policy takes priority
 -rr || --round_robin
 -f || --fixed_nodes
 
--function {n}
-used function, available 0 processing heavy, 1 memory, 2 mixed TODO condfirm numbers
-
 -step {n} || --step_length {n}
-set length of the timestep in seconds; default: 1; -step 0.5 -> timestep of 0.5s
+set length of the timestep in seconds; default: 1
+example: -step 0.5 -> timestep of 0.5s
 
 -t {n} || --time {n}
-number of steps executed, default runs without time limit
+number of steps executed; interference runs indefenitely if no limit is specified
 
-TODO function
-TODO stepl
-TODO random seed
+--seed {n}
+seed for random numbers
+
+--function {n}
+change function used in interference
+1 (default) calculation heavy
+2 memory heavy
+3 mixed
+
 TODO run timed version
 
 
@@ -75,7 +77,7 @@ TODO run timed version
 int main(int argc, char **argv)
 {
 	// configurable by args
-	int designation_policy = 0;
+	int designation_policy = POLICY_RANDOM;
 	int policy_round_robin_var = 0;
 	
 	float affected_num = 1;
@@ -93,6 +95,8 @@ int main(int argc, char **argv)
 	//
 	int interference_duration = -1;
 	bool interference_infinite = true;
+	
+	srand(time(NULL));
 	
 	for (int i = 0; i < argc; ++i) {
         std::string arg = argv[i];
@@ -117,20 +121,20 @@ int main(int argc, char **argv)
 		} else if(i < argc && (arg == "-i" || arg == "--intervall")){
 			std::cout << " intervall ";
 			float x = atof(argv[++i]);
-			if(x > 0)
+			if(x > 0 && x <= 10)
 				intervall_time = x;
 			else
-				std::cout << "--- ignored arg: negative" << x;
+				std::cout << "--- ignored arg: negative or greater 10" << x;
 		} else if(i+2 <= argc && (arg == "-ir" || arg == "--intervallRnd")){
 			std::cout << " intervallRnd ";
 			float x = atof(argv[++i]);
 			float y = atof(argv[++i]);
-			if(x > 0 && y > 0) {
+			if(x > 0 && y > 0 && x <= 10 && y <= 10) {
 				intervall_time = x;
 				intervall_time_max = y;
 				intervall_time_rnd = true;
 			} else
-				std::cout << "--- ignored arg: negative" << x << y;
+				std::cout << "--- ignored arg: negative or greater 10" << x << y;
 		} else if(i < argc && (arg == "-step" || arg == "--step_length")){
 			std::cout << " step_length ";
 			float x = atof(argv[++i]);
@@ -152,6 +156,17 @@ int main(int argc, char **argv)
 				interference_infinite = false;
 			} else
 				std::cout << "--- ignored arg: negative" << x;
+		} else if(i < argc && arg == "--seed"){
+			std::cout << " seed ";
+			int x = atoi(argv[++i]);
+			srand(x);
+		} else if(i < argc && arg == "--function"){
+			std::cout << " function ";
+			int x = atoi(argv[++i]);
+			if(x > 0 && x < 3){
+				function_type = x;
+			} else
+				std::cout << "--- ignored arg: available function options: 1, 2, 3" << x;
 		} else {
 			std::cout << "no valid string";
 		}
@@ -249,14 +264,24 @@ int main(int argc, char **argv)
 		// interference
 		// initially run on all nodes to start OMP
 		if(inbuffer[0] == ENI_INTERFERE || x == 0){
-			if(!use_timed_loop){
-				std::thread interf_thread(interferenceLoop, function_type, inbuffer[1], calc_scale);	
-				interf_thread.detach();			
-				std::cout << "\t interfed";
-			} else {
+			int total = inbuffer[1];
+			while (total > 0){
+				int var;
+				if(total > 1){
+					var = 1;
+					total -= 1;
+				} else {
+					var = total;
+				}
 				
+				if(!use_timed_loop){
+					std::thread interf_thread(interferenceLoop, function_type, var, calc_scale);	
+					interf_thread.detach();
+				} else {
+				
+				}
 			}
-			std::cout << "\t--" << rank << " " << x << "\t #interfed\n";
+			std::cout << "\t--" << rank << " " << x << "\t #interfed with " << inbuffer[1] << "\n";
 		} else {
 			std::cout << "\t--" << rank << " " << x << "\n";
 		}
