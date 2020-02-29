@@ -285,10 +285,10 @@ int main(int argc, char **argv)
 				int var;
 				if(total > 1){
 					var = intervalBase * step_length;
-					total -= 1;
 				} else {
 					var = (int)(total * intervalBase * step_length);
 				}
+				total--;
 				
 				if(!use_timed_loop){					
 					std::thread interf_thread(interferenceLoop, function_type, var, calc_scale);	
