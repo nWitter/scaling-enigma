@@ -206,7 +206,7 @@ int main(int argc, char **argv)
 		Clock::time_point t0 = Clock::now();
 		
 		// communication between ranks
-		// assigning ranks
+		// rank 0 controls interfering ranks
 		if (rank == 0) {
 			// affected nodes in time step
 			int affected_final;
