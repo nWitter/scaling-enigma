@@ -5,15 +5,11 @@
 #SBATCH -D ./
 #SBATCH --get-user-env
 #SBATCH --partition=mpp2_inter
-#SBATCH --ntasks=2
-#SBATCH --cpus-per-task=28
 #SBATCH --time=00:04:00
 #
 #
 # Args: matrix_size, output file, interfNodePercentage, interferenceSlow
 #
-#
-# TODO allow 1,2,4,8 nodes
 
 
 module load slurm_setup
