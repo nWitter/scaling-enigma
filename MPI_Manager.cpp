@@ -94,27 +94,27 @@ int main(int argc, char **argv)
 	int interference_duration = -1;
 	bool interference_infinite = true;
 	
-	for (int i = 1; i <= argc; i++) {
+	for (int i = 0; i < argc; ++i) {
         std::string arg = argv[i];
 		std::cout << "reading arg " << i << ": ";
-		if(i+1 <= argc && (arg == "-a" || arg == "--affected")){
+		if(i < argc && (arg == "-a" || arg == "--affected")){
 			std::cout << " affected ";
-			float x = atof(argv[++i]);
+			float x = atof(argv[i]);
 			if(x > 0)
 				affected_num = x;
 			else
 				std::cout << "--- ignored arg: negative" << x;
 		} else if(i+2 <= argc && (arg == "-ar" || arg == "--affectedRnd")){
 			std::cout << " affectedRnd ";
-			float x = atof(argv[++i]);
-			float y = atof(argv[++i]);
+			float x = atof(argv[i]);
+			float y = atof(argv[i]);
 			if(x > 0 && y > 0) {
 				affected_num = x;
 				affected_num_max = y;
 				affected_rnd = true;
 			} else
 				std::cout << "--- ignored arg: negative" << x << y;
-		} else if(i+1 <= argc && (arg == "-i" || arg == "--intervall")){
+		} else if(i < argc && (arg == "-i" || arg == "--intervall")){
 			std::cout << " intervall ";
 			float x = atof(argv[++i]);
 			if(x > 0)
@@ -123,15 +123,15 @@ int main(int argc, char **argv)
 				std::cout << "--- ignored arg: negative" << x;
 		} else if(i+2 <= argc && (arg == "-ir" || arg == "--intervallRnd")){
 			std::cout << " intervallRnd ";
-			float x = atof(argv[++i]);
-			float y = atof(argv[++i]);
+			float x = atof(argv[i]);
+			float y = atof(argv[i]);
 			if(x > 0 && y > 0) {
 				intervall_time = x;
 				intervall_time_max = y;
 				intervall_time_rnd = true;
 			} else
 				std::cout << "--- ignored arg: negative" << x << y;
-		} else if(i+1 <= argc && (arg == "-step" || arg == "--step_length")){
+		} else if(i < argc && (arg == "-step" || arg == "--step_length")){
 			std::cout << " step_length ";
 			float x = atof(argv[++i]);
 			if(x > 0)
@@ -142,9 +142,9 @@ int main(int argc, char **argv)
 			designation_policy = POLICY_ROUNDROBIN;
 		} else if(arg == "-f" || arg == "--fixed_nodes"){
 			designation_policy = POLICY_FIXED;
-		} else if(i+1 <= argc && (arg == "-t" || arg == "--time")){
+		} else if(i < argc && (arg == "-t" || arg == "--time")){
 			std::cout << " time ";
-			int x = atoi(argv[++i]);
+			int x = atoi(argv[i]);
 			if(x > 0){
 				interference_duration = x;
 				interference_infinite = false;
