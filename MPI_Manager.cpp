@@ -265,7 +265,12 @@ int main(int argc, char **argv)
 		// initially run on all nodes to start OMP
 		if(inbuffer[0] == ENI_INTERFERE || x == 0){
 			int total = inbuffer[1];
-			while (total > 0){
+			std::cout << total << "\n";
+			if(total > 10)
+				total = 10;
+			else if(x == 0)
+				total = 1;
+			while (total > 0.1){
 				int var;
 				if(total > 1){
 					var = 1;
