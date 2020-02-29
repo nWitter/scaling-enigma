@@ -52,12 +52,13 @@ e.g. -intervall 0.5 -> runs interference for 0.5s in each 1s timestep(default)
 policy: default random, last assigned policy takes priority
 -rr || --round_robin
 -f || --fixed_nodes
+--policy_random
 
 -step {n} || --step_length {n}
 set length of the timestep in seconds; default: 1
 example: -step 0.5 -> timestep of 0.5s
 
--t {n} || --time {n}
+--time_limit {n}
 number of steps executed; interference runs indefenitely if no limit is specified
 
 --seed {n}
@@ -148,7 +149,10 @@ int main(int argc, char **argv)
 		} else if(arg == "-f" || arg == "--fixed_nodes"){
 			std::cout << " fixed nodes ";
 			designation_policy = POLICY_FIXED;
-		} else if(i < argc && (arg == "-t" || arg == "--time")){
+		} else if(arg == "--policy_random"){
+			std::cout << " fixed nodes ";
+			designation_policy = POLICY_RANDOM;
+		} else if(i < argc && arg == "--time_limit"){
 			std::cout << " time ";
 			int x = atoi(argv[++i]);
 			if(x > 0){
