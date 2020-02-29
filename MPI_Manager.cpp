@@ -223,12 +223,12 @@ int main(int argc, char **argv)
 					int rnd = (int) (rndNum() * (numtasks+1));
 					
 					// shift if selected node is already interfering
-					int c = ((rnd + b) % numtasks) * bufferSize;
+					int c = rnd * bufferSize;
 					for(int b = 0; b < a; a++){
 						if(scatterBuffer[c] == ENI_SLEEP){
 							break;
 						} else {
-							c = (c + bufferSize) % (numtasks * bufferSize)
+							c = (c + bufferSize) % (numtasks * bufferSize);
 						}
 					}				
 					scatterBuffer[c] = ENI_INTERFERE;
