@@ -97,58 +97,52 @@ int main(int argc, char **argv)
 	for (int i = 1; i <= argc; i++) {
         std::string arg = argv[i];
 		if(i+1 <= argc && (arg == "-a" || arg == "--affected")){
-			float x = atof(argv[i++]);
+			float x = atof(argv[++i]);
 			if(x > 0)
 				affected_num = x;
 			else
-				std::cout << "arg affected ignored: negative" << x << "/n";
-			i++;
+				std::cout << "ignored arg " << i - 1 << ": affected: negative" << x << "/n";
 		} else if(i+2 <= argc && (arg == "-ar" || arg == "--affectedRnd")){
-			float x = atof(argv[i++]);
-			float y = atof(argv[i++]);
+			float x = atof(argv[++i]);
+			float y = atof(argv[++i]);
 			if(x > 0 && y > 0) {
 				affected_num = x;
 				affected_num_max = y;
 				affected_rnd = true;
 			} else
-				std::cout << "arg affectedRnd ignored: negative" << x << y << "/n";
-			i+=2;
+				std::cout << "ignored arg " << i - 2 << ": affectedRnd: negative" << x << y << "/n";
 		} else if(i+1 <= argc && (arg == "-i" || arg == "--intervall")){
-			float x = atof(argv[i++]);
+			float x = atof(argv[++i]);
 			if(x > 0)
 				intervall_time = x;
 			else
-				std::cout << "arg intervall ignored: negative" << x << "/n";
-			i++;
+				std::cout << "ignored arg " << i - 1 << ": intervall: negative" << x << "/n";
 		} else if(i+2 <= argc && (arg == "-ir" || arg == "--intervallRnd")){
-			float x = atof(argv[i++]);
-			float y = atof(argv[i++]);
+			float x = atof(argv[++i]);
+			float y = atof(argv[++i]);
 			if(x > 0 && y > 0) {
 				intervall_time = x;
 				intervall_time_max = y;
 				intervall_time_rnd = true;
 			} else
-				std::cout << "arg intervallRnd ignored: negative" << x << y << "/n";
-			i+=2;
+				std::cout << "ignored arg " << i - 2 << ": intervallRnd: negative" << x << y << "/n";
 		} else if(i+1 <= argc && (arg == "-step" || arg == "--step_length")){
-			float x = atof(argv[i++]);
+			float x = atof(argv[++i]);
 			if(x > 0)
 				step_length = x;
 			else
-				std::cout << "arg step_length ignored: negative" << x << "/n";
-			i++;
+				std::cout << "ignored arg " << i - 1 << ": step_length: negative" << x << "/n";
 		} else if(arg == "-rr" || arg == "--round_robin"){
 			designation_policy = POLICY_ROUNDROBIN;
 		} else if(arg == "-f" || arg == "--fixed_nodes"){
 			designation_policy = POLICY_FIXED;
 		} else if(i+1 <= argc && (arg == "-t" || arg == "--time")){
-			int x = atoi(argv[i++]);
+			int x = atoi(argv[++i]);
 			if(x > 0){
 				interference_duration = x;
 				interference_infinite = false;
 			} else
-				std::cout << "arg time ignored: negative" << x << "/n";
-			i++;
+				std::cout << "ignored arg " << i - 1 << ": time: negative" << x << "/n";
 		}
     }
 	
@@ -239,9 +233,9 @@ int main(int argc, char **argv)
 		std::cout << "\t--" << rank << " " << x;
 		// interference
 		// initially run on all nodes to start OMP
-		if(inbuffer[rank * 2] == ENI_INTERFERE || x == 0){
+		if(inbuffer[0] == ENI_INTERFERE || x == 0){
 			if(!use_timed_loop){
-				std::thread interf_thread(interferenceLoop, function_type, inbuffer[rank * 2 + 1], calc_scale);	
+				std::thread interf_thread(interferenceLoop, function_type, inbuffer[1], calc_scale);	
 				interf_thread.detach();			
 				std::cout << "\t interfed";
 			} else {
