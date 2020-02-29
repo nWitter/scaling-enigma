@@ -25,22 +25,26 @@ const int POLICY_ROUNDROBIN = 11;
 const int POLICY_FIXED = 12;
 
 
-
-
 const int instance_hard_limit = 10; // avoid errors, no technical reasons
 const int intervalBase = 1000000; // one second in microsec
 const int calc_scale = 1 << 10;
-
-
 
 // rnd {0,1} 5-digits
 float rndNum(){
 	return static_cast <float> (rand() % 10000) / 10000;
 }
 
+float intervallFinal(bool rnd, float min, float max){
+	float fin;
+	if(rnd){
+		fin = min + (max - min) * rndNum();
+	} else {
+		fin = min;
+	}
+	return fin;
+}
 
 /*
-
 -a {n} || --affected {n}
 -ar {n} {m} || --affectedRnd {n} {m}
 nodes affected simultaniously by interference
@@ -73,9 +77,7 @@ change function used in interference
 
 TODO run timed version
 
-
 */
-
 int main(int argc, char **argv)
 {
 	// configurable by args
@@ -217,13 +219,7 @@ int main(int argc, char **argv)
 			if(affected_final > numtasks)
 				affected_final = numtasks;
 			
-			// interference time: final active time in microseconds
-			float intervall_final;
-			if(intervall_time_rnd){
-				intervall_final = intervall_time + (intervall_time_max - intervall_time) * rndNum();
-			} else {
-				intervall_final = intervall_time;
-			}
+			// final interference time is calculated seperately for each interfering node
 			
 			for(int a = 0; a < numtasks; a++){
 				scatterBuffer[a * bufferSize] = ENI_SLEEP;
@@ -235,13 +231,13 @@ int main(int argc, char **argv)
 			if(designation_policy == POLICY_FIXED){
 				for(int a = 0; a < affected_final; a++){
 					scatterBuffer[a * bufferSize] = ENI_INTERFERE;
-					scatterBuffer[a * bufferSize + 1] = intervall_final;
+					scatterBuffer[a * bufferSize + 1] = intervallFinal(intervall_time_rnd, intervall_time, intervall_time_max);
 				}				
 			} else if(designation_policy == POLICY_ROUNDROBIN){
 				for(int a = 0; a < affected_final; a++){
 					int b = (policy_round_robin_var + a) % numtasks;
 					scatterBuffer[b * bufferSize] = ENI_INTERFERE;
-					scatterBuffer[b * bufferSize + 1] = intervall_final;
+					scatterBuffer[b * bufferSize + 1] = intervallFinal(intervall_time_rnd, intervall_time, intervall_time_max);
 				}
 				policy_round_robin_var = (policy_round_robin_var + affected_final) % numtasks;
 			} else if(designation_policy == POLICY_RANDOM){
@@ -258,7 +254,7 @@ int main(int argc, char **argv)
 						}
 					}				
 					scatterBuffer[c] = ENI_INTERFERE;
-					scatterBuffer[c + 1] = intervall_final;	
+					scatterBuffer[c + 1] = intervallFinal(intervall_time_rnd, intervall_time, intervall_time_max);	
 				
 				}
 			}else {
@@ -308,13 +304,6 @@ int main(int argc, char **argv)
 		int remainingInterv = intervalBase * step_length - ns.count();
 		if(remainingInterv > 1){
 			std::this_thread::sleep_for(microsec(remainingInterv));
-		}
-		
-		if(false){
-			int nsTotal = timeInterv(t0).count();
-			microsec ns2 = std::chrono::duration_cast<microsec>(t1 - t0);
-			int nsWait = ns2.count();
-			printf("--%d\t n: %d,\t time %d,\t sleept %d,\t waited %d\n", rank, x, nsTotal, remainingInterv, nsWait);
 		}
 	}
 	
