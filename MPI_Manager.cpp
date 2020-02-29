@@ -150,6 +150,8 @@ int main(int argc, char **argv)
 				interference_infinite = false;
 			} else
 				std::cout << "--- ignored arg: negative" << x;
+		} else {
+			std::cout << "no valid string";
 		}
 		std::cout << "/n";
     }
