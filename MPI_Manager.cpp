@@ -139,8 +139,10 @@ int main(int argc, char **argv)
 			else
 				std::cout << "--- ignored arg: negative" << x;
 		} else if(arg == "-rr" || arg == "--round_robin"){
+			std::cout << " round robin ";
 			designation_policy = POLICY_ROUNDROBIN;
 		} else if(arg == "-f" || arg == "--fixed_nodes"){
+			std::cout << " fixed nodes ";
 			designation_policy = POLICY_FIXED;
 		} else if(i < argc && (arg == "-t" || arg == "--time")){
 			std::cout << " time ";
@@ -206,14 +208,14 @@ int main(int argc, char **argv)
 			// designate active ranks for the next timestep according to policy
 			if(designation_policy == POLICY_FIXED){
 				for(int a = 0; a < affected_final; a++){
-					scatterBuffer[a] = ENI_INTERFERE;
-					scatterBuffer[a + 1] = intervall_final;
+					scatterBuffer[a * bufferSize] = ENI_INTERFERE;
+					scatterBuffer[a * bufferSize + 1] = intervall_final;
 				}				
 			} else if(designation_policy == POLICY_ROUNDROBIN){
 				for(int a = 0; a < affected_final; a++){
 					int b = (policy_round_robin_var + a) % numtasks;
-					scatterBuffer[b] = ENI_INTERFERE;
-					scatterBuffer[b + 1] = intervall_final;
+					scatterBuffer[b * bufferSize] = ENI_INTERFERE;
+					scatterBuffer[b * bufferSize + 1] = intervall_final;
 				}
 				policy_round_robin_var = (policy_round_robin_var + affected_final) % numtasks;
 			} else if(designation_policy == POLICY_RANDOM){
@@ -221,13 +223,17 @@ int main(int argc, char **argv)
 					int rnd = (int) (rndNum() * (numtasks+1));
 					
 					// shift if selected node is already interfering
+					int c = ((rnd + b) % numtasks) * bufferSize;
 					for(int b = 0; b < a; a++){
-						int c = (rnd + b) * bufferSize;
-						if(scatterBuffer[c] != ENI_INTERFERE){						
-							scatterBuffer[c] = ENI_INTERFERE;
-							scatterBuffer[c + 1] = intervall_final;							
+						if(scatterBuffer[c] == ENI_SLEEP){
+							break;
+						} else {
+							c = (c + bufferSize) % (numtasks * bufferSize)
 						}
-					}
+					}				
+					scatterBuffer[c] = ENI_INTERFERE;
+					scatterBuffer[c + 1] = intervall_final;	
+				
 				}
 			}else {
 				scatterBuffer[0] = ENI_INTERFERE;
