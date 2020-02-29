@@ -74,8 +74,6 @@ TODO run timed version
 
 int main(int argc, char **argv)
 {
-	std::cout << "start/n";
-	
 	// configurable by args
 	int designation_policy = 0;
 	int policy_round_robin_var = 0;
@@ -95,8 +93,6 @@ int main(int argc, char **argv)
 	//
 	int interference_duration = -1;
 	bool interference_infinite = true;
-	
-	std::cout << "2/n";
 	
 	for (int i = 1; i <= argc; i++) {
         std::string arg = argv[i];
