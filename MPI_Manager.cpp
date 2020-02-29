@@ -272,7 +272,6 @@ int main(int argc, char **argv)
 		// initially run on all nodes to start OMP
 		if(inbuffer[0] == ENI_INTERFERE || x == 0){
 			float total = inbuffer[1];
-			std::cout << total << "\n";
 			if(total > 10)
 				total = 10;
 			else if(x == 0)
@@ -294,9 +293,9 @@ int main(int argc, char **argv)
 					interf_thread.detach();				
 				}
 			}
-			std::cout << "\t--" << rank << " " << x << "\t #interfed with " << inbuffer[1] << "\n";
+			std::cout << "#" << rank << " n:" << x << "\t #interfed with " << inbuffer[1] << "\n";
 		} else {
-			std::cout << "\t--" << rank << " " << x << "\n";
+			std::cout << "#" << rank << " n:" << x << "\n";
 		}
 		
 		// wait for rest of the timestep
