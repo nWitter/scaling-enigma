@@ -236,18 +236,20 @@ int main(int argc, char **argv)
 		}
 		
 		Clock::time_point t1 = Clock::now();
+		std::cout << "\t--" << rank << " " << x;
 		// interference
 		// initially run on all nodes to start OMP
 		if(inbuffer[rank * 2] == ENI_INTERFERE || x == 0){
 			if(!use_timed_loop){
 				std::thread interf_thread(interferenceLoop, function_type, inbuffer[rank * 2 + 1], calc_scale);	
 				interf_thread.detach();			
-				std::cout << "\t--" << rank << " \t interfed\n";
+				std::cout << "\t interfed";
 			} else {
 				
 			}
 		}
-
+		std::cout << "\n";
+		
 		// wait for rest of the timestep
 		microsec ns = timeInterv(t0);
 		int remainingInterv = intervalBase * step_length - ns.count();
