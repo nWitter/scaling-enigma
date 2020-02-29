@@ -99,15 +99,15 @@ int main(int argc, char **argv)
 		std::cout << "reading arg " << i << ": ";
 		if(i < argc && (arg == "-a" || arg == "--affected")){
 			std::cout << " affected ";
-			float x = atof(argv[i]);
+			float x = atof(argv[++i]);
 			if(x > 0)
 				affected_num = x;
 			else
 				std::cout << "--- ignored arg: negative" << x;
 		} else if(i+2 <= argc && (arg == "-ar" || arg == "--affectedRnd")){
 			std::cout << " affectedRnd ";
-			float x = atof(argv[i]);
-			float y = atof(argv[i]);
+			float x = atof(argv[++i]);
+			float y = atof(argv[++i]);
 			if(x > 0 && y > 0) {
 				affected_num = x;
 				affected_num_max = y;
@@ -123,8 +123,8 @@ int main(int argc, char **argv)
 				std::cout << "--- ignored arg: negative" << x;
 		} else if(i+2 <= argc && (arg == "-ir" || arg == "--intervallRnd")){
 			std::cout << " intervallRnd ";
-			float x = atof(argv[i]);
-			float y = atof(argv[i]);
+			float x = atof(argv[++i]);
+			float y = atof(argv[++i]);
 			if(x > 0 && y > 0) {
 				intervall_time = x;
 				intervall_time_max = y;
@@ -144,7 +144,7 @@ int main(int argc, char **argv)
 			designation_policy = POLICY_FIXED;
 		} else if(i < argc && (arg == "-t" || arg == "--time")){
 			std::cout << " time ";
-			int x = atoi(argv[i]);
+			int x = atoi(argv[++i]);
 			if(x > 0){
 				interference_duration = x;
 				interference_infinite = false;
@@ -153,7 +153,7 @@ int main(int argc, char **argv)
 		} else {
 			std::cout << "no valid string";
 		}
-		std::cout << "/n";
+		std::cout << "\n";
     }
 	
 	//mpi
