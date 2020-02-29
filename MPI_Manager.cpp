@@ -10,6 +10,7 @@
 
 #include "mpi.h"
 #include "simple_loop.h"
+#include "timed_loop.h"
 #include "functions.h"
 
 typedef std::chrono::steady_clock Clock;
@@ -194,7 +195,7 @@ int main(int argc, char **argv)
 	
 	*/
 	const int bufferSize = 2;
-	float* scatterBuffer = (int*)malloc(bufferSize * numtasks * sizeof(int));
+	float* scatterBuffer = (float*)malloc(bufferSize * numtasks * sizeof(float));
 	float inbuffer[bufferSize];
 	
 	
