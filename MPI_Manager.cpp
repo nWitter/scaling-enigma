@@ -166,7 +166,7 @@ int main(int argc, char **argv)
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	std::cout << "Starting: rank" << rank << ", tasks " << numtasks << "/n";
+	std::cout << "Starting: rank" << rank << ", tasks " << numtasks << "\n";
 
 	//mpi buffer
 	const int bufferSize = 2;
@@ -246,7 +246,6 @@ int main(int argc, char **argv)
 		}
 		
 		Clock::time_point t1 = Clock::now();
-		std::cout << "\t--" << rank << " " << x;
 		// interference
 		// initially run on all nodes to start OMP
 		if(inbuffer[0] == ENI_INTERFERE || x == 0){
@@ -257,8 +256,10 @@ int main(int argc, char **argv)
 			} else {
 				
 			}
+			std::cout << "\t--" << rank << " " << x << "\t #interfed\n";
+		} else {
+			std::cout << "\t--" << rank << " " << x << "\n";
 		}
-		std::cout << "\n";
 		
 		// wait for rest of the timestep
 		microsec ns = timeInterv(t0);
