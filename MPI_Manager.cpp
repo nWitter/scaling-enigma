@@ -63,7 +63,7 @@ policy: default random, last assigned policy takes priority
 set length of the timestep in seconds; default: 1
 example: -step 0.5 -> timestep of 0.5s
 
---time_limit {n}
+--duration {n}
 number of steps executed; interference runs indefenitely if no limit is specified
 
 --seed {n}
@@ -155,8 +155,8 @@ int main(int argc, char **argv)
 		} else if(arg == "--policy_random"){
 			std::cout << " fixed nodes ";
 			designation_policy = POLICY_RANDOM;
-		} else if(i < argc && arg == "--time_limit"){
-			std::cout << " time ";
+		} else if(i < argc && arg == "--duration"){
+			std::cout << " duration ";
 			int x = atoi(argv[++i]);
 			if(x > 0){
 				interference_duration = x;
