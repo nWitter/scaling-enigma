@@ -4,11 +4,12 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 	int vector[vector_size];
 	int cnt = 0;
 	for (int i = 0; i < vector_size; i++)
-		vector[i] = 1.0;
+		vector[i] = 1.01;
 	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale, cnt)
-	for (int a = 0; a < vector_size; a++){
-		// TEST TODO
+	{
 		while (timeInterv(tZero) < (activeT)) {
+	for (int a = 0; a < vector_size; a++){
+		
 			for (int b = 0; b < scale; b++) {
 				if(func == 1){
 					functionCalc(vector, a);
@@ -19,6 +20,8 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 				}
 			}
 			cnt++;
+		
+	}
 		}
 	}
 	
