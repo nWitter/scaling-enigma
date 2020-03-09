@@ -11,11 +11,10 @@ int interference_function(int func, Clock::time_point tZero, microsec activeT){
 		
 		int tid = omp_get_thread_num();
 		printf("%dxxx\n", tid);
-		vector[0] = func;
 	}
 	
-	/*
-	{
+	
+	
 			
 		while (timeInterv(tZero) < (activeT)) {
 			for (int a = 0; a < vector_size; a++) {
@@ -31,8 +30,8 @@ int interference_function(int func, Clock::time_point tZero, microsec activeT){
 		
 		}
 		cnt++;
-	}
-	*/
+	
+	
 	return cnt;
 }
 
