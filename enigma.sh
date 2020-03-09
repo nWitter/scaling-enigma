@@ -14,6 +14,8 @@
 
 module load slurm_setup
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+export OMP_PROC_BIND=true
+export OMP_PLACES=cores
 export I_MPI_PIN_DOMAIN=node
 export I_MPI_PIN=1
 export I_MPI_ADJUST_BARRIER=1
