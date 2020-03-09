@@ -14,6 +14,7 @@
 
 module load slurm_setup
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+export KMP_AFFINITY=disabled
 export OMP_PROC_BIND=true
 export OMP_PLACES=cores
 export I_MPI_PIN_DOMAIN=node
