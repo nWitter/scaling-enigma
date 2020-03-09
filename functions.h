@@ -5,6 +5,7 @@
 #include <omp.h>
 #include <vector>
 #include <chrono>
+#include <iostream>
 
 typedef std::chrono::steady_clock Clock;
 typedef std::chrono::microseconds microsec;

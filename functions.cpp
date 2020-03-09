@@ -27,7 +27,7 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 		}
 	}
 	
-	printf("   =%d --\n", t);
+	std::cout << t << "--\n";
 	return cnt;
 }
 
