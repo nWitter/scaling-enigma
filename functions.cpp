@@ -9,7 +9,7 @@ int interference_function(int func, Clock::time_point tZero, microsec activeT){
 	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, cnt) private(b)
 	for (b = 0; b < vector_size; b++){		
 		int t = omp_get_thread_num();
-		printf(" %d;\n", t);
+		printf("%d -- %d;\n", b, t);
 	
 		while (timeInterv(tZero) < (activeT)) {
 			for (int a = 0; a < vector_size; a++) {
