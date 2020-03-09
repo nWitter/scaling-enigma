@@ -19,9 +19,10 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 					functionMixed(vector, a);
 				}
 			}
-			cnt++;
+			
 		
 	}
+		cnt++;
 		}
 	}
 	
