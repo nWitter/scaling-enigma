@@ -11,6 +11,6 @@ int interferenceLoop(int functionType, int interfereMicrosec, int calcScale){
 	microsec activeTime = microsec(interfereMicrosec);
 
 	int tmp = interference_function(functionType, calcScale, t0, activeTime);
-	printf("   =" + tmp + "  --\n");
+	printf("   =%d --\n", tmp);
 	return tmp;
 }
