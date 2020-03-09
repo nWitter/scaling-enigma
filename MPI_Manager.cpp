@@ -80,6 +80,10 @@ TODO run timed version
 */
 int main(int argc, char **argv)
 {
+	//mpi
+	int numtasks, rank, dest, source, rc, count, tag = 1;
+	char inmsg, outmsg = 'x';
+	MPI_Status Stat;
 	
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
@@ -105,13 +109,7 @@ int main(int argc, char **argv)
 	//
 	int interference_duration = -1;
 	bool interference_infinite = true;
-	
-	//mpi
-	int numtasks, rank, dest, source, rc, count, tag = 1;
-	char inmsg, outmsg = 'x';
-	MPI_Status Stat;
-	
-	
+		
 	srand(time(NULL));
 	
 	for (int i = 0; i < argc; ++i) {
