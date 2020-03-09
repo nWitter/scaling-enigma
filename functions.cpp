@@ -1,6 +1,19 @@
 #include "functions.h"
 
+int affinityMask(){
+	kmp_affinity_mask_t mask;
+
+	kmp_create_affinity_mask(&mask); 
+	kmp_set_affinity_mask_proc(i, &mask); 
+    
+	return (kmp_set_affinity(&mask) == 0); 
+}
+
+
 int interference_function(int func, Clock::time_point tZero, microsec activeT){
+	
+	KMP_AFFINITY=scatter;
+	
 	int vector[vector_size];
 	int cnt = 0;
 	int b;
