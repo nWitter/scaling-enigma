@@ -5,6 +5,7 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 	int cnt = 0;
 	for (int i = 0; i < vector_size; i++)
 		vector[i] = 1.01;
+	int t = timeInterv(tZero);
 	#pragma omp parallel default(none) shared(vector, tZero, activeT, func, scale, cnt)
 	{
 		while (timeInterv(tZero) < (activeT)) {
@@ -26,6 +27,7 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 		}
 	}
 	
+	printf("   =%d --\n", t);
 	return cnt;
 }
 
