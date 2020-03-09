@@ -1,16 +1,17 @@
 #include "functions.h"
 
-int interference_function(int func, int scale, Clock::time_point tZero, microsec activeT){
+int interference_function(int func, Clock::time_point tZero, microsec activeT){
 	int vector[vector_size];
 	int cnt = 0;
 	int b;
 	for (int i = 0; i < vector_size; i++)
 		vector[i] = 1.01;
-	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale, cnt) num_threads(4) private(b)
-	for (b = 0; b < scale; b++){
+	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, cnt) num_threads(4) private(b)
+	for (b = 0; b < vector_size; b++){
 		
-			int tid = omp_get_thread_num();
-			printf(tid + " - \n");
+		int tid = omp_get_thread_num();
+		printf(tid + " - \n");
+			
 		while (timeInterv(tZero) < (activeT)) {
 			for (int a = 0; a < vector_size; a++) {
 				if(func == 1){

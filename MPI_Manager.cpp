@@ -27,7 +27,6 @@ const int POLICY_FIXED = 12;
 
 const int instance_hard_limit = 10; // avoid errors, no technical reasons
 const int intervalBase = 1000000; // one second in microsec
-const int calc_scale = 1 << 10;
 
 // rnd {0,1} 5-digits
 float rndNum(){
@@ -287,7 +286,7 @@ int main(int argc, char **argv)
 				total--;
 				
 				if(!use_timed_loop){					
-					std::thread interf_thread(interferenceLoop, function_type, var, calc_scale);	
+					std::thread interf_thread(interferenceLoop, function_type, var);	
 					interf_thread.detach();
 				} else {
 					std::thread interf_thread(interferenceTimed, function_type, var);	

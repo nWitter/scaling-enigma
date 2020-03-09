@@ -13,7 +13,7 @@ typedef std::chrono::microseconds microsec;
 
 const int vector_size = 1 << 10;
 
-int interference_function(int func, int scale, Clock::time_point tZero, microsec activeT);
+int interference_function(int func, Clock::time_point tZero, microsec activeT);
 void interference_function_fixed_length(int func, int loop_length, int repetitions);
 void interference_single(int* vec, int len, int func, int rep);
 
