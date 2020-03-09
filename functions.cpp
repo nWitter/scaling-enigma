@@ -11,7 +11,7 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 		while (timeInterv(tZero) < (activeT)) {
 		for (int b = 0; b < scale; b++){
 			int tid = omp_get_thread_num();
-			std::cout << tid << " ";
+			printf(tid + " ");
 			for (int a = 0; a < vector_size; a++) {
 				if(func == 1){
 					functionCalc(vector, a);
