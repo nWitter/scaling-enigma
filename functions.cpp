@@ -6,7 +6,7 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 	int b;
 	for (int i = 0; i < vector_size; i++)
 		vector[i] = 1.01;
-	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale, cnt) private(b)
+	#pragma omp parallel for default(none) shared(vector, tZero, activeT, func, scale, cnt) num_threads(4) private(b)
 	for (b = 0; b < scale; b++){
 		
 			int tid = omp_get_thread_num();
