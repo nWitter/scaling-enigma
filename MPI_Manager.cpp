@@ -100,6 +100,16 @@ int main(int argc, char **argv)
 	int interference_duration = -1;
 	bool interference_infinite = true;
 	
+	//mpi
+	int numtasks, rank, dest, source, rc, count, tag = 1;
+	char inmsg, outmsg = 'x';
+	MPI_Status Stat;
+	
+	MPI_Init(&argc, &argv);
+	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	std::cout << "Starting: rank" << rank << ", tasks " << numtasks << "\n";
+	
 	srand(time(NULL));
 	
 	for (int i = 0; i < argc; ++i) {
@@ -180,15 +190,6 @@ int main(int argc, char **argv)
 		std::cout << "\n";
     }
 	
-	//mpi
-	int numtasks, rank, dest, source, rc, count, tag = 1;
-	char inmsg, outmsg = 'x';
-	MPI_Status Stat;
-	
-	MPI_Init(&argc, &argv);
-	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	std::cout << "Starting: rank" << rank << ", tasks " << numtasks << "\n";
 
 	/*
 	mpi buffer; use:

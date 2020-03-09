@@ -3,13 +3,16 @@
 #
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
-./MPI_Manager $@ &
 
-# launch program
+TASKDIST="100"
 if [ "$SLURM_NTASKS" == "2" ]; then
-	$MATRIX_PATH $1 100 100 > $2 &
+	TASKDIST="100 100"
 fi
 if [ "$SLURM_NTASKS" == "4" ]; then
-	$MATRIX_PATH $1 100 100 100 100 > $2 &
+	TASKDIST="100 100 100 100"
 fi
+
+./MPI_Manager $@ &
+$MATRIX_PATH $1 $TASKDIST > $2 &
+
 exit
