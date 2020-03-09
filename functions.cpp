@@ -8,9 +8,9 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 	#pragma omp parallel default(none) shared(vector, tZero, activeT, func, scale, cnt)
 	{
 		while (timeInterv(tZero) < (activeT)) {
-	for (int a = 0; a < vector_size; a++){
+		for (int b = 0; b < scale; b++){
 		
-			for (int b = 0; b < scale; b++) {
+			for (int a = 0; a < vector_size; a++) {
 				if(func == 1){
 					functionCalc(vector, a);
 				} else if(func == 2){
@@ -21,12 +21,12 @@ int interference_function(int func, int scale, Clock::time_point tZero, microsec
 			}
 			
 		
-	}
+		}
 		cnt++;
 		}
 	}
 	
-	std::cout << timeInterv(tZero).count() << " ;" << cnt << "--\n";
+	std::cout << cnt << "--\n";
 	return cnt;
 }
 

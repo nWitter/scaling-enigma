@@ -14,7 +14,7 @@ fi
 echo $TASKDIST
 
 ./MPI_Manager $@ &
-wait 1
+sleep 1.5
 $MATRIX_PATH $1 $TASKDIST > $2 &
 
 exit
