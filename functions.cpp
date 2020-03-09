@@ -2,7 +2,7 @@
 
 int interference_function(int func, Clock::time_point tZero, microsec activeT){
 	
-	KMP_AFFINITY=scatter;
+	export KMP_AFFINITY=scatter;
 	
 	int vector[vector_size];
 	int cnt = 0;
