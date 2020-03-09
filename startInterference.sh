@@ -11,6 +11,7 @@ fi
 if [ "$SLURM_NTASKS" == "4" ]; then
 	TASKDIST="100 100 100 100"
 fi
+echo $TASKDIST
 
 ./MPI_Manager $@ &
 $MATRIX_PATH $1 $TASKDIST > $2 &
