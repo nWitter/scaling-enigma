@@ -13,6 +13,6 @@ if [ "$SLURM_NTASKS" == "4" ]; then
 fi
 
 ./MPI_Manager $@ &
-#$MATRIX_PATH $1 $TASKDIST > $2 &
+$MATRIX_PATH $1 $TASKDIST > $2 &
 
 exit
