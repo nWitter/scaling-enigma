@@ -11,16 +11,8 @@ int interference_function(int func, Clock::time_point tZero, microsec activeT){
 		
 		int tid = omp_get_thread_num();
 		printf("%dxxx\n", tid);
-		while (timeInterv(tZero) < (activeT)) {
-			
-		cnt++;
-		}
-	}
-	
-	
-	
-			
 		
+		while (timeInterv(tZero) < (activeT)) {
 			for (int a = 0; a < vector_size; a++) {
 				if(func == 1){
 					functionCalc(vector, a);
@@ -30,11 +22,11 @@ int interference_function(int func, Clock::time_point tZero, microsec activeT){
 					functionMixed(vector, a);
 				}
 			}
-			
-		
-		
+		cnt++;
+		}
+	}
 	
-	
+		printf(" -%d-\n", cnt);
 	return cnt;
 }
 
