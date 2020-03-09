@@ -3,12 +3,13 @@
 int interference_function(int func, int scale, Clock::time_point tZero, microsec activeT){
 	int vector[vector_size];
 	int cnt = 0;
+	int b;
 	for (int i = 0; i < vector_size; i++)
 		vector[i] = 1.01;
 	#pragma omp parallel default(none) shared(vector, tZero, activeT, func, scale, cnt) private(b)
 	{
 		while (timeInterv(tZero) < (activeT)) {
-		for (int b = 0; b < scale; b++){
+		for (b = 0; b < scale; b++){
 			int tid = omp_get_thread_num();
 			printf(tid + " - \n");
 			for (int a = 0; a < vector_size; a++) {
