@@ -80,6 +80,12 @@ TODO run timed version
 */
 int main(int argc, char **argv)
 {
+	
+	MPI_Init(&argc, &argv);
+	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	std::cout << "Starting: rank" << rank << ", tasks " << numtasks << "\n";
+	
 	// configurable by args
 	int designation_policy = POLICY_RANDOM;
 	int policy_round_robin_var = 0;
@@ -105,10 +111,6 @@ int main(int argc, char **argv)
 	char inmsg, outmsg = 'x';
 	MPI_Status Stat;
 	
-	MPI_Init(&argc, &argv);
-	MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	std::cout << "Starting: rank" << rank << ", tasks " << numtasks << "\n";
 	
 	srand(time(NULL));
 	
