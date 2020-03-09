@@ -16,7 +16,7 @@ module load slurm_setup
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 #solved in program
-#export KMP_AFFINITY=scatter
+export KMP_AFFINITY=verbose,scatter
 #export OMP_PROC_BIND=true
 #export OMP_PLACES=cores
 
