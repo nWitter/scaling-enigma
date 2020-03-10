@@ -9,7 +9,7 @@ chmod +x enigma.sh
 
 	#sbatch --ntasks=4 --cpus-per-task=28 --time=00:03:00 ./enigma.sh 1000 output/rr.out -a 1 -i 1 -rr --duration 30
 	
-sbatch --ntasks=$1 --cpus-per-task=$2 --time=00:10:00 ./enigma.sh 1000 output/$1-$2-$3-$4- -a $3 -i $4 -rr
+sbatch --ntasks=$1 --cpus-per-task=$2 --time=00:3:00 ./enigma.sh 1000 output/$1-$2-$3-$4- -a $3 -i $4 -rr
 	
 
 	

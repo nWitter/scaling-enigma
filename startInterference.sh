@@ -19,7 +19,7 @@ echo $TASKDIST
 
 ./MPI_Manager $@ &
 sleep 2
-for i in 1 2 3 4 5
+for i in 1
 do
 	$MATRIX_PATH $1 $TASKDIST > $2$i.out &
 	sleep 60
