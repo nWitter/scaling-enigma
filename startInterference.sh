@@ -11,7 +11,7 @@ fi
 if [ "$SLURM_NTASKS" == "4" ]; then
 	TASKDIST="100 100 100 100"
 fi
-if [ "$SLURM_NTASKS" == "4" ]; then
+if [ "$SLURM_NTASKS" == "8" ]; then
 	TASKDIST="100 100 100 100 100 100 100 100"
 fi
 
