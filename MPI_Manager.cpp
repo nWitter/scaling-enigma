@@ -117,7 +117,7 @@ int main(int argc, char **argv)
 		if(i < argc && (arg == "-a" || arg == "--affected")){
 			std::cout << " affected ";
 			float x = atof(argv[++i]);
-			if(x > 0)
+			if(x >= 0)
 				affected_num = x;
 			else
 				std::cout << "--- ignored arg: negative" << x;
@@ -125,7 +125,7 @@ int main(int argc, char **argv)
 			std::cout << " affectedRnd ";
 			float x = atof(argv[++i]);
 			float y = atof(argv[++i]);
-			if(x > 0 && y > 0) {
+			if(x >= 0 && y >= 0) {
 				affected_num = x;
 				affected_num_max = y;
 				affected_rnd = true;
@@ -134,7 +134,7 @@ int main(int argc, char **argv)
 		} else if(i < argc && (arg == "-i" || arg == "--intervall")){
 			std::cout << " intervall ";
 			float x = atof(argv[++i]);
-			if(x > 0 && x <= 10)
+			if(x >= 0 && x <= 10)
 				intervall_time = x;
 			else
 				std::cout << "--- ignored arg: negative or greater 10" << x;
@@ -142,7 +142,7 @@ int main(int argc, char **argv)
 			std::cout << " intervallRnd ";
 			float x = atof(argv[++i]);
 			float y = atof(argv[++i]);
-			if(x > 0 && y > 0 && x <= 10 && y <= 10) {
+			if(x >= 0 && y >= 0 && x <= 10 && y <= 10) {
 				intervall_time = x;
 				intervall_time_max = y;
 				intervall_time_rnd = true;
@@ -179,7 +179,7 @@ int main(int argc, char **argv)
 		} else if(i < argc && arg == "--function"){
 			std::cout << " function ";
 			int x = atoi(argv[++i]);
-			if(x > 0 && x < 3){
+			if(x > 0 && x < 4){
 				function_type = x;
 			} else
 				std::cout << "--- ignored arg: available function options: 1, 2, 3" << x;

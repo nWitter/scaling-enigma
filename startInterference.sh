@@ -21,7 +21,7 @@ echo $TASKDIST
 sleep 2
 for i in 1 2 3 4 5
 do
-	$MATRIX_PATH $1 $TASKDIST > $2$i &
+	$MATRIX_PATH $1 $TASKDIST > $2$i.out &
 	sleep 60
 done
 
