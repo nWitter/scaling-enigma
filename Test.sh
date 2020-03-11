@@ -5,7 +5,7 @@
 mkdir -p output
 chmod +x enigma.sh
 
-for a in 0 2 4 6 8 10
+for a in 2 4 6 8 10
 do
 
 for i in 1 2 3 4 5
