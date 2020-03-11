@@ -8,12 +8,10 @@ do
 	while IFS= read -r line
 	do
 		echo "$line"
-		if [[ $line == "#R0 Computations with chameleon*"]]
-		then
+		if [[ $line == "#R0 Computations with chameleon*" ]]; then
 			echo "$line" >> $outfile
 		fi
-		if [[ $line == "#R0: Computations with normal tasking*"]]
-		then
+		if [[ $line == "#R0: Computations with normal tasking*" ]]; then
 			echo "$line" >> $outfile
 		fi
 
