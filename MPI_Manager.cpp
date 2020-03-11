@@ -113,7 +113,7 @@ int main(int argc, char **argv)
 	
 	for (int i = 0; i < argc; ++i) {
         std::string arg = argv[i];
-		std::cout << "reading arg " << i << ": ";
+		std::cout << "reading arg " << i << ": " << arg;
 		if(i < argc && (arg == "-a" || arg == "--affected")){
 			std::cout << " affected ";
 			float x = atof(argv[++i]);
