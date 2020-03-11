@@ -3,8 +3,6 @@
 #
 MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
-
-
 ./MPI_Manager $@ &
 sleep 2
 for i in 1 2 3 4 5
