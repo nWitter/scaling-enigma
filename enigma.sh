@@ -34,7 +34,7 @@ MPI_EXPORT_VARS='-genvlist PATH,CPLUS_INCLUDE_PATH,C_INCLUDE_PATH,CPATH,INCLUDE,
 #start interference in different thread
 chmod +x startInterference.sh
 
-mpiexec -n 8 ${MPI_EXPORT_VARS} ./startInterference.sh 700 "100 100 100 100 100 100 100 100" output/8-7-all$1- -a 8 -i $1 -rr
+mpiexec -n 8 ${MPI_EXPORT_VARS} ./startInterference.sh 700 output/8-7-all$1- -a 8 -i $1 -rr
 
 echo "end"
 exit 0
