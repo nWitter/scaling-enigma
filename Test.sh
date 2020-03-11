@@ -11,7 +11,7 @@ do
 for i in 1 2 3 4 5
 do
 	sbatch --ntasks=8 --cpus-per-task=7 --time=00:02:00 ./enigma.sh $a $i
-	sleep 150
+	sleep 180
 done
 
 done
