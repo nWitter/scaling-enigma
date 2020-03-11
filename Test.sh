@@ -5,14 +5,14 @@
 mkdir -p output
 chmod +x enigma.sh
 
-for a in 1 2 3
+for a in 2 3
 do
 for i in 1 2 3 4 5
 do
-	echo "task" $1 " " $i
-	sbatch --ntasks=8 --cpus-per-task=7 --time=00:03:00 ./enigma.sh 5 $i 8 $a &
+	echo "1"
+	sbatch --ntasks=8 --cpus-per-task=7 --time=00:02:30 ./enigma.sh 5 $i 8 $a &
 	#sbatch --ntasks=8 --cpus-per-task=7 --time=00:03:00 ./enigma.sh 8 3 &
-	sleep 300
+	sleep 200
 done
 done
 
@@ -20,9 +20,9 @@ for a in 1 2 3
 do
 for i in 1 2 3 4 5
 do
-	echo "seccond task" $1 " " $i
-	sbatch --ntasks=2 --cpus-per-task=28 --time=00:03:00 ./enigma.sh 5 $i 2 $a &
-	sleep 300
+	echo "2"
+	sbatch --ntasks=2 --cpus-per-task=28 --time=00:02:30 ./enigma.sh 5 $i 2 $a &
+	sleep 200
 done
 done
 
