@@ -34,7 +34,7 @@ MPI_EXPORT_VARS='-genvlist PATH,CPLUS_INCLUDE_PATH,C_INCLUDE_PATH,CPATH,INCLUDE,
 #start interference in different thread
 chmod +x startInterference.sh
 
-mpiexec -n $SLURM_NTASKS ${MPI_EXPORT_VARS} ./startInterference.sh 700 output/$SLURM_NTASKS-$SLURM_CPUS_PER_TASK_$3-$1-$2.out -a $3 -i $1 -f --function $4 --duration 120
+mpiexec -n $SLURM_NTASKS ${MPI_EXPORT_VARS} ./startInterference.sh 700 output/$SLURM_NTASKS-$SLURM_CPUS_PER_TASK_$3-$1-f$4-n$2.out -a $3 -i $1 -f --function $4 --duration 120
 
 echo "end"
 exit 0
