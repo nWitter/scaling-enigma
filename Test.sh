@@ -10,6 +10,7 @@ for i in 1 2 3 4 5
 do
 	echo "task" $1 " " $i
 	sbatch --ntasks=8 --cpus-per-task=7 --time=00:03:00 ./enigma.sh $1 $i &
+	#sbatch --ntasks=8 --cpus-per-task=7 --time=00:03:00 ./enigma.sh 8 3 &
 	sleep 270
 done
 
