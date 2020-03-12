@@ -9,13 +9,13 @@ echo "starting"
 sleep 2
 
 TSK="100"
-if[["$1" == "2" ]]; then
+if[[$1 == "2" ]]; then
 	TSK="100 100"
 fi
-if[["$1" == "4" ]]; then
+if[[$1 == "4" ]]; then
 	TSK="100 100 100 100"
 fi
-if[["$1" == "8" ]]; then
+if[[$1 == "8" ]]; then
 	TSK="100 100 100 100 100 100 100 100"
 fi
 
