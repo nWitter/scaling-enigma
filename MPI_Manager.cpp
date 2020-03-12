@@ -168,7 +168,7 @@ int main(int argc, char **argv)
 		} else if(arg == "--timed_loop"){
 			std::cout << " using timed_loop ";
 			use_timed_loop = true;
-		} elseif(i < argc && arg == "--duration"){
+		} else if(i < argc && arg == "--duration"){
 			std::cout << " duration ";
 			int x = atoi(argv[++i]);
 			if(x > 0){
