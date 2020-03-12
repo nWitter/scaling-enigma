@@ -74,7 +74,8 @@ change function used in interference
 2 memory heavy
 3 mixed
 
-TODO run timed version
+--timed_loop
+using timed interference variant
 
 */
 int main(int argc, char **argv)
@@ -164,7 +165,10 @@ int main(int argc, char **argv)
 		} else if(arg == "--policy_random"){
 			std::cout << " fixed nodes ";
 			designation_policy = POLICY_RANDOM;
-		} else if(i < argc && arg == "--duration"){
+		} else if(arg == "--timed_loop"){
+			std::cout << " using timed_loop ";
+			use_timed_loop = true;
+		} elseif(i < argc && arg == "--duration"){
 			std::cout << " duration ";
 			int x = atoi(argv[++i]);
 			if(x > 0){
