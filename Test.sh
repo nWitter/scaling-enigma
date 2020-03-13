@@ -7,7 +7,7 @@ chmod +x enigma.sh
 
 for i in 1 2 4 8
 do
-	sbatch --ntasks=$1 --cpus-per-task=$i --time=00:03:00 ./enigma.sh $1 0 $i &
+	sbatch --ntasks=$i --cpus-per-task=7 --time=00:03:00 ./enigma.sh $i 0 $i &
 	#sbatch --ntasks=8 --cpus-per-task=7 --time=00:03:00 ./enigma.sh 8 3 &
 	sleep 250
 done
