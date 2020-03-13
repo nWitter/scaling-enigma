@@ -5,7 +5,7 @@ MATRIX_PATH=../chameleon-apps/applications/matrix_example/main
 
 echo $@
 echo "starting"
-./MPI_Manager $@ &
+#./MPI_Manager $@ &
 sleep 2
 
 TSK="100"
